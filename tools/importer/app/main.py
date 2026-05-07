@@ -203,6 +203,10 @@ def ensure_repo():
 def git_commit_and_push(message: str):
     subprocess.run(["git", "-C", str(REPO_DIR), "config", "user.email", GIT_EMAIL], check=False)
     subprocess.run(["git", "-C", str(REPO_DIR), "config", "user.name", GIT_USER], check=False)
+    # Always refresh the remote URL from the current env var so stale clones
+    # (or volumes persisted across rebuilds) don't lose their credentials.
+    if REPO_URL:
+        subprocess.run(["git", "-C", str(REPO_DIR), "remote", "set-url", "origin", REPO_URL], check=False)
     subprocess.run(["git", "-C", str(REPO_DIR), "add", "."], check=True)
     result = subprocess.run(["git", "-C", str(REPO_DIR), "commit", "-m", message], capture_output=True, text=True)
     if result.returncode != 0 and "nothing to commit" not in result.stdout.lower():
