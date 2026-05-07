@@ -21,13 +21,67 @@ layout: default
       <h1 class="recipe-title">{{ page.title }}</h1>
       
       <div class="recipe-meta">
-        {% if page.yield %}
-          <span class="meta-item"><strong>YIELDS:</strong> {{ page.yield }}</span>
+        {% if page.total_time %}
+          <div class="meta-chip">
+            <span class="meta-chip-label">Total</span>
+            <span class="meta-chip-value">{{ page.total_time }}</span>
+          </div>
+        {% elsif page.cook_time %}
+          <div class="meta-chip">
+            <span class="meta-chip-label">Cook</span>
+            <span class="meta-chip-value">{{ page.cook_time }}</span>
+          </div>
         {% endif %}
-        {% if page.time %}
-          <span class="meta-item"><strong>TIME:</strong> {{ page.time }}</span>
+        {% if page.prep_time %}
+          <div class="meta-chip">
+            <span class="meta-chip-label">Prep</span>
+            <span class="meta-chip-value">{{ page.prep_time }}</span>
+          </div>
+        {% endif %}
+        {% if page.yield %}
+          <div class="meta-chip">
+            <span class="meta-chip-label">Serves</span>
+            <span class="meta-chip-value">{{ page.yield }}</span>
+          </div>
+        {% endif %}
+        {% if page.difficulty %}
+          <div class="meta-chip diff-{{ page.difficulty }}">
+            <span class="meta-chip-label">Level</span>
+            <span class="meta-chip-value">{{ page.difficulty }}</span>
+          </div>
+        {% endif %}
+        {% if page.kid_friendly == true or page.kid_friendly == "true" %}
+          <div class="meta-chip kid">
+            <span class="meta-chip-value">Kid-friendly</span>
+          </div>
+        {% endif %}
+        {% if page.season and page.season.first != "all" %}
+          <div class="meta-chip">
+            <span class="meta-chip-label">Season</span>
+            <span class="meta-chip-value">{{ page.season | join: ", " }}</span>
+          </div>
+        {% endif %}
+        {% if page.rating %}
+          <div class="meta-chip rating">
+            <span class="meta-chip-value">
+              {% assign _r = page.rating %}{% assign _e = 5 | minus: _r %}{% for i in (1.._r) %}★{% endfor %}{% for i in (1.._e) %}☆{% endfor %}
+            </span>
+          </div>
+        {% endif %}
+        {% if page.last_made and page.last_made != "" and page.last_made != nil %}
+          <div class="meta-chip last-made-chip">
+            <span class="meta-chip-label">Last made</span>
+            <span class="meta-chip-value" id="last-made-val" data-date="{{ page.last_made }}">{{ page.last_made }}</span>
+          </div>
         {% endif %}
       </div>
+      {% if page.tags and page.tags.size > 0 %}
+      <div class="recipe-tags">
+        {% for tag in page.tags %}
+          <span class="recipe-tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
       
       <div class="recipe-intro">
         {{ content }}
@@ -166,11 +220,73 @@ layout: default
     font-weight: 900;
   }
 
-  .recipe-intro p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    line-height: 1.6;
+  .recipe-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .meta-chip {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #000;
+    padding: 6px 12px;
+    background: #fff;
+    min-width: 52px;
+  }
+
+  .meta-chip-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #999;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .meta-chip-value {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
     color: #000;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .meta-chip.diff-easy  { border-color: #1a6b35; }
+  .meta-chip.diff-easy  .meta-chip-value { color: #1a6b35; }
+  .meta-chip.diff-medium { border-color: #856404; }
+  .meta-chip.diff-medium .meta-chip-value { color: #856404; }
+  .meta-chip.diff-hard  { border-color: #a01010; }
+  .meta-chip.diff-hard  .meta-chip-value { color: #a01010; }
+
+  .meta-chip.kid { border-color: #1a4b8a; }
+  .meta-chip.kid .meta-chip-value { color: #1a4b8a; }
+
+  .meta-chip.rating .meta-chip-value { color: #E63946; font-size: 1rem; letter-spacing: 0.05em; }
+
+  .meta-chip.last-made-chip { border-color: #555; }
+  .meta-chip.last-made-chip .meta-chip-value { color: #555; text-transform: none; font-size: 0.8rem; }
+
+  .recipe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 36px;
+  }
+
+  .recipe-tag {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    background: #000;
+    color: #fff;
   }
 
   h2 {
@@ -288,6 +404,24 @@ layout: default
   .planner-msg.ok  { color: #155724; }
   .planner-msg.err { color: #721c24; }
 </style>
+
+<script>
+// Humanize the "last made" date chip
+(function () {
+  var el = document.getElementById('last-made-val');
+  if (!el) return;
+  var raw = el.dataset.date;
+  if (!raw || raw === 'None' || raw === '') return;
+  var d = new Date(raw);
+  if (isNaN(d)) return;
+  var days = Math.round((Date.now() - d.getTime()) / 86400000);
+  if (days === 0)       el.textContent = 'Today';
+  else if (days === 1)  el.textContent = 'Yesterday';
+  else if (days < 14)   el.textContent = days + ' days ago';
+  else if (days < 60)   el.textContent = Math.floor(days / 7) + ' weeks ago';
+  else                  el.textContent = Math.floor(days / 30) + ' months ago';
+})();
+</script>
 
 <script>
 var IMPORTER_URL = '{{ site.importer_url }}';
