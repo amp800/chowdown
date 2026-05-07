@@ -1,0 +1,60 @@
+name: Import Recipe
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Recipe URL to import"
+        required: true
+      tags:
+        description: "Space-separated tags (e.g. chicken quick)"
+        required: false
+        default: ""
+      season:
+        description: "Season (all / spring / summer / fall / winter)"
+        required: false
+        default: "all"
+      rating:
+        description: "Rating 1-5"
+        required: false
+        default: ""
+      difficulty:
+        description: "easy / medium / hard"
+        required: false
+        default: "easy"
+      kid_friendly:
+        description: "true / false"
+        required: false
+        default: "false"
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install recipe-scrapers requests pyyaml
+
+      - name: Scrape and write recipe
+        run: |
+          python tools/importer/scrape.py \
+            --url "${{ inputs.url }}" \
+            --tags "${{ inputs.tags }}" \
+            --season "${{ inputs.season }}" \
+            --rating "${{ inputs.rating }}" \
+            --difficulty "${{ inputs.difficulty }}" \
+            --kid_friendly "${{ inputs.kid_friendly }}"
+
+      - name: Commit recipe
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Import recipe from ${{ inputs.url }}"
+          file_pattern: "_recipes/*.md images/*"

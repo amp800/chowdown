@@ -22,10 +22,8 @@ collections:
 
 exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'README.md']
 
-# URL of the running chowdown-importer service.
-# Used by the "Make This Week" and "We Made This" buttons on recipe pages.
-# Set to "" to hide those buttons on the public site.
-importer_url: "http://localhost:8008"
+# Recipe actions (plan, import) now use GitHub Actions directly via the GitHub API.
+# No server URL needed.
 
 translation:
   en:

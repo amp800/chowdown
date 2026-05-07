@@ -285,29 +285,48 @@ permalink: /grocery-list/
   </main>
 </div>
 
-{% if site.importer_url and site.importer_url != "" %}
+{% if true %}
 <script>
 (function () {
-  var IMPORTER_URL = '{{ site.importer_url }}';
+  var GH_REPO = 'billmiky/chowdown';
+  var BASE = '{{ site.baseurl }}';
+
+  function ghPAT() { return localStorage.getItem('gh_pat') || ''; }
+
+  async function triggerWorkflow(workflow, inputs) {
+    var token = ghPAT();
+    if (!token) throw new Error('No GitHub token — save one on the <a href="' + BASE + '/import/">Import page</a>');
+    var resp = await fetch(
+      'https://api.github.com/repos/' + GH_REPO + '/actions/workflows/' + workflow + '/dispatches',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ref: 'main', inputs: inputs || {} }),
+      }
+    );
+    if (resp.status === 204) return;
+    var body = {};
+    try { body = await resp.json(); } catch (e) {}
+    throw new Error(body.message || ('HTTP ' + resp.status));
+  }
 
   window.rebuildGroceryList = async function () {
     var btn = document.getElementById('rebuild-btn');
     var status = document.getElementById('rebuild-status');
     btn.disabled = true;
-    status.textContent = 'Rebuilding\u2026';
+    status.innerHTML = 'Rebuilding\u2026';
     status.className = 'action-status';
 
     try {
-      var resp = await fetch(IMPORTER_URL + '/grocery/save', { method: 'POST' });
-      var data = await resp.json();
-      if (resp.ok) {
-        status.textContent = '\u2713 Saved ' + data.count + ' items \u2014 reload to see updated list';
-        status.className = 'action-status ok';
-      } else {
-        throw new Error(data.detail || 'Rebuild failed');
-      }
+      await triggerWorkflow('grocery-rebuild.yml', {});
+      status.innerHTML = '\u2713 Queued — list will update in ~30 seconds. Reload the page to see changes.';
+      status.className = 'action-status ok';
     } catch (e) {
-      status.textContent = '\u2717 ' + e.message;
+      status.innerHTML = '\u2717 ' + e.message;
       status.className = 'action-status err';
     } finally {
       btn.disabled = false;

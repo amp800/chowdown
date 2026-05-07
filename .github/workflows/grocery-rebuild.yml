@@ -1,0 +1,67 @@
+name: Rebuild Grocery List
+
+on:
+  workflow_dispatch:
+
+jobs:
+  grocery:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Build grocery list from meal plan
+        run: |
+          python - <<'EOF'
+          import yaml
+          from pathlib import Path
+
+          plan_path = Path("_data/meal_plan.yml")
+          if not plan_path.exists():
+              print("No meal_plan.yml found")
+              raise SystemExit(0)
+
+          plan = yaml.safe_load(plan_path.read_text()) or {}
+          days = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
+          slugs = [plan.get(d, "") for d in days if plan.get(d)]
+
+          all_ingredients = []
+          for slug in slugs:
+              recipe_path = Path(f"_recipes/{slug}.md")
+              if not recipe_path.exists():
+                  continue
+              raw = recipe_path.read_text(encoding="utf-8")
+              parts = raw.split("---", 2)
+              if len(parts) < 3:
+                  continue
+              try:
+                  fm = yaml.safe_load(parts[1]) or {}
+              except yaml.YAMLError:
+                  continue
+              title = fm.get("title", slug)
+              ingredients = fm.get("ingredients", [])
+              if ingredients:
+                  all_ingredients.append({"recipe": title, "items": ingredients})
+
+          out = Path("_data/grocery_list.yml")
+          out.write_text(
+              yaml.dump({"recipes": all_ingredients}, default_flow_style=False, allow_unicode=True),
+              encoding="utf-8"
+          )
+          total = sum(len(r["items"]) for r in all_ingredients)
+          print(f"Wrote grocery list: {total} items from {len(all_ingredients)} recipes")
+          EOF
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Rebuild grocery list from meal plan"
+          file_pattern: "_data/grocery_list.yml"

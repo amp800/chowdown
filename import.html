@@ -1,0 +1,341 @@
+---
+layout: default
+title: Import Recipe
+permalink: /import/
+---
+
+<style>
+  * { box-sizing: border-box; }
+  body, html { margin: 0; padding: 0; background: #f4f4f4; }
+
+  .bauhaus-home-layout { display: flex; min-height: 100vh; }
+  .bauhaus-page-content { flex: 1; margin-left: 300px; padding: 60px 48px; max-width: 780px; }
+
+  h1 {
+    font-family: 'Jost', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 8px;
+  }
+  .page-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 48px;
+    border-bottom: 4px solid #000;
+    padding-bottom: 24px;
+  }
+
+  .import-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000;
+  }
+
+  label .hint {
+    font-weight: 400;
+    color: #888;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.75rem;
+    margin-left: 8px;
+  }
+
+  input[type="text"],
+  input[type="url"],
+  input[type="password"],
+  select {
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 12px 16px;
+    border: 3px solid #000;
+    background: #fff;
+    color: #000;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.15s;
+  }
+
+  input:focus, select:focus { border-color: #E63946; }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .submit-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 8px;
+  }
+
+  .import-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 14px 32px;
+    background: #000;
+    color: #fff;
+    border: 3px solid #000;
+    cursor: pointer;
+    box-shadow: 6px 6px 0 #E63946;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  }
+  .import-btn:hover { background: #E63946; border-color: #E63946; box-shadow: 6px 6px 0 #000; }
+  .import-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+  #import-status {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #555;
+  }
+  #import-status.ok  { color: #155724; font-style: normal; font-weight: 700; }
+  #import-status.err { color: #721c24; font-style: normal; font-weight: 700; }
+
+  .pat-section {
+    border: 3px solid #000;
+    padding: 24px;
+    background: #fff;
+    margin-bottom: 40px;
+  }
+  .pat-section h2 {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 16px;
+  }
+  .pat-row { display: flex; gap: 12px; align-items: flex-end; }
+  .pat-row input { flex: 1; }
+  .pat-save-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 12px 20px;
+    background: #000;
+    color: #fff;
+    border: 3px solid #000;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .pat-save-btn:hover { background: #E63946; border-color: #E63946; }
+  #pat-status { font-family: 'Jost', sans-serif; font-size: 0.8rem; margin-top: 8px; color: #555; }
+  #pat-status.ok { color: #155724; font-weight: 700; }
+
+  .workflow-note {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    color: #555;
+    border-top: 2px solid #ccc;
+    margin-top: 40px;
+    padding-top: 20px;
+  }
+  .workflow-note a { color: #000; font-weight: 700; }
+
+  @media (max-width: 860px) {
+    .bauhaus-page-content { margin-left: 0; padding: 32px 20px; }
+    .row-2, .row-3 { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="bauhaus-home-layout">
+  {% include sidebar.html %}
+
+  <main class="bauhaus-page-content">
+    <h1>Import Recipe</h1>
+    <p class="page-sub">Paste a recipe URL — a GitHub Actions workflow scrapes it and commits directly to the repo. Takes about 30 seconds to appear.</p>
+
+    <!-- PAT configuration -->
+    <div class="pat-section">
+      <h2>GitHub Token <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#888;font-size:0.8rem;">— stored in your browser only, never sent to a server</span></h2>
+      <div class="pat-row">
+        <input type="password" id="pat-input" placeholder="ghp_…" autocomplete="off" />
+        <button class="pat-save-btn" onclick="savePAT()">Save Token</button>
+      </div>
+      <div id="pat-status"></div>
+      <p style="font-family:'Jost',sans-serif;font-size:0.75rem;color:#888;margin:12px 0 0;">
+        Needs <strong>workflow</strong> scope (or <em>Actions: write</em> for fine-grained tokens). 
+        <a href="https://github.com/settings/tokens" target="_blank">Create one here →</a>
+      </p>
+    </div>
+
+    <!-- Import form -->
+    <form class="import-form" onsubmit="importRecipe(event)">
+      <div class="field-group">
+        <label for="url">Recipe URL <span class="hint">required</span></label>
+        <input type="url" id="url" name="url" placeholder="https://cooking.nytimes.com/recipes/…" required />
+      </div>
+
+      <div class="row-2">
+        <div class="field-group">
+          <label for="difficulty">Difficulty</label>
+          <select id="difficulty" name="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="rating">Rating <span class="hint">1–5</span></label>
+          <select id="rating" name="rating">
+            <option value="">—</option>
+            <option value="1">★</option>
+            <option value="2">★★</option>
+            <option value="3">★★★</option>
+            <option value="4">★★★★</option>
+            <option value="5">★★★★★</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row-3">
+        <div class="field-group">
+          <label for="season">Season</label>
+          <select id="season" name="season">
+            <option value="all">All year</option>
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
+            <option value="fall">Fall</option>
+            <option value="winter">Winter</option>
+            <option value="fall winter">Fall / Winter</option>
+            <option value="spring summer">Spring / Summer</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="kid_friendly">Kid-friendly</label>
+          <select id="kid_friendly" name="kid_friendly">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="tags">Tags <span class="hint">space-separated</span></label>
+          <input type="text" id="tags" name="tags" placeholder="quick weeknight" />
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button type="submit" class="import-btn" id="import-btn">Import Recipe</button>
+        <span id="import-status"></span>
+      </div>
+    </form>
+
+    <div class="workflow-note">
+      Recipes are imported via 
+      <a href="https://github.com/billmiky/chowdown/actions/workflows/import-recipe.yml" target="_blank">GitHub Actions</a>.
+      You can monitor progress there. The page rebuilds automatically once the workflow commits the file.
+    </div>
+  </main>
+</div>
+
+<script>
+var REPO = 'billmiky/chowdown';
+
+function savePAT() {
+  var val = document.getElementById('pat-input').value.trim();
+  var status = document.getElementById('pat-status');
+  if (!val) { status.textContent = 'Enter a token first'; status.className = ''; return; }
+  localStorage.setItem('gh_pat', val);
+  document.getElementById('pat-input').value = '';
+  status.textContent = '✓ Token saved';
+  status.className = 'ok';
+}
+
+function getPAT() {
+  return localStorage.getItem('gh_pat') || '';
+}
+
+async function triggerWorkflow(workflow, inputs) {
+  var token = getPAT();
+  if (!token) throw new Error('No GitHub token saved — enter one above first');
+  var resp = await fetch(
+    'https://api.github.com/repos/' + REPO + '/actions/workflows/' + workflow + '/dispatches',
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ref: 'main', inputs: inputs }),
+    }
+  );
+  if (resp.status === 204) return; // success — no body
+  var body = {};
+  try { body = await resp.json(); } catch (e) {}
+  throw new Error(body.message || ('HTTP ' + resp.status));
+}
+
+async function importRecipe(e) {
+  e.preventDefault();
+  var btn = document.getElementById('import-btn');
+  var status = document.getElementById('import-status');
+  btn.disabled = true;
+  status.textContent = 'Queuing workflow…';
+  status.className = '';
+
+  var inputs = {
+    url:          document.getElementById('url').value.trim(),
+    tags:         document.getElementById('tags').value.trim(),
+    season:       document.getElementById('season').value,
+    rating:       document.getElementById('rating').value,
+    difficulty:   document.getElementById('difficulty').value,
+    kid_friendly: document.getElementById('kid_friendly').value,
+  };
+
+  try {
+    await triggerWorkflow('import-recipe.yml', inputs);
+    status.textContent = '✓ Workflow started — recipe will appear in ~30 seconds after the workflow completes.';
+    status.className = 'ok';
+    e.target.reset();
+  } catch (err) {
+    status.textContent = '✗ ' + err.message;
+    status.className = 'err';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// Show token status on load
+(function () {
+  var stored = getPAT();
+  if (stored) {
+    var s = document.getElementById('pat-status');
+    s.textContent = '✓ Token loaded from browser storage';
+    s.className = 'ok';
+  }
+})();
+</script>

@@ -407,14 +407,37 @@ permalink: /meal-plan/
   </main>
 </div>
 
-{% if site.importer_url and site.importer_url != "" %}
+{% if true %}
 <script>
 (function () {
-  var IMPORTER_URL = '{{ site.importer_url }}';
+  var GH_REPO = 'billmiky/chowdown';
   var BASE = '{{ site.baseurl }}';
   var DAYS = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
   var SKIP_TAGS = new Set(['dessert','side-dish','breakfast','baking','dressing','sides','snack']);
   var _suggested = [];
+
+  function ghPAT() { return localStorage.getItem('gh_pat') || ''; }
+
+  async function triggerWorkflow(workflow, inputs) {
+    var token = ghPAT();
+    if (!token) throw new Error('No GitHub token — save one on the <a href="' + BASE + '/import/">Import page</a>');
+    var resp = await fetch(
+      'https://api.github.com/repos/' + GH_REPO + '/actions/workflows/' + workflow + '/dispatches',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ref: 'main', inputs: inputs }),
+      }
+    );
+    if (resp.status === 204) return;
+    var body = {};
+    try { body = await resp.json(); } catch (e) {}
+    throw new Error(body.message || ('HTTP ' + resp.status));
+  }
 
   window.suggestWeek = async function () {
     var btn = document.getElementById('suggest-btn');
@@ -489,31 +512,24 @@ permalink: /meal-plan/
     var weekOf = panel.dataset.weekOf;
     if (!weekOf || _suggested.length === 0) return;
 
-    var form = new FormData();
-    form.append('week_of', weekOf);
-    _suggested.forEach(function (r) { form.append(r.day, r.slug || ''); });
+    var inputs = { week_of: weekOf };
+    _suggested.forEach(function (r) { inputs[r.day] = r.slug || ''; });
 
     saveBtn.disabled = true;
-    saveStatus.textContent = 'Saving\u2026';
+    saveStatus.innerHTML = 'Saving\u2026';
     saveStatus.className = 'action-status';
 
     try {
-      var resp = await fetch(IMPORTER_URL + '/plan/save', { method: 'POST', body: form });
-      var data = await resp.json();
-      if (resp.ok) {
-        saveStatus.textContent = '\u2713 Saved! Reload the page to see the updated plan.';
-        saveStatus.className = 'action-status ok';
-      } else {
-        throw new Error(data.detail || 'Save failed');
-      }
+      await triggerWorkflow('plan-save.yml', inputs);
+      saveStatus.innerHTML = '\u2713 Queued — plan will update in ~30 seconds.';
+      saveStatus.className = 'action-status ok';
     } catch (e) {
-      saveStatus.textContent = '\u2717 ' + e.message;
+      saveStatus.innerHTML = '\u2717 ' + e.message;
       saveStatus.className = 'action-status err';
     } finally {
       saveBtn.disabled = false;
     }
   };
 }());
-
 </script>
 {% endif %}
