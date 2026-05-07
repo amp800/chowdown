@@ -24,6 +24,11 @@ directions:
 - Heat coconut oil in a pan. Add cumin seeds, garlic, ginger, chili, garam masala, and turmeric; fry for a few minutes until fragrant.
 - Add chickpeas and the green sauce to the pan. Rinse the blender with a splash of water and add to the pan.
 - Simmer to heat through. Stir in lemon juice and salt. Serve with rice or bread.
+season: [all]
+last_made: ~
+rating: 4
+difficulty: easy
+kid_friendly: false
 ---
 
 A speedy, 15-minute vegan version of the classic Indian curry, Chana Saag (chickpeas and leafy greens). This recipe uses silken tofu for creaminess and mango chutney for a touch of sweetness.

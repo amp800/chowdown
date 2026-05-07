@@ -1,0 +1,194 @@
+---
+layout: default
+title: Weekly Meal Plan
+permalink: /meal-plan/
+---
+
+{% assign plan = site.data.meal_plan %}
+{% assign days = "monday,tuesday,wednesday,thursday,friday,saturday,sunday" | split: "," %}
+
+<style>
+  body {
+    font-family: 'Jost', sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .plan-header {
+    background: #F53200;
+    color: #fff;
+    padding: 2rem 2rem 1.5rem;
+  }
+
+  .plan-header h1 {
+    margin: 0 0 0.25rem;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .plan-header .week-of {
+    font-size: 1rem;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: #eee;
+    border-top: 1px solid #eee;
+  }
+
+  .day-card {
+    background: #fff;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .day-label {
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #F53200;
+  }
+
+  .day-card h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .day-card h2 a {
+    color: #111;
+    text-decoration: none;
+  }
+
+  .day-card h2 a:hover {
+    text-decoration: underline;
+    color: #F53200;
+  }
+
+  .day-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.2em 0.5em;
+    border-radius: 2px;
+    background: #f5f5f5;
+    color: #555;
+  }
+
+  .badge.easy    { background: #d4edda; color: #155724; }
+  .badge.medium  { background: #fff3cd; color: #856404; }
+  .badge.hard    { background: #f8d7da; color: #721c24; }
+  .badge.kid     { background: #e2f0fb; color: #1a5276; }
+
+  .day-rating {
+    color: #F53200;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .day-notes {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+    margin: 0;
+  }
+
+  .rest-night {
+    color: #aaa;
+    font-style: italic;
+    font-size: 1rem;
+  }
+
+  .edit-hint {
+    padding: 1.5rem 2rem;
+    font-size: 0.8rem;
+    color: #999;
+    border-top: 1px solid #eee;
+  }
+
+  .edit-hint code {
+    background: #f5f5f5;
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+</style>
+
+<div class="plan-header">
+  <h1>This Week's Menu</h1>
+  <div class="week-of">Week of {{ plan.week_of }}</div>
+</div>
+
+<div class="plan-grid">
+  {% for day in days %}
+    {% assign day_data = plan[day] %}
+    <div class="day-card">
+      <div class="day-label">{{ day | capitalize }}</div>
+
+      {% if day_data.recipe and day_data.recipe != "" %}
+        {% assign matched_recipe = nil %}
+        {% for r in site.recipes %}
+          {% assign r_slug = r.path | remove: "_recipes/" | remove: ".md" %}
+          {% if r_slug == day_data.recipe %}
+            {% assign matched_recipe = r %}
+          {% endif %}
+        {% endfor %}
+
+        {% if matched_recipe %}
+          <h2><a href="{{ matched_recipe.url | relative_url }}">{{ matched_recipe.title }}</a></h2>
+          <div class="day-meta">
+            {% if matched_recipe.difficulty %}
+              <span class="badge {{ matched_recipe.difficulty }}">{{ matched_recipe.difficulty }}</span>
+            {% endif %}
+            {% if matched_recipe.kid_friendly == true or matched_recipe.kid_friendly == "true" %}
+              <span class="badge kid">kid-friendly</span>
+            {% endif %}
+          </div>
+          {% if matched_recipe.rating %}
+            <div class="day-rating">
+              {% assign stars = matched_recipe.rating %}
+              {% for i in (1..5) %}
+                {% if i <= stars %}★{% else %}☆{% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% else %}
+          <h2>{{ day_data.recipe }}</h2>
+        {% endif %}
+
+        {% if day_data.notes and day_data.notes != "" %}
+          <p class="day-notes">{{ day_data.notes }}</p>
+        {% endif %}
+
+      {% else %}
+        <p class="rest-night">— no plan —</p>
+        {% if day_data.notes and day_data.notes != "" %}
+          <p class="day-notes">{{ day_data.notes }}</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<div class="edit-hint">
+  Edit <code>_data/meal_plan.yml</code> to update the week's menu. Changes rebuild in seconds on GitHub Pages.
+</div>

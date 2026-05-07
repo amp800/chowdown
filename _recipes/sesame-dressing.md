@@ -6,6 +6,11 @@ tags: side-dish chinese dairy-free gluten-free nut-free vegan
 prep_time: 5 minutes
 cook_time: 0 minutes
 yields: 8 servings
+season: [all]
+last_made: ~
+rating: 4
+difficulty: easy
+kid_friendly: true
 ---
 
 This 5 minute Asian salad dressing is simple, tangy and so delicious! Made with sesame oil, rice vinegar, honey and soy sauce, it is great on any type of salad.

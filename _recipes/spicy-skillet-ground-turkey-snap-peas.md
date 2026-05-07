@@ -23,6 +23,11 @@ directions:
 - Pour the prepared sauce into the skillet with the browned turkey. Add the sugar snap peas and toss everything to combine. Cover the skillet and let the peas steam until tender and cooked through, about 3 to 5 minutes.
 - Uncover and taste. Add another splash of fish sauce, lime juice, or a pinch of salt if needed. Stir in the chopped cashews or peanuts if using.
 - Remove from the heat and top generously with extra torn mint, cilantro, and the reserved dark green scallion slices. Serve immediately.
+season: [spring, summer]
+last_made: ~
+rating: 4
+difficulty: easy
+kid_friendly: false
 ---
 
 Inspired by the bright, zesty flavors of Thai larb, this one-pan dinner uses fish sauce and lime juice to completely transform unassuming ground turkey. Don't skip the fresh herbs—they are essential to the dish's vibrant flavor.

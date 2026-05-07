@@ -47,4 +47,9 @@ yield: 4 servings
 prep_time: '20'
 cook_time: '60'
 total_time: '80'
+season: [all]
+last_made: ~
+rating: 4
+difficulty: medium
+kid_friendly: false
 ---

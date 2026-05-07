@@ -24,6 +24,10 @@ directions:
 - Sift the **1/2 cup flour** and add to the mixture. Mix until the lemon mixture is smooth.
 - Top the still-warm crust with the **1 cup canned whole berry cranberry sauce**.
 - Smooth the lemon layer on top of the cranberry sauce and bake for another **30-35 minutes** until the lemon layer has set, but is not browned. Let the bars cool completely and then chill in the refrigerator for a minimum of **4 hours**, but up to overnight.
-
+season: [fall, winter]
+last_made: ~
+rating: 4
+difficulty: medium
+kid_friendly: true
 ---
 Recipe scanned from [Savory Experiments](https://www.savoryexperiments.com/cranberry-lemon-bars/), suggested by squirrelgirl.

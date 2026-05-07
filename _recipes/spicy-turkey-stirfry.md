@@ -38,8 +38,11 @@ directions:
 - Pour sauce over the turkey and stir vigorously to coat. Cook until sauce thickens and glazes the meat, 1–2 minutes. Season with salt and pepper to taste.
 - Stir in most of the crisped garlic and the green scallion slices. Remove from heat and drizzle with a little extra sesame oil if desired.
 - Serve immediately over rice or noodles and sprinkle with remaining garlic and sesame seeds.
-
-
+season: [all]
+last_made: ~
+rating: 4
+difficulty: easy
+kid_friendly: false
 ---
 
 notes:

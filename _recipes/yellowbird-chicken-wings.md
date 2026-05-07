@@ -17,6 +17,11 @@ directions:
   - To make the wing sauce, melt the butter and mix with Yellowbird.
   - Move all the wings to a sheet pan, and put under a ripping hot broiler (450°+). After a minute or two, flip the wings. Broil and flip and broil and flip until the wings look perfect to you. We usually lean on the well-done side.
   - In a big bowl, toss the wings in the wing sauce. If you want to do a few other flavors, split the wings into a few bowls with a few sauces.
+season: [all]
+last_made: ~
+rating: 5
+difficulty: medium
+kid_friendly: true
 ---
 
 An all-time classic, these chicken wings use a two-step cook process that's a) easy to time, and b) **makes a TON of wings**. The trick is to start on the grill, and finish under a ripping hot broiler. The final wing is smokey, crispy- the best of both worlds!

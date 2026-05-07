@@ -23,7 +23,11 @@ directions:
 - Add milk and stir with a fork until the mixture just comes together into a slightly sticky, shaggy dough.
 - For small biscuits, use a teaspoon or a small cookie scoop to mound walnut-sized balls of dough onto the prepared baking sheet. For large biscuits, use a 1/4-cup measuring cup to mound balls of dough onto the prepared baking sheet.
 - Bake biscuits until golden brown, about 15 minutes for small biscuits and 20 minutes for large ones. Let cool slightly, then transfer to a wire rack. Serve warm or at room temperature.
-
+season: [all]
+last_made: ~
+rating: 5
+difficulty: easy
+kid_friendly: true
 ---
 
 notes:

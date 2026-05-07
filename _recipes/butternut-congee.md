@@ -29,6 +29,11 @@ directions:
 - Uncover and stir. Increase heat to medium and simmer for another 5 to 10 minutes, until the rice has broken down.
 - Turn off heat and discard any larger pieces of seaweed, though it is fine to leave them in. Using a wooden spoon, stir vigorously to break up the rice, butternut and garlic. Some of the butternut will stay intact, while some will break apart and impart a golden hue to the dish. Add salt to taste.
 - To serve, top with scallions and a few drops of chile oil or chile crisp.
+season: [fall, winter]
+last_made: ~
+rating: 4
+difficulty: medium
+kid_friendly: true
 ---
 
 Adapted from The New York Times (Hetty Lui McKinnon). This seasonal congee blends sweet butternut squash with a bright, savory chile oil; leftover rice speeds up preparation.

@@ -22,4 +22,9 @@ prep_time: '5'
 cook_time: '15'
 total_time: '20'
 category: Dumplings, Dinner, Main Course
+season: [all]
+last_made: ~
+rating: 4
+difficulty: easy
+kid_friendly: true
 ---
