@@ -1,0 +1,17 @@
+<aside class="home-sidebar">
+  <div class="sidebar-content">
+    <div class="site-title">
+      <a href="{{ "/" | relative_url }}" style="color:inherit;text-decoration:none;display:flex;align-items:center;gap:15px;">
+        <span class="icon">YY</span>
+        RECIPES
+      </a>
+    </div>
+    <nav>
+      <a href="{{ "/" | relative_url }}" class="nav-item{% if page.url == "/" %} active{% endif %}">Recipes</a>
+      <a href="{{ "/meal-plan/" | relative_url }}" class="nav-item{% if page.url contains "meal-plan" %} active{% endif %}">Meal Plan</a>
+      <a href="{{ "/grocery-list/" | relative_url }}" class="nav-item{% if page.url contains "grocery-list" %} active{% endif %}">Grocery</a>
+      <a href="{{ "/search.html" | relative_url }}" class="nav-item{% if page.url contains "search" %} active{% endif %}">Search</a>
+    </nav>
+    <div class="sidebar-footer">Bauhaus Edition</div>
+  </div>
+</aside>

@@ -4,24 +4,7 @@ layout: default
 
 <div class="bauhaus-home-layout">
 
-  <aside class="home-sidebar">
-    <div class="sidebar-content">
-      <div class="site-title">
-        <span class="icon">YY</span> 
-        RECIPES
-      </div>
-      
-      <nav>
-        <a href="#" class="nav-item">Search</a>
-        <a href="#" class="nav-item">Books</a>
-        <a href="#" class="nav-item">Updates</a>
-      </nav>
-
-      <div class="sidebar-footer">
-        Bauhaus Edition
-      </div>
-    </div>
-  </aside>
+  {% include sidebar.html %}
 
   <main class="home-grid-container">
     
@@ -115,6 +98,11 @@ layout: default
   }
 
   .nav-item:hover {
+    color: #E63946;
+    border-bottom: 3px solid #E63946;
+  }
+
+  .nav-item.active {
     color: #E63946;
     border-bottom: 3px solid #E63946;
   }
