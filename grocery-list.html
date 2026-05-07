@@ -91,6 +91,35 @@ permalink: /grocery-list/
     border-radius: 3px;
     font-size: 0.9em;
   }
+
+  .rebuild-bar {
+    padding: 1rem 2rem;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .rebuild-btn {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+
+  .rebuild-btn:disabled { opacity: 0.45; cursor: default; }
+
+  .rebuild-status        { font-size: 0.85rem; color: #555; }
+  .rebuild-status.ok     { color: #155724; font-weight: 600; }
+  .rebuild-status.err    { color: #721c24; }
 </style>
 
 <div class="list-header">
@@ -99,6 +128,13 @@ permalink: /grocery-list/
     <div class="week-of">Week of {{ list.week_of }}</div>
   {% endif %}
 </div>
+
+{% if site.importer_url and site.importer_url != "" %}
+<div class="rebuild-bar">
+  <button class="rebuild-btn" id="rebuild-btn" onclick="rebuildGroceryList()">Rebuild from meal plan</button>
+  <span class="rebuild-status" id="rebuild-status"></span>
+</div>
+{% endif %}
 
 {% if list.items and list.items.size > 0 %}
   <div class="grocery-body">
@@ -118,6 +154,38 @@ permalink: /grocery-list/
   </div>
 {% else %}
   <p class="empty-state">No grocery list yet. Generate one from the meal planner.</p>
+{% endif %}
+
+{% if site.importer_url and site.importer_url != "" %}
+<script>
+(function () {
+  var IMPORTER_URL = '{{ site.importer_url }}';
+
+  window.rebuildGroceryList = async function () {
+    var btn = document.getElementById('rebuild-btn');
+    var status = document.getElementById('rebuild-status');
+    btn.disabled = true;
+    status.textContent = 'Rebuilding\u2026';
+    status.className = 'rebuild-status';
+
+    try {
+      var resp = await fetch(IMPORTER_URL + '/grocery/save', { method: 'POST' });
+      var data = await resp.json();
+      if (resp.ok) {
+        status.textContent = '\u2713 Saved ' + data.count + ' items. Reload the page to see the updated list.';
+        status.className = 'rebuild-status ok';
+      } else {
+        throw new Error(data.detail || 'Rebuild failed');
+      }
+    } catch (e) {
+      status.textContent = '\u2717 ' + e.message;
+      status.className = 'rebuild-status err';
+    } finally {
+      btn.disabled = false;
+    }
+  };
+}());
+</script>
 {% endif %}
 
 <script>

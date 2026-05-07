@@ -9,6 +9,8 @@
       {% if post.season %}"season"    : "{% for s in post.season %}{{ s | escape }} {% endfor %}",{% endif %}
       {% if post.cook_time %}"cook_time": "{{ post.cook_time | escape }}",{% endif %}
       {% if post.total_time %}"total_time": "{{ post.total_time | escape }}",{% endif %}
+      "slug"         : "{{ post.path | remove: '_recipes/' | remove: '.md' }}",
+      "last_made"    : "{{ post.last_made }}",
       "kid_friendly" : "{{ post.kid_friendly }}",
       "difficulty"   : "{{ post.difficulty | escape }}",
       "image"        : "{{ site.baseurl }}/images/{{ post.image }}",

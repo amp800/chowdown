@@ -131,12 +131,138 @@ permalink: /meal-plan/
     border-radius: 3px;
     font-size: 0.9em;
   }
+
+  /* ---- Suggest-a-week interactive section ---- */
+  .suggest-bar {
+    padding: 1rem 2rem;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .suggest-btn {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+
+  .suggest-btn:disabled { opacity: 0.45; cursor: default; }
+
+  .suggest-inline-status {
+    font-size: 0.85rem;
+    color: #999;
+  }
+
+  .suggest-panel {
+    background: #fafafa;
+    border-bottom: 3px solid #F53200;
+  }
+
+  .suggest-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .suggest-week-label {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .suggest-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .save-plan-btn {
+    background: #F53200;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+
+  .save-plan-btn:disabled { opacity: 0.45; cursor: default; }
+
+  .save-status        { font-size: 0.85rem; color: #555; }
+  .save-status.ok     { color: #155724; font-weight: 600; }
+  .save-status.err    { color: #721c24; }
+
+  .suggest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: #e5e5e5;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .suggest-row {
+    background: #fff;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .suggest-day {
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #F53200;
+  }
+
+  .suggest-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.25;
+  }
 </style>
 
 <div class="plan-header">
   <h1>This Week's Menu</h1>
   <div class="week-of">Week of {{ plan.week_of }}</div>
 </div>
+
+{% if site.importer_url and site.importer_url != "" %}
+<div class="suggest-bar">
+  <button class="suggest-btn" id="suggest-btn" onclick="suggestWeek()">Suggest a new week</button>
+  <span class="suggest-inline-status" id="suggest-status"></span>
+</div>
+<div id="suggest-panel" class="suggest-panel" style="display:none">
+  <div class="suggest-panel-header">
+    <span class="suggest-week-label" id="suggest-week-label"></span>
+    <div class="suggest-actions">
+      <button class="suggest-btn" onclick="suggestWeek()">Shuffle again</button>
+      <button class="save-plan-btn" id="save-btn" onclick="savePlan()">Save this plan</button>
+      <span class="save-status" id="save-status"></span>
+    </div>
+  </div>
+  <div class="suggest-grid" id="suggest-grid"></div>
+</div>
+{% endif %}
 
 <div class="plan-grid">
   {% for day in days %}
@@ -190,5 +316,115 @@ permalink: /meal-plan/
 </div>
 
 <div class="edit-hint">
-  Edit <code>_data/meal_plan.yml</code> to update the week's menu. Changes rebuild in seconds on GitHub Pages.
+  Edit <code>_data/meal_plan.yml</code> to manually update the week's menu, or use the "Suggest a new week" button above.
 </div>
+
+{% if site.importer_url and site.importer_url != "" %}
+<script>
+(function () {
+  var IMPORTER_URL = '{{ site.importer_url }}';
+  var BASE = '{{ site.baseurl }}';
+  var DAYS = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+  var SKIP_TAGS = new Set(['dessert','side-dish','breakfast','baking','dressing','sides','snack']);
+  var _suggested = [];
+
+  window.suggestWeek = async function () {
+    var btn = document.getElementById('suggest-btn');
+    var status = document.getElementById('suggest-status');
+    var panel = document.getElementById('suggest-panel');
+    btn.disabled = true;
+    status.textContent = 'Loading recipes\u2026';
+
+    var recipes;
+    try {
+      recipes = await fetch(BASE + '/search.json').then(function (r) { return r.json(); });
+    } catch (e) {
+      status.textContent = 'Could not load search.json';
+      btn.disabled = false;
+      return;
+    }
+
+    var cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 14);
+
+    var eligible = recipes.filter(function (r) {
+      var lm = r.last_made;
+      if (lm && lm !== '' && lm !== 'None' && lm !== 'false' && lm !== 'null') {
+        try { if (new Date(lm) >= cutoff) return false; } catch (e) {}
+      }
+      var tags = (r.tags || '').toLowerCase().split(/\s+/);
+      if (tags.some(function (t) { return SKIP_TAGS.has(t); })) return false;
+      return true;
+    });
+
+    /* Fisher-Yates shuffle */
+    for (var i = eligible.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = eligible[i]; eligible[i] = eligible[j]; eligible[j] = tmp;
+    }
+
+    /* Monday of current week */
+    var today = new Date();
+    var mon = new Date(today);
+    mon.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+    var weekOf = mon.toISOString().split('T')[0];
+
+    _suggested = DAYS.map(function (day, i) {
+      var r = eligible[i];
+      return r ? { day: day, slug: r.slug, title: r.title, difficulty: r.difficulty || '' }
+               : { day: day, slug: '', title: '— no match —', difficulty: '' };
+    });
+
+    document.getElementById('suggest-week-label').textContent = 'Suggested plan \u2014 week of ' + weekOf;
+    panel.dataset.weekOf = weekOf;
+
+    var grid = document.getElementById('suggest-grid');
+    grid.innerHTML = _suggested.map(function (r) {
+      var badge = r.difficulty ? '<span class="badge ' + r.difficulty + '">' + r.difficulty + '</span>' : '';
+      return '<div class="suggest-row">'
+           + '<span class="suggest-day">' + r.day.charAt(0).toUpperCase() + r.day.slice(1) + '</span>'
+           + '<span class="suggest-title">' + r.title + ' ' + badge + '</span>'
+           + '</div>';
+    }).join('');
+
+    panel.style.display = 'block';
+    document.getElementById('save-status').textContent = '';
+    document.getElementById('save-status').className = 'save-status';
+    status.textContent = '';
+    btn.disabled = false;
+  };
+
+  window.savePlan = async function () {
+    var panel = document.getElementById('suggest-panel');
+    var saveBtn = document.getElementById('save-btn');
+    var saveStatus = document.getElementById('save-status');
+    var weekOf = panel.dataset.weekOf;
+    if (!weekOf || _suggested.length === 0) return;
+
+    var form = new FormData();
+    form.append('week_of', weekOf);
+    _suggested.forEach(function (r) { form.append(r.day, r.slug || ''); });
+
+    saveBtn.disabled = true;
+    saveStatus.textContent = 'Saving\u2026';
+    saveStatus.className = 'save-status';
+
+    try {
+      var resp = await fetch(IMPORTER_URL + '/plan/save', { method: 'POST', body: form });
+      var data = await resp.json();
+      if (resp.ok) {
+        saveStatus.textContent = '\u2713 Saved! Reload the page to see the updated plan.';
+        saveStatus.className = 'save-status ok';
+      } else {
+        throw new Error(data.detail || 'Save failed');
+      }
+    } catch (e) {
+      saveStatus.textContent = '\u2717 ' + e.message;
+      saveStatus.className = 'save-status err';
+    } finally {
+      saveBtn.disabled = false;
+    }
+  };
+}());
+</script>
+{% endif %}
