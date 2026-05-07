@@ -230,9 +230,9 @@ def git_commit_and_push(message: str):
 
 NAV_HTML = """
 <nav style="background:#F53200;padding:0.75rem 1rem;margin-bottom:1.5rem;border-radius:8px;display:flex;gap:1rem">
-  <a href="/" style="color:#fff;text-decoration:none;font-weight:600">Import</a>
-  <a href="/plan" style="color:#fff;text-decoration:none;font-weight:600">Meal Plan</a>
-  <a href="/grocery" style="color:#fff;text-decoration:none;font-weight:600">Grocery List</a>
+  <a href="/" style="color:#fff;text-decoration:none;font-weight:600">Import Recipe</a>
+  <a href="/plan" style="color:#fff;text-decoration:none;font-weight:600">Plan Week</a>
+  <a href="/grocery" style="color:#fff;text-decoration:none;font-weight:600">Save Grocery List</a>
 </nav>
 """
 
@@ -487,7 +487,8 @@ async def plan_save(request: Request):
     <style>body{{font-family:system-ui;max-width:500px;margin:2rem auto;padding:1rem;background:#fafafa}}</style></head><body>
     {NAV_HTML}
     <p style="background:#d4edda;color:#155724;padding:1rem;border-radius:8px">✅ Meal plan saved for week of {week_of}.</p>
-    <p><a href="/grocery">Build grocery list →</a></p>
+    <p>View it on the <a href="/chowdown/meal-plan/">Chowdown meal plan page →</a></p>
+    <p>Ready to build a grocery list? <a href="/grocery">Generate &amp; save grocery list →</a></p>
     </body></html>""")
 
 
@@ -501,7 +502,7 @@ async def grocery_page():
 
     plan = load_meal_plan()
     if not plan:
-        return HTMLResponse(NAV_HTML + "<p>No meal plan found. <a href='/plan'>Create one →</a></p>")
+        return HTMLResponse(NAV_HTML + "<p>No meal plan found. <a href='/plan'>Generate a plan →</a></p>")
 
     slugs = []
     for day in DAYS:
@@ -622,6 +623,7 @@ async def grocery_save():
     <style>body{{font-family:system-ui;max-width:500px;margin:2rem auto;padding:1rem;background:#fafafa}}</style></head><body>
     {NAV_HTML}
     <p style="background:#d4edda;color:#155724;padding:1rem;border-radius:8px">✅ Saved {len(unique)} items to _data/grocery_list.yml.</p>
+    <p>View it on the <a href="/chowdown/grocery-list/">Chowdown grocery list page →</a></p>
     </body></html>""")
 
 

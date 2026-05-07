@@ -1,0 +1,150 @@
+---
+layout: default
+title: Grocery List
+permalink: /grocery-list/
+---
+
+{% assign list = site.data.grocery_list %}
+
+<style>
+  body {
+    font-family: 'Jost', sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .list-header {
+    background: #F53200;
+    color: #fff;
+    padding: 2rem 2rem 1.5rem;
+  }
+
+  .list-header h1 {
+    margin: 0 0 0.25rem;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .list-header .week-of {
+    font-size: 1rem;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+
+  .grocery-body {
+    padding: 1.5rem 2rem;
+    max-width: 600px;
+  }
+
+  .grocery-body ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .grocery-body li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .grocery-body li:last-child {
+    border-bottom: none;
+  }
+
+  .grocery-body li input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 1.1em;
+    height: 1.1em;
+    accent-color: #F53200;
+    cursor: pointer;
+  }
+
+  .grocery-body li.checked span {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+
+  .empty-state {
+    padding: 2rem;
+    color: #999;
+    font-style: italic;
+  }
+
+  .edit-hint {
+    padding: 1.5rem 2rem;
+    font-size: 0.8rem;
+    color: #999;
+    border-top: 1px solid #eee;
+  }
+
+  .edit-hint code {
+    background: #f5f5f5;
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+</style>
+
+<div class="list-header">
+  <h1>Grocery List</h1>
+  {% if list.week_of %}
+    <div class="week-of">Week of {{ list.week_of }}</div>
+  {% endif %}
+</div>
+
+{% if list.items and list.items.size > 0 %}
+  <div class="grocery-body">
+    <ul id="grocery-items">
+      {% for item in list.items %}
+        <li>
+          <input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)">
+          <span>{{ item }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="edit-hint">
+    {{ list.items | size }} items &nbsp;·&nbsp;
+    Generated from <a href="{{ '/meal-plan/' | relative_url }}">this week's meal plan</a>.
+    Edit <code>_data/grocery_list.yml</code> to update manually.
+  </div>
+{% else %}
+  <p class="empty-state">No grocery list yet. Generate one from the meal planner.</p>
+{% endif %}
+
+<script>
+  // Persist checkbox state across page loads using sessionStorage
+  const KEY = 'grocery-checked';
+
+  function saveState() {
+    const checked = [];
+    document.querySelectorAll('#grocery-items input[type="checkbox"]').forEach((cb, i) => {
+      if (cb.checked) checked.push(i);
+    });
+    sessionStorage.setItem(KEY, JSON.stringify(checked));
+  }
+
+  function restoreState() {
+    const saved = JSON.parse(sessionStorage.getItem(KEY) || '[]');
+    document.querySelectorAll('#grocery-items input[type="checkbox"]').forEach((cb, i) => {
+      if (saved.includes(i)) {
+        cb.checked = true;
+        cb.parentElement.classList.add('checked');
+      }
+    });
+  }
+
+  document.querySelectorAll('#grocery-items input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', saveState);
+  });
+
+  restoreState();
+</script>
