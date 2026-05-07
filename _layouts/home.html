@@ -40,6 +40,9 @@ layout: default
           {% unless post.image %}
             <div class="no-image-pattern">NO IMG</div>
           {% endunless %}
+          {% if post.last_made %}
+            <span class="last-made-badge" data-date="{{ post.last_made }}">Made {{ post.last_made }}</span>
+          {% endif %}
         </div>
 
         <div class="card-text">
@@ -206,6 +209,29 @@ layout: default
     font-size: 1.5rem;
   }
 
+  .card-image-box {
+    position: relative;
+  }
+
+  .last-made-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(0,0,0,0.72);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.25em 0.55em;
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+  .last-made-badge.stale {
+    background: #E63946;
+  }
+
   /* --- MOBILE RESPONSIVE --- */
   @media (max-width: 900px) {
     .bauhaus-home-layout { flex-direction: column; }
@@ -227,3 +253,25 @@ layout: default
     .sidebar-footer { display: none; }
   }
 </style>
+
+<script>
+(function () {
+  var now = Date.now();
+  document.querySelectorAll('.last-made-badge[data-date]').forEach(function (badge) {
+    var raw = badge.dataset.date;
+    if (!raw || raw === 'null' || raw === '') return;
+    var d = new Date(raw);
+    if (isNaN(d)) return;
+    var days = Math.round((now - d.getTime()) / 86400000);
+    var label;
+    if (days === 0)       label = 'Made today';
+    else if (days === 1)  label = 'Made yesterday';
+    else if (days < 14)   label = 'Made ' + days + 'd ago';
+    else if (days < 60)   label = 'Made ' + Math.floor(days / 7) + 'w ago';
+    else                  label = 'Made ' + Math.floor(days / 30) + 'mo ago';
+    badge.textContent = label;
+    // Mark as stale if not made in the last 30 days
+    if (days > 30) badge.classList.add('stale');
+  });
+})();
+</script>

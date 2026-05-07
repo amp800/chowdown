@@ -490,6 +490,58 @@ async def plan_save(request: Request):
     <p>View it on the <a href="/chowdown/meal-plan/">Chowdown meal plan page →</a></p>
     <p>Ready to build a grocery list? <a href="/grocery">Generate &amp; save grocery list →</a></p>
     </body></html>""")
+async def plan_add(slug: str = Form(...)):
+    """Add a recipe to the first empty slot in the current week's meal plan."""
+    from datetime import date, timedelta
+
+    try:
+        ensure_repo()
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail=f"Git error: {e}")
+
+    recipe_path = REPO_DIR / "_recipes" / f"{slug}.md"
+    if not recipe_path.exists():
+        raise HTTPException(status_code=404, detail=f"Recipe not found: {slug}")
+
+    plan = load_meal_plan()
+    week_of = date.today() - timedelta(days=date.today().weekday())
+
+    # If plan is from a different week, start fresh
+    plan_week = str(plan.get("week_of", ""))
+    if plan_week != str(week_of):
+        plan = {"week_of": str(week_of)}
+        for day in DAYS:
+            plan[day] = {"recipe": None, "notes": None}
+
+    # Find first empty slot
+    added_to = None
+    for day in DAYS:
+        day_data = plan.get(day, {})
+        existing = day_data.get("recipe") if isinstance(day_data, dict) else day_data
+        if not existing or str(existing) in ("None", "", "null", "~"):
+            if isinstance(plan.get(day), dict):
+                plan[day]["recipe"] = slug
+            else:
+                plan[day] = {"recipe": slug, "notes": None}
+            added_to = day
+            break
+
+    if not added_to:
+        raise HTTPException(status_code=409, detail="All days this week are already planned")
+
+    plan_path = REPO_DIR / "_data" / "meal_plan.yml"
+    plan_path.parent.mkdir(parents=True, exist_ok=True)
+    plan_path.write_text(
+        yaml.dump(plan, default_flow_style=False, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    try:
+        git_commit_and_push(f"Add {slug} to meal plan ({added_to})")
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail=f"Git push failed: {e}")
+
+    return {"message": f"Added '{slug}' to {added_to}", "day": added_to}
 
 
 @app.get("/grocery", response_class=HTMLResponse)
