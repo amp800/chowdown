@@ -276,13 +276,13 @@ permalink: /meal-plan/
     <!-- Current plan grid -->
     <div class="plan-grid" id="current-plan-grid">
       {% for day in days %}
-        {% assign day_data = plan[day] %}
+        {% assign day_slug = plan[day] %}
 
-        {% if day_data.recipe and day_data.recipe != "" %}
+        {% if day_slug and day_slug != "" %}
           {% assign matched_recipe = nil %}
           {% for r in site.recipes %}
             {% assign r_slug = r.path | remove: "_recipes/" | remove: ".md" %}
-            {% if r_slug == day_data.recipe %}
+            {% if r_slug == day_slug %}
               {% assign matched_recipe = r %}
             {% endif %}
           {% endfor %}
@@ -304,13 +304,11 @@ permalink: /meal-plan/
               </div>
               <span class="day-arrow">→</span>
             </div>
-            {% if day_data.notes and day_data.notes != "" %}<p class="day-notes">{{ day_data.notes }}</p>{% endif %}
           </a>
           {% else %}
           <div class="day-card">
             <span class="day-label">{{ day | capitalize }}</span>
-            <p class="day-title">{{ day_data.recipe }}</p>
-            {% if day_data.notes and day_data.notes != "" %}<p class="day-notes">{{ day_data.notes }}</p>{% endif %}
+            <p class="day-title">{{ day_slug }}</p>
           </div>
           {% endif %}
 
@@ -318,7 +316,6 @@ permalink: /meal-plan/
         <div class="day-card empty">
           <span class="day-label">{{ day | capitalize }}</span>
           <p class="day-title muted">— rest night —</p>
-          {% if day_data.notes and day_data.notes != "" %}<p class="day-notes">{{ day_data.notes }}</p>{% endif %}
         </div>
         {% endif %}
 
