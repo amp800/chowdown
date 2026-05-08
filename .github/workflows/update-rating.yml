@@ -1,0 +1,69 @@
+name: Update Rating
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Recipe slug (filename without .md)"
+        required: true
+      rating:
+        description: "Star rating (1-5)"
+        required: true
+
+jobs:
+  update-rating:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Set rating
+        run: |
+          python - <<'EOF'
+          import re, os
+          from pathlib import Path
+
+          slug = os.environ["SLUG"]
+          rating = int(os.environ["RATING"])
+          if rating < 1 or rating > 5:
+              print(f"ERROR: rating {rating} out of range 1-5")
+              raise SystemExit(1)
+
+          recipe_path = Path(f"_recipes/{slug}.md")
+          if not recipe_path.exists():
+              print(f"ERROR: {recipe_path} not found", flush=True)
+              raise SystemExit(1)
+
+          raw = recipe_path.read_text(encoding="utf-8")
+          parts = raw.split("---", 2)
+          if len(parts) < 3:
+              print("ERROR: could not parse frontmatter")
+              raise SystemExit(1)
+
+          fm_text = parts[1]
+          pattern = re.compile(r"^(rating:\s*)(.*)$", re.MULTILINE)
+          if pattern.search(fm_text):
+              new_fm = pattern.sub(rf"\g<1>{rating}", fm_text)
+          else:
+              new_fm = fm_text.rstrip("\n") + f"\nrating: {rating}\n"
+
+          recipe_path.write_text("---" + new_fm + "---" + parts[2], encoding="utf-8")
+          print(f"Updated rating to {rating} in {recipe_path}")
+          EOF
+        env:
+          SLUG: ${{ inputs.slug }}
+          RATING: ${{ inputs.rating }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Rate ${{ inputs.slug }}: ${{ inputs.rating }} stars"
+          file_pattern: "_recipes/*.md"
