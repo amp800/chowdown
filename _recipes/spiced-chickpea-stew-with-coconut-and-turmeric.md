@@ -37,7 +37,7 @@ directions:
   with salt and pepper.
 - Divide among bowls and top with mint, reserved chickpeas, a sprinkle of red-pepper flakes and a good drizzle of olive oil.
   Serve alongside yogurt and toasted pita if using; dust the yogurt with turmeric if you'd like.
-date_added: '2026-05-08'
+date_added: 2026-05-08
 season:
 - fall
 - winter

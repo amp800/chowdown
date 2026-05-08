@@ -27,7 +27,7 @@ directions:
   sauce, set to sauté and simmer, 5 minutes. Add the chicken back into the pot.
 - Stir in the black beans and a squeeze of lime juice, set to sauté and let the beans warm through, 2 to 3 minutes. Taste
   and add more salt or lime juice if necessary. Serve in tortillas with pickled onions and avocado.
-date_added: '2026-05-08'
+date_added: 2026-05-08
 season:
 - all
 last_made: null
