@@ -30,7 +30,7 @@ cook_time: '10'
 total_time: '25'
 category: dinner, easy, lunch, quick, weeknight, noodles, main course
 season: [summer]
-last_made: ~
+last_made: 2026-05-08
 rating: 4
 difficulty: easy
 kid_friendly: true
