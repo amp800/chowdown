@@ -27,7 +27,7 @@ directions:
 - Simmer to heat through. Stir in lemon juice and salt. Serve with rice or bread.
 season: [all]
 last_made: ~
-rating: 4
+rating: 5
 difficulty: easy
 kid_friendly: false
 ---
