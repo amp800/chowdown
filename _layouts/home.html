@@ -8,15 +8,23 @@ layout: default
 
   <main class="home-grid-container">
     
-    <div class="header-wrapper">
-      <h2 class="section-header">Most Recent</h2>
+    <div class="sort-bar">
+      <span class="sort-label">Sort:</span>
+      <button class="sort-btn active" data-sort="date">Recently Added</button>
+      <button class="sort-btn" data-sort="last_made">Last Cooked</button>
+      <button class="sort-btn" data-sort="rating">Top Rated</button>
+      <button class="sort-btn" data-sort="time">Quickest</button>
     </div>
 
     <div class="recipe-grid">
       {% assign recipes = site.recipes | sort: 'date' | reverse %}
       
       {% for post in recipes %}
-      <a href="{{ post.url | relative_url }}" class="recipe-card">
+      <a href="{{ post.url | relative_url }}" class="recipe-card"
+         data-date="{{ post.date | date: '%s' }}"
+         data-last-made="{% if post.last_made %}{{ post.last_made | date: '%s' }}{% else %}0{% endif %}"
+         data-rating="{{ post.rating | default: 0 }}"
+         data-time="{{ post.total_time | default: post.cook_time | default: 9999 }}">
         
         <div class="card-image-box">
           <div class="card-image" style="background-image: url('{{ site.baseurl }}/images/{{ post.image }}');"></div>
@@ -271,6 +279,50 @@ layout: default
     background: #E63946;
   }
 
+  /* --- SORT BAR --- */
+  .sort-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .sort-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 900;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #555;
+    margin-right: 4px;
+  }
+
+  .sort-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border: 3px solid #000;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .sort-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .sort-btn.active {
+    background: #E63946;
+    border-color: #E63946;
+    color: #fff;
+  }
+
   /* --- MOBILE RESPONSIVE --- */
   @media (max-width: 900px) {
     .bauhaus-home-layout { flex-direction: column; }
@@ -311,6 +363,47 @@ layout: default
     badge.textContent = label;
     // Mark as stale if not made in the last 30 days
     if (days > 30) badge.classList.add('stale');
+  });
+})();
+
+// Sort bar
+(function () {
+  var grid = document.querySelector('.recipe-grid');
+  document.querySelectorAll('.sort-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.sort-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var sort = btn.dataset.sort;
+      var cards = Array.from(grid.querySelectorAll('.recipe-card'));
+      cards.sort(function (a, b) {
+        var av, bv;
+        if (sort === 'date') {
+          av = parseInt(a.dataset.date, 10) || 0;
+          bv = parseInt(b.dataset.date, 10) || 0;
+          return bv - av;
+        } else if (sort === 'last_made') {
+          av = parseInt(a.dataset.lastMade, 10) || 0;
+          bv = parseInt(b.dataset.lastMade, 10) || 0;
+          if (av === 0 && bv === 0) return 0;
+          if (av === 0) return 1;
+          if (bv === 0) return -1;
+          return bv - av;
+        } else if (sort === 'rating') {
+          av = parseFloat(a.dataset.rating) || 0;
+          bv = parseFloat(b.dataset.rating) || 0;
+          if (av === 0 && bv === 0) return 0;
+          if (av === 0) return 1;
+          if (bv === 0) return -1;
+          return bv - av;
+        } else if (sort === 'time') {
+          av = parseInt(a.dataset.time, 10) || 9999;
+          bv = parseInt(b.dataset.time, 10) || 9999;
+          return av - bv;
+        }
+        return 0;
+      });
+      cards.forEach(function (card) { grid.appendChild(card); });
+    });
   });
 })();
 </script>
