@@ -211,6 +211,7 @@ def git_commit_and_push(message: str):
     result = subprocess.run(["git", "-C", str(REPO_DIR), "commit", "-m", message], capture_output=True, text=True)
     if result.returncode != 0 and "nothing to commit" not in result.stdout.lower():
         pass
+    subprocess.run(["git", "-C", str(REPO_DIR), "pull", "--rebase", "origin", REPO_BRANCH], check=True)
     subprocess.run(["git", "-C", str(REPO_DIR), "push", "origin", REPO_BRANCH], check=True)
 
 
