@@ -130,9 +130,20 @@ layout: default
       {% endif %}
 
       <div class="planner-actions">
-        <button class="planner-btn plan-btn" onclick="addToWeek()">+ Make This Week</button>
+        <button class="planner-btn plan-btn" id="plan-btn" onclick="toggleDayPicker()">+ Make This Week</button>
         <button class="planner-btn made-btn" onclick="logMade()">✓ We Made This</button>
         <span id="planner-msg" class="planner-msg"></span>
+      </div>
+      <div class="day-picker" id="day-picker">
+        <span class="day-picker-label">Pick a day:</span>
+        <button class="day-btn" onclick="addToDay('monday')">Mon</button>
+        <button class="day-btn" onclick="addToDay('tuesday')">Tue</button>
+        <button class="day-btn" onclick="addToDay('wednesday')">Wed</button>
+        <button class="day-btn" onclick="addToDay('thursday')">Thu</button>
+        <button class="day-btn" onclick="addToDay('friday')">Fri</button>
+        <button class="day-btn" onclick="addToDay('saturday')">Sat</button>
+        <button class="day-btn" onclick="addToDay('sunday')">Sun</button>
+        <button class="day-btn cancel-btn" onclick="toggleDayPicker()">✕</button>
       </div>
       
       <div style="height: 150px;"></div>
@@ -389,6 +400,62 @@ layout: default
     border-top: 5px solid #000;
   }
 
+  .day-picker {
+    display: none;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 16px;
+    background: #f8f8f8;
+    border: 3px solid #000;
+  }
+
+  .day-picker.open {
+    display: flex;
+  }
+
+  .day-picker-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #555;
+    margin-right: 4px;
+  }
+
+  .day-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 8px 14px;
+    border: 2px solid #000;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+
+  .day-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .day-btn.cancel-btn {
+    border-color: #aaa;
+    color: #aaa;
+    margin-left: 4px;
+  }
+
+  .day-btn.cancel-btn:hover {
+    background: #aaa;
+    color: #fff;
+    border-color: #aaa;
+  }
+
   .planner-btn {
     font-family: 'Jost', sans-serif;
     font-size: 0.85rem;
@@ -495,6 +562,28 @@ async function addToWeek() {
   try {
     await triggerWorkflow('plan-add.yml', { slug: RECIPE_SLUG });
     msg.innerHTML = '✓ Queued — will appear in plan after ~30s';
+    msg.className = 'planner-msg ok';
+  } catch (e) {
+    msg.innerHTML = e.message;
+    msg.className = 'planner-msg err';
+  }
+}
+
+function toggleDayPicker() {
+  var picker = document.getElementById('day-picker');
+  picker.classList.toggle('open');
+}
+
+async function addToDay(day) {
+  var msg = document.getElementById('planner-msg');
+  var picker = document.getElementById('day-picker');
+  picker.classList.remove('open');
+  var label = day.charAt(0).toUpperCase() + day.slice(1);
+  msg.innerHTML = 'Adding to ' + label + '…';
+  msg.className = 'planner-msg';
+  try {
+    await triggerWorkflow('plan-add.yml', { slug: RECIPE_SLUG, day: day });
+    msg.innerHTML = '✓ Added to ' + label + '!';
     msg.className = 'planner-msg ok';
   } catch (e) {
     msg.innerHTML = e.message;
