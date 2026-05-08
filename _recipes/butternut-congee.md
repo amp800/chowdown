@@ -1,4 +1,5 @@
 ---
+date_added: 2026-02-01
 layout: recipe
 title: "Butternut Squash Congee With Chile Oil"
 image: butternut-congee.jpg

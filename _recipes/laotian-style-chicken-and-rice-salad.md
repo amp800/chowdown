@@ -1,4 +1,5 @@
 ---
+date_added: 2026-05-06
 layout: recipe
 title: Laotian-Style Chicken and Rice Salad
 image: laotian-style-chicken-and-rice-salad.jpg

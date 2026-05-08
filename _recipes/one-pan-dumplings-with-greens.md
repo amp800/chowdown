@@ -1,4 +1,5 @@
 ---
+date_added: 2026-05-06
 layout: recipe
 title: One-Pan Dumplings With Greens
 image: one-pan-dumplings-with-greens.jpg

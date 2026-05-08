@@ -117,13 +117,11 @@ layout: default
       </div>
       {% endif %}
 
-      {% if site.importer_url and site.importer_url != "" %}
       <div class="planner-actions">
         <button class="planner-btn plan-btn" onclick="addToWeek()">+ Make This Week</button>
         <button class="planner-btn made-btn" onclick="logMade()">✓ We Made This</button>
         <span id="planner-msg" class="planner-msg"></span>
       </div>
-      {% endif %}
       
       <div style="height: 150px;"></div>
     </div>

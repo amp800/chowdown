@@ -1,4 +1,5 @@
 ---
+date_added: 2026-02-01
 layout: recipe
 title: "One-Pot Salmon, Spinach and Lentil Salad"
 image: one-pot-salmon-bowl.jpg

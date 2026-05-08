@@ -1,4 +1,5 @@
 ---
+date_added: 2025-01-22
 layout: recipe
 title: Yellowbird Chicken Wings
 image: yellowbird-chicken-wings.jpg

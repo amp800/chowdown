@@ -1,4 +1,5 @@
 ---
+date_added: 2026-05-06
 layout: recipe
 title: Meera Sodha 18-Carat Laksa Recipe | Vegan Carrot Laksa
 image: meera-sodha-18-carat-laksa-recipe-vegan-carrot-laksa.jpg

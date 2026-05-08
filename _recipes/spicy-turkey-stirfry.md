@@ -1,4 +1,5 @@
 ---
+date_added: 2026-02-02
 layout: recipe
 title: "Spicy Turkey Stir-Fry with Crisp Garlic and Ginger"
 image: spicy-turkey-stirfry.jpg

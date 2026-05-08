@@ -1,4 +1,5 @@
 ---
+date_added: 2025-10-14
 layout: recipe
 title: "One-pan Spicy Carrot, Potato and Parsnip Filo Traybake"
 image: one-pan-spicy-carrot-potato-and-parsnip-filo-traybake.webp

@@ -1,4 +1,5 @@
 ---
+date_added: 2026-05-06
 layout: recipe
 title: High Protein Peanut Butter Granola
 image: high-protein-peanut-butter-granola.jpg

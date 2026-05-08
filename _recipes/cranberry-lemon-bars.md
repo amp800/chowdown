@@ -1,4 +1,5 @@
 ---
+date_added: 2025-10-23
 layout: recipe
 title: "Cranberry Lemon Bars"
 image: cranberry-lemon-bars.jpg

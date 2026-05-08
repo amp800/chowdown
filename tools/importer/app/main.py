@@ -179,6 +179,7 @@ def build_markdown(
         "tags": all_tags,
         "ingredients": format_ingredients(data.get("ingredients", [])),
         "directions": format_instructions(data.get("instructions", [])),
+        "date_added": str(__import__("datetime").date.today()),
         "season": season_list,
         "last_made": None,
         "rating": rating,

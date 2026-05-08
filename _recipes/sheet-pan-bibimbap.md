@@ -1,4 +1,5 @@
 ---
+date_added: 2026-05-06
 layout: recipe
 title: Sheet-Pan Bibimbap
 image: sheet-pan-bibimbap.jpg

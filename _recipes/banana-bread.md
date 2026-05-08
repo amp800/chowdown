@@ -1,4 +1,5 @@
 ---
+date_added: 2018-09-09
 
 layout: recipe
 title:  "Banana Bread"

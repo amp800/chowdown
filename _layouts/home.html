@@ -17,11 +17,11 @@ layout: default
     </div>
 
     <div class="recipe-grid">
-      {% assign recipes = site.recipes | sort: 'date' | reverse %}
+      {% assign recipes = site.recipes | sort: 'date_added' | reverse %}
       
       {% for post in recipes %}
       <a href="{{ post.url | relative_url }}" class="recipe-card"
-         data-date="{{ post.date | date: '%s' }}"
+         data-date="{{ post.date_added | date: '%s' }}"
          data-last-made="{% if post.last_made %}{{ post.last_made | date: '%s' }}{% else %}0{% endif %}"
          data-rating="{{ post.rating | default: 0 }}"
          data-time="{{ post.total_time | default: post.cook_time | default: 9999 }}">

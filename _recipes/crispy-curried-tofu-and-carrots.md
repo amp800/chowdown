@@ -1,4 +1,5 @@
 ---
+date_added: 2026-05-07
 layout: recipe
 title: Crispy Curried Tofu and Carrots
 image: crispy-curried-tofu-and-carrots.jpg
