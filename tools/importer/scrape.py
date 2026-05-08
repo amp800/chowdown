@@ -154,6 +154,7 @@ def build_markdown(data: dict, image_ref: str, user_tags: list,
         if season and season.strip().lower() != "all"
         else ["all"]
     )
+    from datetime import date
     fm = {
         "layout": "recipe",
         "title": data.get("title", "Untitled Recipe"),
@@ -161,6 +162,7 @@ def build_markdown(data: dict, image_ref: str, user_tags: list,
         "tags": all_tags,
         "ingredients": format_ingredients(data.get("ingredients", [])),
         "directions": format_instructions(data.get("instructions", [])),
+        "date_added": str(date.today()),
         "season": season_list,
         "last_made": None,
         "rating": rating,

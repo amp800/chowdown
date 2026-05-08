@@ -1,4 +1,5 @@
 ---
+date_added: 2026-05-08
 layout: recipe
 title: Blueberry Corn Muffins
 image: blueberry-corn-muffins.jpg
