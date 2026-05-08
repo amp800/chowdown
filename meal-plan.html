@@ -137,6 +137,52 @@ permalink: /meal-plan/
 
   .day-card.empty { border-style: dashed; background: #fafafa; }
 
+  .day-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .day-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .day-card.filled {
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .day-card.filled:hover {
+    transform: translate(-6px, -6px);
+    box-shadow: 12px 12px 0px 0px #000;
+    z-index: 10;
+  }
+
+  .day-remove-btn {
+    flex-shrink: 0;
+    background: none;
+    border: 2px solid transparent;
+    color: #bbb;
+    font-size: 0.75rem;
+    font-weight: 900;
+    cursor: pointer;
+    padding: 2px 6px;
+    line-height: 1;
+    transition: color 0.12s, border-color 0.12s, background 0.12s;
+  }
+
+  .day-remove-btn:hover {
+    color: #E63946;
+    border-color: #E63946;
+    background: #fff0f1;
+  }
+
+  .day-card.removing {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
   .day-label {
     font-family: 'Jost', sans-serif;
     font-size: 0.62rem;
@@ -288,26 +334,34 @@ permalink: /meal-plan/
           {% endfor %}
 
           {% if matched_recipe %}
-          <a href="{{ matched_recipe.url | relative_url }}" class="day-card">
-            <span class="day-label">{{ day | capitalize }}</span>
-            <p class="day-title">{{ matched_recipe.title }}</p>
-            <div class="day-footer">
-              <div class="day-meta">
-                {% if matched_recipe.difficulty %}<span class="badge {{ matched_recipe.difficulty }}">{{ matched_recipe.difficulty }}</span>{% endif %}
-                {% if matched_recipe.kid_friendly == true or matched_recipe.kid_friendly == "true" %}<span class="badge kid">Kids</span>{% endif %}
-                {% if matched_recipe.rating %}
-                  <span class="day-rating">
-                    {% assign stars = matched_recipe.rating %}
-                    {% for i in (1..5) %}{% if i <= stars %}★{% else %}☆{% endif %}{% endfor %}
-                  </span>
-                {% endif %}
-              </div>
-              <span class="day-arrow">→</span>
+          <div class="day-card filled" data-day="{{ day }}">
+            <div class="day-card-top">
+              <span class="day-label">{{ day | capitalize }}</span>
+              <button class="day-remove-btn" onclick="removeDay('{{ day }}', event)" title="Remove">✕</button>
             </div>
-          </a>
+            <a href="{{ matched_recipe.url | relative_url }}" class="day-card-link">
+              <p class="day-title">{{ matched_recipe.title }}</p>
+              <div class="day-footer">
+                <div class="day-meta">
+                  {% if matched_recipe.difficulty %}<span class="badge {{ matched_recipe.difficulty }}">{{ matched_recipe.difficulty }}</span>{% endif %}
+                  {% if matched_recipe.kid_friendly == true or matched_recipe.kid_friendly == "true" %}<span class="badge kid">Kids</span>{% endif %}
+                  {% if matched_recipe.rating %}
+                    <span class="day-rating">
+                      {% assign stars = matched_recipe.rating %}
+                      {% for i in (1..5) %}{% if i <= stars %}★{% else %}☆{% endif %}{% endfor %}
+                    </span>
+                  {% endif %}
+                </div>
+                <span class="day-arrow">→</span>
+              </div>
+            </a>
+          </div>
           {% else %}
-          <div class="day-card">
-            <span class="day-label">{{ day | capitalize }}</span>
+          <div class="day-card filled" data-day="{{ day }}">
+            <div class="day-card-top">
+              <span class="day-label">{{ day | capitalize }}</span>
+              <button class="day-remove-btn" onclick="removeDay('{{ day }}', event)" title="Remove">✕</button>
+            </div>
             <p class="day-title">{{ day_slug }}</p>
           </div>
           {% endif %}
@@ -359,6 +413,25 @@ permalink: /meal-plan/
   var _suggested = [];
 
   function ghPAT() { return localStorage.getItem('gh_pat') || ''; }
+
+  window.removeDay = async function (day, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var card = document.querySelector('.day-card[data-day="' + day + '"]');
+    if (!card) return;
+    card.classList.add('removing');
+    try {
+      await triggerWorkflow('plan-remove.yml', { day: day });
+      // Optimistically replace with empty card
+      card.outerHTML = '<div class="day-card empty" data-day="' + day + '">'
+        + '<span class="day-label">' + day.charAt(0).toUpperCase() + day.slice(1) + '</span>'
+        + '<p class="day-title muted">— rest night —</p>'
+        + '</div>';
+    } catch (e) {
+      if (card) card.classList.remove('removing');
+      alert('Could not remove: ' + e.message);
+    }
+  };
 
   async function triggerWorkflow(workflow, inputs) {
     var token = ghPAT();

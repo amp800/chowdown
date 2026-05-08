@@ -1,0 +1,53 @@
+name: Remove Recipe from Plan
+
+on:
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Day to clear (monday–sunday)"
+        required: true
+
+jobs:
+  plan-remove:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Clear day from meal plan
+        run: |
+          python - <<'EOF'
+          import yaml, os
+          from pathlib import Path
+
+          day = os.environ["DAY"].strip().lower()
+          valid = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
+          if day not in valid:
+              print(f"ERROR: invalid day '{day}'")
+              raise SystemExit(1)
+
+          plan_path = Path("_data/meal_plan.yml")
+          plan = {}
+          if plan_path.exists():
+              plan = yaml.safe_load(plan_path.read_text()) or {}
+
+          plan[day] = ""
+          plan_path.write_text(yaml.dump(plan, default_flow_style=False, sort_keys=False), encoding="utf-8")
+          print(f"Cleared {day} from meal plan")
+          EOF
+        env:
+          DAY: ${{ inputs.day }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Plan: remove ${{ inputs.day }}"
+          file_pattern: "_data/meal_plan.yml"
