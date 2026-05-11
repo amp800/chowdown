@@ -44,7 +44,7 @@ total_time: '60'
 category: dinner, poultry, main course
 season: [all]
 last_made: 2026-05-07
-rating: 5
+rating: 4
 difficulty: medium
 kid_friendly: true
 ---
