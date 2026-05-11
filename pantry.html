@@ -171,6 +171,75 @@ permalink: /pantry/
 
   .remove-btn:hover { color: #E63946; }
 
+  /* ---- Inline remove confirm bar ---- */
+  .confirm-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 4px;
+    padding: 6px 0 2px;
+  }
+
+  .confirm-question {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #555;
+    text-transform: none;
+    letter-spacing: 0;
+    flex-shrink: 0;
+  }
+
+  .confirm-question em { color: #000; font-style: normal; }
+
+  .confirm-yes {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 5px 12px;
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.12s;
+  }
+  .confirm-yes:hover { background: #E63946; border-color: #E63946; }
+
+  .confirm-no {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 5px 12px;
+    background: none;
+    color: #555;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.12s, color 0.12s;
+  }
+  .confirm-no:hover { border-color: #E63946; color: #E63946; }
+
+  .confirm-cancel {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 5px 8px;
+    background: none;
+    color: #bbb;
+    border: none;
+    cursor: pointer;
+  }
+  .confirm-cancel:hover { color: #555; }
+
   /* ---- Add item form ---- */
   .add-row {
     display: flex;
@@ -399,7 +468,7 @@ permalink: /pantry/
             <li id="staple-{{ item | slugify }}">
               <span>{{ item }}</span>
               <div class="item-right">
-                <button class="remove-btn" title="Remove" onclick="removeItem('staple', '{{ item | escape }}', 'staple-{{ item | slugify }}')">✕</button>
+                <button class="remove-btn" title="Remove" onclick="confirmRemove('staple', '{{ item | escape }}', 'staple-{{ item | slugify }}')">✕</button>
               </div>
             </li>
           {% endfor %}
@@ -434,7 +503,7 @@ permalink: /pantry/
                 {% if entry.added %}
                   <span class="item-meta">{{ entry.added }}</span>
                 {% endif %}
-                <button class="remove-btn" title="Remove" onclick="removeItem('on_hand', '{{ entry.item | escape }}', 'onhand-{{ entry.item | slugify }}')">✕</button>
+                <button class="remove-btn" title="Remove" onclick="confirmRemove('on_hand', '{{ entry.item | escape }}', 'onhand-{{ entry.item | slugify }}')">✕</button>
               </div>
             </li>
           {% endfor %}
@@ -587,26 +656,55 @@ async function addStaple() {
   }
 }
 
-/* ---- Remove item ---- */
-async function removeItem(type, item, rowId) {
+/* ---- Remove item — with grocery-list prompt ---- */
+function confirmRemove(type, item, rowId) {
+  var row = document.getElementById(rowId);
+  if (!row || row.querySelector('.confirm-bar')) return; // already showing
+
+  var itemRight = row.querySelector('.item-right');
+  if (itemRight) itemRight.style.display = 'none';
+
+  var safeItem = item.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  var bar = document.createElement('div');
+  bar.className = 'confirm-bar';
+  bar.innerHTML =
+    '<span class="confirm-question">Add <em>' + item + '</em> to grocery list?</span>' +
+    '<button class="confirm-yes" onclick="doRemove(\'' + type + '\',\'' + safeItem + '\',\'' + rowId + '\',true)">+ Add &amp; Remove</button>' +
+    '<button class="confirm-no" onclick="doRemove(\'' + type + '\',\'' + safeItem + '\',\'' + rowId + '\',false)">Just Remove</button>' +
+    '<button class="confirm-cancel" onclick="cancelRemove(\'' + rowId + '\')">Cancel</button>';
+  row.appendChild(bar);
+}
+
+function cancelRemove(rowId) {
+  var row = document.getElementById(rowId);
+  if (!row) return;
+  var bar = row.querySelector('.confirm-bar');
+  if (bar) bar.remove();
+  var itemRight = row.querySelector('.item-right');
+  if (itemRight) itemRight.style.display = '';
+}
+
+async function doRemove(type, item, rowId, addToGrocery) {
   var action = type === 'staple' ? 'remove_staple' : 'remove_on_hand';
   var statusId = type === 'staple' ? 'staple-status' : 'onhand-status';
   var status = document.getElementById(statusId);
+  var row = document.getElementById(rowId);
 
-  status.innerHTML = 'Removing\u2026';
+  if (row) row.style.opacity = '0.3';
+  status.innerHTML = (addToGrocery ? 'Adding to list &amp; removing\u2026' : 'Removing\u2026');
   status.className = 'status-msg';
 
-  // Optimistically hide the row immediately
-  var row = document.getElementById(rowId);
-  if (row) row.style.opacity = '0.3';
-
   try {
-    await triggerWorkflow('pantry-update.yml', { action: action, item: item });
+    var calls = [triggerWorkflow('pantry-update.yml', { action: action, item: item })];
+    if (addToGrocery) calls.push(triggerWorkflow('grocery-add.yml', { item: item }));
+    await Promise.all(calls);
     if (row) row.remove();
-    status.innerHTML = '\u2713 Removed — will persist after next page rebuild.';
+    status.innerHTML = addToGrocery
+      ? '\u2713 Removed and added to grocery list.'
+      : '\u2713 Removed.';
     status.className = 'status-msg ok';
   } catch (e) {
-    if (row) row.style.opacity = '1';
+    if (row) { row.style.opacity = '1'; cancelRemove(rowId); }
     status.innerHTML = '\u2717 ' + e.message;
     status.className = 'status-msg err';
   }

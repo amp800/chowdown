@@ -38,25 +38,62 @@ SKIP_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Size/weight patterns: "16oz", "1.5 lb", "750 ml", "12 ct", "6 pack"
+_SIZE_RE = re.compile(
+    r'\b\d+(\.\d+)?\s*(fl\.?\s*)?(oz|lb|lbs|g|kg|ml|l\b|ct|count|pk|pack|pieces?)\b',
+    re.IGNORECASE,
+)
+# "per lb", "per oz", etc.
+_PER_UNIT_RE = re.compile(r'\bper\s+\w+', re.IGNORECASE)
+# Container/packaging words that add no food identity
+_CONTAINER_RE = re.compile(
+    r'\b(package|container|carton|bunch|bundle|tray|sleeve|wrap|roll|sheet)\b',
+    re.IGNORECASE,
+)
+# Pure marketing/quality words that carry no ingredient meaning
+_MARKETING_RE = re.compile(
+    r'\b(premium|select|choice|artisan|craft|homestyle|original|classic|traditional|'
+    r'all[- ]natural|non[- ]?gmo|usda|grade\s+a|store\s+brand|private\s+label)\b',
+    re.IGNORECASE,
+)
+# Store brand prefixes
+_STORE_BRAND_RE = re.compile(
+    r'^(365 by whole foods market|365\b|amazon fresh\b|whole foods market\b|'
+    r'freshdirect\b|kirkland\b|trader joe\'?s?\b|good\s+&\s+gather\b)',
+    re.IGNORECASE,
+)
+
 
 def clean_item_name(raw: str) -> str:
-    """Strip prices, quantities, bullets, and noise from a raw item line."""
+    """Strip everything except the core ingredient name from a receipt line."""
     # Remove price patterns
     raw = PRICE_RE.sub('', raw)
+    # Cut at first comma — receipts format as "Item Name, Size/Detail"
+    raw = raw.split(',')[0]
+    # Remove parenthetical content: (approx 1 lb), (16 oz), etc.
+    raw = re.sub(r'\([^)]*\)', '', raw)
+    # Remove size/weight
+    raw = _SIZE_RE.sub('', raw)
+    # Remove "per lb" style
+    raw = _PER_UNIT_RE.sub('', raw)
+    # Remove container words
+    raw = _CONTAINER_RE.sub('', raw)
+    # Remove marketing qualifiers
+    raw = _MARKETING_RE.sub('', raw)
+    # Remove store brand prefixes
+    raw = _STORE_BRAND_RE.sub('', raw)
     # Remove "Qty: N" or "qty N"
     raw = re.sub(r'\bqty\s*:?\s*\d+', '', raw, flags=re.IGNORECASE)
     # Remove "N @" patterns
     raw = re.sub(r'\d+\s*@', '', raw)
     # Remove trailing "x N" or "xN"
     raw = re.sub(r'\bx\s*\d+\b', '', raw, flags=re.IGNORECASE)
-    # Remove leading "N x" quantity
+    # Remove leading quantity "N x " or just "N "
     raw = re.sub(r'^\s*\d+\s+x?\s+', '', raw)
     # Remove bullet points / dashes at start
     raw = re.sub(r'^[•·\-\*]\s*', '', raw)
-    # Remove store brand prefixes that add noise
-    raw = re.sub(r'^(365 by whole foods market|365\b|amazon fresh\b)', '', raw, flags=re.IGNORECASE)
-    # Collapse whitespace
-    raw = re.sub(r'\s+', ' ', raw).strip().strip('.,;:|-')
+    # Collapse whitespace and strip punctuation noise
+    raw = re.sub(r'\s+', ' ', raw).strip().strip('.,;:|-/')
     return raw
 
 
