@@ -209,7 +209,25 @@ permalink: /grocery-list/
     </div>
 
     <!-- Grocery items -->
-    {% if list.items and list.items.size > 0 %}
+    {% assign total_items = 0 %}
+    {% for group in list.recipes %}{% assign total_items = total_items | plus: group.items.size %}{% endfor %}
+
+    {% if list.recipes and list.recipes.size > 0 and total_items > 0 %}
+      <p class="grocery-count">{{ total_items }} items</p>
+      {% for group in list.recipes %}
+        {% if group.items and group.items.size > 0 %}
+          <p class="week-of-label" style="margin: 28px 0 8px;">{{ group.recipe }}</p>
+          <ul class="grocery-list">
+            {% for item in group.items %}
+              <li>
+                <input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)">
+                <span>{{ item }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+    {% elsif list.items and list.items.size > 0 %}
       <p class="grocery-count">{{ list.items | size }} items</p>
       <ul class="grocery-list" id="grocery-items">
         {% for item in list.items %}
