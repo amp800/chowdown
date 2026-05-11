@@ -23,4 +23,63 @@ staples:
 - cumin
 - paprika
 - red pepper flakes
-on_hand: []
+on_hand:
+- item: provolone cheese est. 0.50 lb est. 0.50 lb (/lb) est
+  source: wholefoods
+  added: '2026-05-11'
+- item: organic honeycrisp apple 3 est. 2.07 lb (/lb) est
+  source: wholefoods
+  added: '2026-05-11'
+- item: teddie all natural peanut butter, smooth, gluten free & vegan, 16 ounce glass
+    (smooth, pack of 1) 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: nature's own butterbread, non-gmo bread, sandwich bread, 20 oz loaf 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: red raspberries, 6 oz 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: cascadian farm, cereal cinnamon crunch organic, 9.2 ounce 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: satur farms wild arugula, 5 oz clamshell 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: driscoll's sweetest batch blackberries - 10 oz 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: gotham greens gourmet medley lettuce, 4.5 ounce 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: ' organic extra firm tofu, 14 ounce 1'
+  source: wholefoods
+  added: '2026-05-11'
+- item: bonne maman peanut chocolate 12.3 oz (pack of 1) 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: greens kale green organic, 1 bunch 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: mcconnells vanilla with see's candies ice cream, 1 pt 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: mary's gone crackers super seed crackers, everything, 4 ounce (pack of 1),
+    organic plant based protein, gluten free 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: driscoll's sweetest batch blueberries - 11 oz 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: ' organic whole milk, 64 oz 1'
+  source: wholefoods
+  added: '2026-05-11'
+- item: ' organic mixed berry fruit and grain bars, 20.8 ounce, 16 count 1'
+  source: wholefoods
+  added: '2026-05-11'
+- item: avocado hass organic, 4 count 1
+  source: wholefoods
+  added: '2026-05-11'
+- item: ' organic grade a dark maple syrup, 32 fl oz 1'
+  source: wholefoods
+  added: '2026-05-11'
