@@ -1,0 +1,632 @@
+---
+layout: default
+title: Pantry
+permalink: /pantry/
+---
+
+{% assign pantry = site.data.pantry %}
+
+<style>
+  * { box-sizing: border-box; }
+  body, html { margin: 0; padding: 0; background: #f4f4f4; }
+
+  .bauhaus-home-layout { display: flex; min-height: 100vh; }
+  .bauhaus-page-content { flex: 1; margin-left: 300px; padding: 60px 48px; }
+
+  /* ---- Page header ---- */
+  .page-header-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 5px solid #000;
+    padding-bottom: 12px;
+    margin-bottom: 40px;
+  }
+
+  .section-header {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+    margin: 0;
+  }
+
+  .page-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+    margin: 4px 0 0;
+  }
+
+  /* ---- Tabs ---- */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 36px;
+    border-bottom: 3px solid #000;
+  }
+
+  .tab-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .tab-btn.active {
+    color: #000;
+    border-bottom-color: #E63946;
+  }
+
+  .tab-btn:hover { color: #000; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ---- Two-column layout for staples/on-hand ---- */
+  .pantry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 860px;
+  }
+
+  @media (max-width: 680px) {
+    .pantry-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Section labels ---- */
+  .list-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #999;
+    margin: 0 0 12px;
+  }
+
+  /* ---- Item lists ---- */
+  .item-list {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+
+  .item-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 2px solid #e8e8e8;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #000;
+  }
+
+  .item-list li:last-child { border-bottom: none; }
+
+  .item-meta {
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: #aaa;
+    text-transform: none;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .item-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  /* ---- Source badge ---- */
+  .badge {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border: 2px solid currentColor;
+  }
+
+  .badge-fd { color: #E63946; }
+  .badge-wf { color: #2A9D8F; }
+  .badge-manual { color: #888; }
+
+  /* ---- Remove button ---- */
+  .remove-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0 2px;
+    transition: color 0.15s;
+  }
+
+  .remove-btn:hover { color: #E63946; }
+
+  /* ---- Add item form ---- */
+  .add-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    max-width: 400px;
+  }
+
+  .add-row input {
+    flex: 1;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 14px;
+    border: 3px solid #000;
+    background: #fff;
+    outline: none;
+    color: #000;
+  }
+
+  .add-row input:focus { border-color: #E63946; }
+
+  .add-row input::placeholder {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #bbb;
+  }
+
+  .add-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    border: 3px solid #000;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 4px 4px 0 #E63946;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .add-btn:hover { background: #E63946; border-color: #E63946; box-shadow: 4px 4px 0 #000; }
+  .add-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+  /* ---- Receipt import section ---- */
+  .receipt-box {
+    border: 3px solid #000;
+    padding: 28px;
+    background: #fff;
+    max-width: 680px;
+  }
+
+  .receipt-box h3 {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 6px;
+    color: #000;
+  }
+
+  .receipt-box p {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    color: #666;
+    margin: 0 0 20px;
+    line-height: 1.5;
+  }
+
+  .store-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .store-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 18px;
+    border: 3px solid #ccc;
+    background: #fff;
+    color: #888;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .store-btn.selected-fd { border-color: #E63946; color: #E63946; background: #fff5f5; }
+  .store-btn.selected-wf { border-color: #2A9D8F; color: #2A9D8F; background: #f0faf9; }
+  .store-btn.selected-auto { border-color: #000; color: #000; }
+
+  .receipt-textarea {
+    width: 100%;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    padding: 14px;
+    border: 3px solid #ccc;
+    background: #fafafa;
+    color: #333;
+    height: 200px;
+    resize: vertical;
+    outline: none;
+    line-height: 1.5;
+  }
+
+  .receipt-textarea:focus { border-color: #000; }
+
+  .receipt-footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .import-receipt-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 12px 28px;
+    background: #000;
+    color: #fff;
+    border: 3px solid #000;
+    cursor: pointer;
+    box-shadow: 5px 5px 0 #E63946;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .import-receipt-btn:hover { background: #E63946; border-color: #E63946; box-shadow: 5px 5px 0 #000; }
+  .import-receipt-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+  /* ---- Status messages ---- */
+  .status-msg {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #666;
+  }
+
+  .status-msg.ok  { color: #1a6b35; }
+  .status-msg.err { color: #a01010; }
+
+  /* ---- Clear on-hand button ---- */
+  .danger-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 8px 16px;
+    background: none;
+    color: #ccc;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .danger-btn:hover { color: #E63946; border-color: #E63946; }
+
+  .empty-state {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 24px 0;
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 900px) {
+    .bauhaus-home-layout { flex-direction: column; }
+    .bauhaus-page-content { margin-left: 0; padding: 24px; }
+  }
+
+  @media (max-width: 560px) {
+    .page-header-row { flex-direction: column; align-items: flex-start; }
+    .receipt-box { padding: 18px; }
+  }
+</style>
+
+<div class="bauhaus-home-layout">
+  {% include sidebar.html %}
+
+  <main class="bauhaus-page-content">
+
+    <div class="page-header-row">
+      <div>
+        <h2 class="section-header">Pantry</h2>
+        <p class="page-sub">
+          Staples you always have &amp; items on hand from recent receipts
+        </p>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('staples', this)">Staples</button>
+      <button class="tab-btn" onclick="switchTab('on-hand', this)">On Hand
+        {% if pantry.on_hand and pantry.on_hand.size > 0 %}
+          <span style="background:#E63946;color:#fff;font-size:0.6rem;padding:1px 6px;margin-left:6px;border-radius:99px;">{{ pantry.on_hand | size }}</span>
+        {% endif %}
+      </button>
+      <button class="tab-btn" onclick="switchTab('import', this)">Import Receipt</button>
+    </div>
+
+    <!-- ========== STAPLES TAB ========== -->
+    <div id="tab-staples" class="tab-panel active">
+      <p class="list-label">{{ pantry.staples | size }} items &mdash; always in your kitchen</p>
+
+      {% if pantry.staples and pantry.staples.size > 0 %}
+        <ul class="item-list" id="staples-list">
+          {% for item in pantry.staples %}
+            <li id="staple-{{ item | slugify }}">
+              <span>{{ item }}</span>
+              <div class="item-right">
+                <button class="remove-btn" title="Remove" onclick="removeItem('staple', '{{ item | escape }}', 'staple-{{ item | slugify }}')">✕</button>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="empty-state">No staples yet — add some below.</div>
+      {% endif %}
+
+      <div class="add-row">
+        <input type="text" id="new-staple" placeholder="e.g. olive oil" onkeydown="if(event.key==='Enter') addStaple()" />
+        <button class="add-btn" onclick="addStaple()">+ Add</button>
+      </div>
+      <div class="status-msg" id="staple-status" style="margin-top:10px;"></div>
+    </div>
+
+    <!-- ========== ON HAND TAB ========== -->
+    <div id="tab-on-hand" class="tab-panel">
+      {% if pantry.on_hand and pantry.on_hand.size > 0 %}
+        <p class="list-label">{{ pantry.on_hand | size }} item(s) on hand</p>
+        <ul class="item-list" id="on-hand-list">
+          {% for entry in pantry.on_hand %}
+            <li id="onhand-{{ entry.item | slugify }}">
+              <span>{{ entry.item }}</span>
+              <div class="item-right">
+                {% if entry.source == 'freshdirect' %}
+                  <span class="badge badge-fd">FreshDirect</span>
+                {% elsif entry.source == 'wholefoods' %}
+                  <span class="badge badge-wf">Whole Foods</span>
+                {% else %}
+                  <span class="badge badge-manual">Manual</span>
+                {% endif %}
+                {% if entry.added %}
+                  <span class="item-meta">{{ entry.added }}</span>
+                {% endif %}
+                <button class="remove-btn" title="Remove" onclick="removeItem('on_hand', '{{ entry.item | escape }}', 'onhand-{{ entry.item | slugify }}')">✕</button>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        <button class="danger-btn" onclick="clearOnHand()">Clear all on-hand items</button>
+      {% else %}
+        <div class="empty-state">Nothing on hand yet &mdash; import a receipt to add items.</div>
+      {% endif %}
+      <div class="status-msg" id="onhand-status" style="margin-top:16px;"></div>
+    </div>
+
+    <!-- ========== IMPORT RECEIPT TAB ========== -->
+    <div id="tab-import" class="tab-panel">
+      <div class="receipt-box">
+        <h3>Import from Email Receipt</h3>
+        <p>Copy and paste the text of your FreshDirect or Whole Foods order confirmation email. The importer will extract item names and add them to your on-hand list.</p>
+
+        <div class="store-row">
+          <button class="store-btn selected-auto" id="btn-auto" onclick="selectStore('auto')">Auto-detect</button>
+          <button class="store-btn" id="btn-freshdirect" onclick="selectStore('freshdirect')">FreshDirect</button>
+          <button class="store-btn" id="btn-wholefoods" onclick="selectStore('wholefoods')">Whole Foods</button>
+        </div>
+
+        <textarea
+          id="receipt-text"
+          class="receipt-textarea"
+          placeholder="Paste receipt email text here…&#10;&#10;Example:&#10;Organic Whole Milk, 1 Gallon  1  $5.99&#10;Baby Spinach, 5oz  2  $7.98"
+        ></textarea>
+
+        <div class="receipt-footer">
+          <button class="import-receipt-btn" id="receipt-btn" onclick="importReceipt()">Import Items</button>
+          <span class="status-msg" id="receipt-status"></span>
+        </div>
+      </div>
+
+      <p style="font-family:'Jost',sans-serif;font-size:0.75rem;color:#aaa;margin-top:20px;max-width:560px;line-height:1.6;">
+        Runs a <strong>GitHub Actions</strong> workflow that parses the email text and commits the results to
+        <code style="font-size:0.9em;background:#eee;padding:1px 5px;">_data/pantry.yml</code>.
+        Reload the page after ~30 seconds to see the updated list. Requires your GitHub token to be saved on the
+        <a href="{{ "/import/" | relative_url }}" style="color:#000;font-weight:700;">Import page</a>.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<script>
+var REPO = 'billmiky/chowdown';
+var selectedStore = 'auto';
+
+/* ---- Token helpers (shared with import.html) ---- */
+function getPAT() { return localStorage.getItem('gh_pat') || ''; }
+
+async function triggerWorkflow(workflow, inputs) {
+  var token = getPAT();
+  if (!token) throw new Error('No GitHub token — save one on the <a href="{{ "/import/" | relative_url }}">Import page</a>');
+  var resp = await fetch(
+    'https://api.github.com/repos/' + REPO + '/actions/workflows/' + workflow + '/dispatches',
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ref: 'main', inputs: inputs }),
+    }
+  );
+  if (resp.status === 204) return;
+  var body = {};
+  try { body = await resp.json(); } catch (e) {}
+  throw new Error(body.message || ('HTTP ' + resp.status));
+}
+
+/* ---- Tab switching ---- */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ---- Store selector ---- */
+function selectStore(store) {
+  selectedStore = store;
+  ['auto', 'freshdirect', 'wholefoods'].forEach(function (s) {
+    var btn = document.getElementById('btn-' + s);
+    btn.className = 'store-btn';
+    if (s === store) {
+      if (s === 'freshdirect') btn.classList.add('selected-fd');
+      else if (s === 'wholefoods') btn.classList.add('selected-wf');
+      else btn.classList.add('selected-auto');
+    }
+  });
+}
+
+/* ---- Import receipt ---- */
+async function importReceipt() {
+  var emailText = document.getElementById('receipt-text').value.trim();
+  var btn = document.getElementById('receipt-btn');
+  var status = document.getElementById('receipt-status');
+
+  if (!emailText) {
+    status.innerHTML = 'Paste some email text first.';
+    status.className = 'status-msg err';
+    return;
+  }
+
+  btn.disabled = true;
+  status.innerHTML = 'Sending to GitHub Actions\u2026';
+  status.className = 'status-msg';
+
+  try {
+    await triggerWorkflow('parse-receipt.yml', {
+      store: selectedStore,
+      email_text: emailText,
+    });
+    status.innerHTML = '\u2713 Queued — reload in ~30 seconds to see new items on the On Hand tab.';
+    status.className = 'status-msg ok';
+    document.getElementById('receipt-text').value = '';
+  } catch (e) {
+    status.innerHTML = '\u2717 ' + e.message;
+    status.className = 'status-msg err';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* ---- Add staple ---- */
+async function addStaple() {
+  var input = document.getElementById('new-staple');
+  var status = document.getElementById('staple-status');
+  var item = input.value.trim();
+  if (!item) return;
+
+  input.disabled = true;
+  status.innerHTML = 'Saving\u2026';
+  status.className = 'status-msg';
+
+  try {
+    await triggerWorkflow('pantry-update.yml', { action: 'add_staple', item: item });
+    status.innerHTML = '\u2713 "' + item + '" added — reload to see it.';
+    status.className = 'status-msg ok';
+    input.value = '';
+  } catch (e) {
+    status.innerHTML = '\u2717 ' + e.message;
+    status.className = 'status-msg err';
+  } finally {
+    input.disabled = false;
+  }
+}
+
+/* ---- Remove item ---- */
+async function removeItem(type, item, rowId) {
+  var action = type === 'staple' ? 'remove_staple' : 'remove_on_hand';
+  var statusId = type === 'staple' ? 'staple-status' : 'onhand-status';
+  var status = document.getElementById(statusId);
+
+  status.innerHTML = 'Removing\u2026';
+  status.className = 'status-msg';
+
+  // Optimistically hide the row immediately
+  var row = document.getElementById(rowId);
+  if (row) row.style.opacity = '0.3';
+
+  try {
+    await triggerWorkflow('pantry-update.yml', { action: action, item: item });
+    if (row) row.remove();
+    status.innerHTML = '\u2713 Removed — will persist after next page rebuild.';
+    status.className = 'status-msg ok';
+  } catch (e) {
+    if (row) row.style.opacity = '1';
+    status.innerHTML = '\u2717 ' + e.message;
+    status.className = 'status-msg err';
+  }
+}
+
+/* ---- Clear all on-hand ---- */
+async function clearOnHand() {
+  if (!confirm('Clear all on-hand items?')) return;
+  var status = document.getElementById('onhand-status');
+  status.innerHTML = 'Clearing\u2026';
+  status.className = 'status-msg';
+
+  try {
+    await triggerWorkflow('pantry-update.yml', { action: 'clear_on_hand', item: '' });
+    document.querySelectorAll('#on-hand-list li').forEach(function (li) { li.remove(); });
+    status.innerHTML = '\u2713 Cleared — will persist after next page rebuild.';
+    status.className = 'status-msg ok';
+  } catch (e) {
+    status.innerHTML = '\u2717 ' + e.message;
+    status.className = 'status-msg err';
+  }
+}
+</script>
