@@ -41,4 +41,3 @@ jobs:
         with:
           commit_message: "Pantry: ${{ inputs.action }}${{ inputs.item != '' && format(' {0}', inputs.item) || '' }}"
           file_pattern: "_data/pantry.yml"
-          pull_before_commit: true

@@ -695,9 +695,12 @@ async function doRemove(type, item, rowId, addToGrocery) {
   status.className = 'status-msg';
 
   try {
-    var calls = [triggerWorkflow('pantry-update.yml', { action: action, item: item })];
-    if (addToGrocery) calls.push(triggerWorkflow('grocery-add.yml', { item: item }));
-    await Promise.all(calls);
+    if (addToGrocery) {
+      // Single combined workflow — one commit, no push conflict
+      await triggerWorkflow('pantry-remove-and-add.yml', { action: action, item: item });
+    } else {
+      await triggerWorkflow('pantry-update.yml', { action: action, item: item });
+    }
     if (row) row.remove();
     status.innerHTML = addToGrocery
       ? '\u2713 Removed and added to grocery list.'

@@ -63,4 +63,3 @@ jobs:
         with:
           commit_message: "Grocery list: add ${{ inputs.item }} from pantry"
           file_pattern: "_data/grocery_list.yml"
-          pull_before_commit: true
