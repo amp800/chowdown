@@ -120,7 +120,7 @@ def fetch_recipe(url: str) -> dict:
     }
     response = requests.get(url, headers=headers, timeout=30)
     response.raise_for_status()
-    scraper = scrape_html(response.text, url)
+    scraper = scrape_html(response.text, url, supported_only=False)
     data: dict = {
         "title": scraper.title(),
         "ingredients": scraper.ingredients(),
