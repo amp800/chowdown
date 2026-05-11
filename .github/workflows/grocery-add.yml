@@ -7,6 +7,10 @@ on:
         description: "Item to add to the grocery list"
         required: true
 
+concurrency:
+  group: pantry-data
+  cancel-in-progress: false
+
 jobs:
   add:
     runs-on: ubuntu-latest
@@ -59,3 +63,4 @@ jobs:
         with:
           commit_message: "Grocery list: add ${{ inputs.item }} from pantry"
           file_pattern: "_data/grocery_list.yml"
+          pull_before_commit: true
