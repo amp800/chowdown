@@ -22,7 +22,7 @@ jobs:
       - name: Build grocery list from meal plan
         run: |
           python - <<'EOF'
-          import yaml
+          import yaml, re
           from pathlib import Path
           from datetime import date
 
@@ -99,6 +99,48 @@ jobs:
                           return cat_name
               return CATCHALL
 
+          # ── Pantry / on-hand matching ────────────────────────────────────────────
+          STOP_WORDS = {"the", "and", "for", "with", "from", "est", "org", "organic",
+                        "per", "each", "pack", "count", "size", "box", "bag", "can"}
+
+          pantry_path = Path("_data/pantry.yml")
+          pantry_data = yaml.safe_load(pantry_path.read_text()) if pantry_path.exists() else {}
+
+          pantry_terms = []
+          # Staples: clean short strings e.g. "olive oil", "garlic"
+          for s in pantry_data.get("staples", []):
+              term = str(s).strip().lower()
+              if term:
+                  pantry_terms.append(term)
+
+          # on_hand: parse verbose receipt names, extract first meaningful phrase
+          for entry in pantry_data.get("on_hand", []):
+              item_text = entry.get("item", "") if isinstance(entry, dict) else str(entry)
+              # Stop at first digit (quantity/price noise)
+              clean = re.split(r"\s+\d", item_text)[0].strip().lower()
+              clean = re.sub(r"[^a-z\s'-]", " ", clean).strip()
+              words = [w for w in clean.split() if len(w) > 2 and w not in STOP_WORDS]
+              if len(words) >= 3:
+                  pantry_terms.append(" ".join(words[:3]))
+              if len(words) >= 2:
+                  pantry_terms.append(" ".join(words[:2]))
+              if words:
+                  pantry_terms.append(words[0])
+
+          def is_on_hand(ingredient):
+              s = " " + ingredient.strip().lower() + " "
+              for term in pantry_terms:
+                  if not term:
+                      continue
+                  if " " in term:
+                      if term in s:
+                          return True
+                  else:
+                      if re.search(r"\b" + re.escape(term) + r"\b", s):
+                          return True
+              return False
+
+          # ── Load meal plan & collect ingredients ──────────────────────────────────
           plan_path = Path("_data/meal_plan.yml")
           if not plan_path.exists():
               print("No meal_plan.yml found")
@@ -131,10 +173,19 @@ jobs:
                   buckets.setdefault(cat, []).append(ingredient.strip())
 
           category_order = [name for name, _ in CATEGORIES] + [CATCHALL]
-          categories = [
-              {"name": n, "items": buckets[n]}
-              for n in category_order if n in buckets
-          ]
+          categories = []
+          for n in category_order:
+              if n not in buckets:
+                  continue
+              need = [i for i in buckets[n] if not is_on_hand(i)]
+              have = [i for i in buckets[n] if is_on_hand(i)]
+              entry = {"name": n}
+              if need:
+                  entry["items"] = need
+              if have:
+                  entry["have"] = have
+              if need or have:
+                  categories.append(entry)
 
           out = Path("_data/grocery_list.yml")
           out.write_text(
@@ -144,8 +195,9 @@ jobs:
               ),
               encoding="utf-8"
           )
-          total = sum(len(c["items"]) for c in categories)
-          print(f"Wrote {total} unique items in {len(categories)} categories")
+          buy_count = sum(len(c.get("items", [])) for c in categories)
+          have_count = sum(len(c.get("have", [])) for c in categories)
+          print(f"Wrote {buy_count} items to buy, {have_count} on hand, in {len(categories)} categories")
           EOF
 
       - uses: stefanzweifel/git-auto-commit-action@v5

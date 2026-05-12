@@ -106,10 +106,30 @@ permalink: /meal-plan/
   .action-status.err { color: #a01010; }
 
   /* ---- Day cards ---- */
+  .plan-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    column-gap: 14px;
+    row-gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .cal-header {
+    font-family: 'Jost', sans-serif;
+    font-weight: 900;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #E63946;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #000;
+    text-align: center;
+  }
+
   .plan-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
     margin-bottom: 60px;
   }
 
@@ -258,6 +278,18 @@ permalink: /meal-plan/
     padding-left: 8px;
   }
 
+  /* ---- Calendar card overrides ---- */
+  .plan-calendar .day-card {
+    padding: 14px;
+    min-height: 160px;
+  }
+
+  .plan-calendar .day-title {
+    font-size: 0.88rem;
+  }
+
+  .plan-calendar .day-arrow { display: none; }
+
   /* ---- Suggest panel header ---- */
   .suggest-panel-header {
     border-top: 5px solid #E63946;
@@ -286,13 +318,20 @@ permalink: /meal-plan/
   }
 
   /* ---- Mobile ---- */
+  @media (max-width: 1100px) {
+    .plan-calendar { grid-template-columns: repeat(4, 1fr); }
+    .cal-header { display: none; }
+  }
+
   @media (max-width: 900px) {
     .bauhaus-home-layout { flex-direction: column; }
     .bauhaus-page-content { margin-left: 0; padding: 24px; }
+    .plan-calendar { grid-template-columns: repeat(2, 1fr); column-gap: 12px; }
     .plan-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
   }
 
   @media (max-width: 560px) {
+    .plan-calendar { grid-template-columns: 1fr; }
     .plan-grid { grid-template-columns: 1fr; }
     .page-header-row { flex-direction: column; align-items: flex-start; }
   }
@@ -312,15 +351,19 @@ permalink: /meal-plan/
         </div>
         <span class="week-of-label">Week of {{ plan.week_of }}</span>
       </div>
-      {% if site.importer_url and site.importer_url != "" %}
       <div class="header-actions">
         <button class="bauhaus-btn ghost" id="suggest-btn" onclick="suggestWeek()">Suggest New Week</button>
+        <button class="bauhaus-btn ghost" id="grocery-btn" onclick="buildGroceryList()">Build Grocery List</button>
+        <span class="action-status" id="suggest-status"></span>
+        <span class="action-status" id="grocery-status"></span>
       </div>
-      {% endif %}
     </div>
 
-    <!-- Current plan grid -->
-    <div class="plan-grid" id="current-plan-grid">
+    <!-- Current plan grid — 7-column calendar -->
+    <div class="plan-calendar" id="current-plan-grid">
+      {% for day in days %}
+        <div class="cal-header">{{ day | slice: 0, 3 | upcase }}</div>
+      {% endfor %}
       {% for day in days %}
         {% assign day_slug = plan[day] %}
 
@@ -377,7 +420,6 @@ permalink: /meal-plan/
     </div>
 
     <!-- Suggest panel (appears when JS generates suggestions) -->
-    {% if site.importer_url and site.importer_url != "" %}
     <div id="suggest-panel" style="display:none">
       <div class="suggest-panel-header">
         <div class="page-header-row">
@@ -396,7 +438,6 @@ permalink: /meal-plan/
       </div>
       <div class="plan-grid" id="suggest-grid"></div>
     </div>
-    {% endif %}
 
     <p class="edit-hint">Edit <code>_data/meal_plan.yml</code> to update manually &mdash; changes rebuild on every push.</p>
 
@@ -453,6 +494,24 @@ permalink: /meal-plan/
     try { body = await resp.json(); } catch (e) {}
     throw new Error(body.message || ('HTTP ' + resp.status));
   }
+
+  window.buildGroceryList = async function () {
+    var btn = document.getElementById('grocery-btn');
+    var status = document.getElementById('grocery-status');
+    btn.disabled = true;
+    status.innerHTML = 'Building…';
+    status.className = 'action-status';
+    try {
+      await triggerWorkflow('grocery-rebuild.yml', {});
+      status.innerHTML = '✓ Queued — <a href="' + BASE + '/grocery-list/">View grocery list →</a>';
+      status.className = 'action-status ok';
+    } catch (e) {
+      status.innerHTML = '✗ ' + e.message;
+      status.className = 'action-status err';
+    } finally {
+      btn.disabled = false;
+    }
+  };
 
   window.suggestWeek = async function () {
     var btn = document.getElementById('suggest-btn');
@@ -536,7 +595,8 @@ permalink: /meal-plan/
 
     try {
       await triggerWorkflow('plan-save.yml', inputs);
-      saveStatus.innerHTML = '\u2713 Queued — plan will update in ~30 seconds.';
+      try { await triggerWorkflow('grocery-rebuild.yml', {}); } catch (_) {}
+      saveStatus.innerHTML = '\u2713 Saved \u2014 plan & grocery list updating in ~30s.';
       saveStatus.className = 'action-status ok';
     } catch (e) {
       saveStatus.innerHTML = '\u2717 ' + e.message;

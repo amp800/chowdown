@@ -164,6 +164,32 @@ permalink: /grocery-list/
     color: #bbb;
   }
 
+  .on-hand-list { opacity: 0.6; }
+
+  .grocery-list li.on-hand { color: #888; }
+
+  .grocery-list li.on-hand span:last-child { text-decoration: line-through; }
+
+  .on-hand-icon {
+    color: #1a6b35;
+    font-weight: 900;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    min-width: 18px;
+  }
+
+  .category-have-count {
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1a6b35;
+    background: #e6f4eb;
+    padding: 2px 7px;
+    border: 1px solid #b8d8c0;
+  }
+
   .grocery-count {
     font-family: 'Jost', sans-serif;
     font-size: 0.75rem;
@@ -242,15 +268,23 @@ permalink: /grocery-list/
 
     <!-- Grocery items -->
     {% if list.categories and list.categories.size > 0 %}
-      {% assign total_items = 0 %}
-      {% for cat in list.categories %}{% assign total_items = total_items | plus: cat.items.size %}{% endfor %}
-      <p class="grocery-count">{{ total_items }} items across {{ list.categories.size }} categories</p>
+      {% assign total_buy = 0 %}{% assign total_have = 0 %}
       {% for cat in list.categories %}
-        {% if cat.items and cat.items.size > 0 %}
+        {% assign total_buy = total_buy | plus: cat.items.size %}
+        {% assign total_have = total_have | plus: cat.have.size %}
+      {% endfor %}
+      <p class="grocery-count">{{ total_buy }} to buy{% if total_have > 0 %} &mdash; {{ total_have }} already on hand{% endif %}</p>
+      {% for cat in list.categories %}
+        {% assign has_items = false %}
+        {% if cat.items and cat.items.size > 0 %}{% assign has_items = true %}{% endif %}
+        {% if cat.have and cat.have.size > 0 %}{% assign has_items = true %}{% endif %}
+        {% if has_items %}
           <div class="category-header">
             <span class="category-name">{{ cat.name }}</span>
-            <span class="category-count">{{ cat.items.size }}</span>
+            {% if cat.items and cat.items.size > 0 %}<span class="category-count">{{ cat.items.size }}</span>{% endif %}
+            {% if cat.have and cat.have.size > 0 %}<span class="category-have-count">{{ cat.have.size }} on hand</span>{% endif %}
           </div>
+          {% if cat.items and cat.items.size > 0 %}
           <ul class="grocery-list">
             {% for item in cat.items %}
               <li>
@@ -259,6 +293,17 @@ permalink: /grocery-list/
               </li>
             {% endfor %}
           </ul>
+          {% endif %}
+          {% if cat.have and cat.have.size > 0 %}
+          <ul class="grocery-list on-hand-list">
+            {% for item in cat.have %}
+              <li class="on-hand">
+                <span class="on-hand-icon">✓</span>
+                <span>{{ item }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
         {% endif %}
       {% endfor %}
     {% elsif list.recipes and list.recipes.size > 0 %}
