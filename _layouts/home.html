@@ -8,6 +8,12 @@ layout: default
 
   <main class="home-grid-container">
     
+    <div class="search-bar">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="recipe-search" class="search-input" placeholder="Search recipes…" autocomplete="off">
+      <button class="search-clear" id="search-clear" title="Clear">✕</button>
+    </div>
+
     <div class="sort-bar">
       <span class="sort-label">Sort:</span>
       <button class="sort-btn active" data-sort="date">Recently Added</button>
@@ -21,6 +27,7 @@ layout: default
       
       {% for post in recipes %}
       <a href="{{ post.url | relative_url }}" class="recipe-card"
+         data-title="{{ post.title | downcase }}"
          data-date="{{ post.date_added | date: '%s' }}"
          data-last-made="{% if post.last_made %}{{ post.last_made | date: '%s' }}{% else %}0{% endif %}"
          data-rating="{{ post.rating | default: 0 }}"
@@ -230,6 +237,71 @@ layout: default
     background: #E63946;
   }
 
+  /* --- SEARCH BAR --- */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 16px;
+    border: 3px solid #000;
+    background: #fff;
+    max-width: 480px;
+  }
+
+  .search-icon {
+    padding: 0 12px;
+    font-size: 1.2rem;
+    color: #555;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 0;
+    background: transparent;
+    color: #000;
+  }
+
+  .search-input::placeholder {
+    color: #aaa;
+    font-weight: 400;
+  }
+
+  .search-clear {
+    display: none;
+    background: none;
+    border: none;
+    border-left: 3px solid #000;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .search-clear:hover { color: #E63946; }
+
+  .search-bar.has-value .search-clear { display: block; }
+
+  .no-results-msg {
+    display: none;
+    grid-column: 1 / -1;
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    padding: 40px 0;
+  }
+
   /* --- SORT BAR --- */
   .sort-bar {
     display: flex;
@@ -303,6 +375,41 @@ layout: default
     badge.textContent = label;
     // Mark as stale if not made in the last 30 days
     if (days > 30) badge.classList.add('stale');
+  });
+})();
+
+// Search filter
+(function () {
+  var input = document.getElementById('recipe-search');
+  var clearBtn = document.getElementById('search-clear');
+  var searchBar = input.closest('.search-bar');
+  var grid = document.querySelector('.recipe-grid');
+
+  // Insert a no-results message element once
+  var noResults = document.createElement('p');
+  noResults.className = 'no-results-msg';
+  noResults.textContent = 'No recipes match your search.';
+  grid.appendChild(noResults);
+
+  function filterCards() {
+    var query = input.value.trim().toLowerCase();
+    var cards = grid.querySelectorAll('.recipe-card');
+    var visible = 0;
+    cards.forEach(function (card) {
+      var title = card.dataset.title || '';
+      var show = !query || title.indexOf(query) !== -1;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+    searchBar.classList.toggle('has-value', query.length > 0);
+  }
+
+  input.addEventListener('input', filterCards);
+  clearBtn.addEventListener('click', function () {
+    input.value = '';
+    filterCards();
+    input.focus();
   });
 })();
 
