@@ -592,30 +592,45 @@ async function apiPut(path, text, sha, message) {
 }
 
 async function updatePantry(updateFn, message) {
-  var file = await apiGet('_data/pantry.yml');
-  var data = jsyaml.load(file.text) || {};
-  data.staples = data.staples || [];
-  data.on_hand = data.on_hand || [];
-  updateFn(data);
-  var newText = jsyaml.dump(data, { lineWidth: -1, sortKeys: false });
-  await apiPut('_data/pantry.yml', newText, file.sha, message);
+  for (var attempt = 0; attempt < 3; attempt++) {
+    var file = await apiGet('_data/pantry.yml');
+    var data = jsyaml.load(file.text) || {};
+    data.staples = data.staples || [];
+    data.on_hand = data.on_hand || [];
+    updateFn(data);
+    var newText = jsyaml.dump(data, { lineWidth: -1, sortKeys: false });
+    try {
+      await apiPut('_data/pantry.yml', newText, file.sha, message);
+      return;
+    } catch (e) {
+      if (attempt === 2 || !e.message.includes('does not match')) throw e;
+      // SHA conflict — re-fetch and retry
+    }
+  }
 }
 
 async function updateGrocery(item) {
-  var file = await apiGet('_data/grocery_list.yml');
-  var data = jsyaml.load(file.text) || {};
-  var key = data.categories ? 'categories' : 'recipes';
-  data[key] = data[key] || [];
-  var nameKey = key === 'categories' ? 'name' : 'recipe';
-  var group = data[key].find(function (g) { return g[nameKey] === 'Pantry Needs'; });
-  if (!group) {
-    group = {}; group[nameKey] = 'Pantry Needs'; group.items = [];
-    data[key].push(group);
+  for (var attempt = 0; attempt < 3; attempt++) {
+    var file = await apiGet('_data/grocery_list.yml');
+    var data = jsyaml.load(file.text) || {};
+    var key = data.categories ? 'categories' : 'recipes';
+    data[key] = data[key] || [];
+    var nameKey = key === 'categories' ? 'name' : 'recipe';
+    var group = data[key].find(function (g) { return g[nameKey] === 'Pantry Needs'; });
+    if (!group) {
+      group = {}; group[nameKey] = 'Pantry Needs'; group.items = [];
+      data[key].push(group);
+    }
+    group.items = group.items || [];
+    if (!group.items.includes(item)) group.items.push(item);
+    var newText = jsyaml.dump(data, { lineWidth: -1, sortKeys: false });
+    try {
+      await apiPut('_data/grocery_list.yml', newText, file.sha, 'Grocery: add ' + item + ' from pantry');
+      return;
+    } catch (e) {
+      if (attempt === 2 || !e.message.includes('does not match')) throw e;
+    }
   }
-  group.items = group.items || [];
-  if (!group.items.includes(item)) group.items.push(item);
-  var newText = jsyaml.dump(data, { lineWidth: -1, sortKeys: false });
-  await apiPut('_data/grocery_list.yml', newText, file.sha, 'Grocery: add ' + item + ' from pantry');
 }
 
 async function triggerWorkflow(workflow, inputs) {
