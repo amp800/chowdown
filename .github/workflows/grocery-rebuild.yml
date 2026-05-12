@@ -24,6 +24,80 @@ jobs:
           python - <<'EOF'
           import yaml
           from pathlib import Path
+          from datetime import date
+
+          CATEGORIES = [
+              ("Freezer", ["frozen"]),
+              ("Meat & Fish", [
+                  "chicken", "beef", "pork", "lamb", "turkey", "sausage", "bacon", "ham",
+                  "shrimp", "prawn", "salmon", "tuna", "cod", "fish", "seafood", "anchovy",
+                  "crab", "lobster", "mussel", "scallop", "prosciutto", "pancetta",
+                  "steak", "thigh", "breast", "wing", "drumstick", "tenderloin", "brisket",
+                  "loin", "cutlet", "fillet", "filet", "halibut", "tilapia", "flounder",
+                  "trout", "sardine", "mackerel", "duck",
+              ]),
+              ("Dairy & Eggs", [
+                  "milk", "heavy cream", "whipping cream", "half-and-half", "half and half",
+                  "butter", "cheese", "yogurt", "egg", "sour cream", "cream cheese",
+                  "parmesan", "mozzarella", "cheddar", "feta", "ricotta", "mascarpone",
+                  "brie", "gouda", "gruyere", "goat cheese", "cottage cheese", "ghee",
+                  "creme fraiche", "cream",
+              ]),
+              ("Grains & Bread", [
+                  "pasta", "rice", "noodle", "bread", "flour", "oats", "oat ",
+                  "quinoa", "tortilla", "pita", "farro", "barley", "bulgur", "couscous",
+                  "cracker", "panko", "bread crumb", "breadcrumb", "cornmeal", "polenta",
+                  "linguine", "spaghetti", "fettuccine", "rigatoni", "penne", "fusilli",
+                  "orzo", "udon", "ramen", "soba", "vermicelli", "lasagna", "dumpling",
+              ]),
+              ("Canned & Jarred", [
+                  "canned ", "(15-ounce) can", "(14-ounce) can", "(28-ounce) can",
+                  "chickpea", "lentil", "black bean", "kidney bean", "white bean",
+                  "navy bean", "pinto bean", "cannellini", "coconut milk",
+                  "tomato paste", "diced tomatoes", "crushed tomatoes", "whole tomatoes",
+                  "stock", "broth", "olives", "capers", "tahini", "miso", "sun-dried",
+              ]),
+              ("Pantry & Staples", [
+                  "garlic powder", "onion powder", "chili powder", "curry powder",
+                  "red pepper flakes", "red-pepper flakes", "black pepper", "white pepper",
+                  "kosher salt", "sea salt", "flaky salt", "cream of tartar",
+                  "olive oil", "sesame oil", "vegetable oil", "canola oil", "coconut oil",
+                  "baking powder", "baking soda", "vanilla extract",
+                  "soy sauce", "fish sauce", "hot sauce", "oyster sauce", "hoisin sauce",
+                  "sriracha", "gochujang", "worcestershire",
+                  "rice vinegar", "apple cider vinegar", "balsamic vinegar",
+                  "maple syrup", "corn syrup", "lemon juice", "lime juice",
+                  "oil", "vinegar", "salt", "pepper", "sugar", "honey",
+                  "mustard", "ketchup", "mayonnaise", "mayo", "cumin", "turmeric",
+                  "paprika", "coriander", "cinnamon", "cayenne", "bay leaf",
+                  "yeast", "cornstarch", "molasses", "tamari", "mirin", "sake",
+                  "extract", "seasoning", "spice", "powder", "dried ", "ground ",
+                  "flakes",
+              ]),
+              ("Produce", [
+                  "apple", "banana", "strawberr", "blueberr", "raspberr", "blackberr",
+                  "berry", "berries", "lemon", "lime", "orange", "mango", "avocado",
+                  "tomato", "onion", "garlic", "ginger", "carrot", "celery", "potato",
+                  "kale", "spinach", "lettuce", "arugula", "cucumber", "zucchini",
+                  "pepper", "broccoli", "cauliflower", "mushroom", "corn", "shallot",
+                  "scallion", "leek", "chard", "collard", "cabbage", "beet", "parsnip",
+                  "squash", "eggplant", "fennel", "asparagus", "mint", "cilantro",
+                  "parsley", "basil", "thyme", "rosemary", "sage", "dill", "chive",
+                  "jalapen", "serrano", "greens", "bok choy", "peach", "plum", "pear",
+                  "grape", "cherry", "pineapple", "melon", "watermelon", "fig",
+                  "radish", "turnip", "artichoke", "watercress", "endive",
+                  "sweet potato", "snap pea", "edamame", "tomatillo",
+              ]),
+          ]
+          CATCHALL = "Other"
+
+          def categorize(ingredient):
+              s = ingredient.lower()
+              for cat_name, keywords in CATEGORIES:
+                  for kw in keywords:
+                      if kw in s:
+                          return cat_name
+              return CATCHALL
 
           plan_path = Path("_data/meal_plan.yml")
           if not plan_path.exists():
@@ -34,7 +108,8 @@ jobs:
           days = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]
           slugs = [plan.get(d, "") for d in days if plan.get(d)]
 
-          all_ingredients = []
+          seen = set()
+          buckets = {}
           for slug in slugs:
               recipe_path = Path(f"_recipes/{slug}.md")
               if not recipe_path.exists():
@@ -47,18 +122,30 @@ jobs:
                   fm = yaml.safe_load(parts[1]) or {}
               except yaml.YAMLError:
                   continue
-              title = fm.get("title", slug)
-              ingredients = fm.get("ingredients", [])
-              if ingredients:
-                  all_ingredients.append({"recipe": title, "items": ingredients})
+              for ingredient in fm.get("ingredients", []):
+                  key = ingredient.strip().lower()
+                  if key in seen:
+                      continue
+                  seen.add(key)
+                  cat = categorize(ingredient.strip())
+                  buckets.setdefault(cat, []).append(ingredient.strip())
+
+          category_order = [name for name, _ in CATEGORIES] + [CATCHALL]
+          categories = [
+              {"name": n, "items": buckets[n]}
+              for n in category_order if n in buckets
+          ]
 
           out = Path("_data/grocery_list.yml")
           out.write_text(
-              yaml.dump({"recipes": all_ingredients}, default_flow_style=False, allow_unicode=True),
+              yaml.dump(
+                  {"week_of": str(date.today()), "categories": categories},
+                  default_flow_style=False, allow_unicode=True
+              ),
               encoding="utf-8"
           )
-          total = sum(len(r["items"]) for r in all_ingredients)
-          print(f"Wrote grocery list: {total} items from {len(all_ingredients)} recipes")
+          total = sum(len(c["items"]) for c in categories)
+          print(f"Wrote {total} unique items in {len(categories)} categories")
           EOF
 
       - uses: stefanzweifel/git-auto-commit-action@v5

@@ -92,6 +92,40 @@ permalink: /grocery-list/
   .action-status.ok  { color: #1a6b35; }
   .action-status.err { color: #a01010; }
 
+  /* ---- Category headers ---- */
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 36px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 3px solid #000;
+    max-width: 640px;
+  }
+
+  .category-header:first-of-type { margin-top: 0; }
+
+  .category-name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 900;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #000;
+  }
+
+  .category-count {
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #aaa;
+    background: #ebebeb;
+    padding: 2px 7px;
+    border: 1px solid #ddd;
+  }
+
   /* ---- Grocery list ---- */
   .grocery-list {
     list-style: none;
@@ -200,23 +234,43 @@ permalink: /grocery-list/
           <span class="week-of-label">Week of {{ list.week_of }}</span>
         {% endif %}
       </div>
-      {% if site.importer_url and site.importer_url != "" %}
       <div class="header-actions">
         <button class="bauhaus-btn" id="rebuild-btn" onclick="rebuildGroceryList()">Rebuild from Plan</button>
         <span class="action-status" id="rebuild-status"></span>
       </div>
-      {% endif %}
     </div>
 
     <!-- Grocery items -->
-    {% assign total_items = 0 %}
-    {% for group in list.recipes %}{% assign total_items = total_items | plus: group.items.size %}{% endfor %}
-
-    {% if list.recipes and list.recipes.size > 0 and total_items > 0 %}
+    {% if list.categories and list.categories.size > 0 %}
+      {% assign total_items = 0 %}
+      {% for cat in list.categories %}{% assign total_items = total_items | plus: cat.items.size %}{% endfor %}
+      <p class="grocery-count">{{ total_items }} items across {{ list.categories.size }} categories</p>
+      {% for cat in list.categories %}
+        {% if cat.items and cat.items.size > 0 %}
+          <div class="category-header">
+            <span class="category-name">{{ cat.name }}</span>
+            <span class="category-count">{{ cat.items.size }}</span>
+          </div>
+          <ul class="grocery-list">
+            {% for item in cat.items %}
+              <li>
+                <input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)">
+                <span>{{ item }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+    {% elsif list.recipes and list.recipes.size > 0 %}
+      {% assign total_items = 0 %}
+      {% for group in list.recipes %}{% assign total_items = total_items | plus: group.items.size %}{% endfor %}
       <p class="grocery-count">{{ total_items }} items</p>
       {% for group in list.recipes %}
         {% if group.items and group.items.size > 0 %}
-          <p class="week-of-label" style="margin: 28px 0 8px;">{{ group.recipe }}</p>
+          <div class="category-header">
+            <span class="category-name">{{ group.recipe }}</span>
+            <span class="category-count">{{ group.items.size }}</span>
+          </div>
           <ul class="grocery-list">
             {% for item in group.items %}
               <li>
@@ -229,7 +283,7 @@ permalink: /grocery-list/
       {% endfor %}
     {% elsif list.items and list.items.size > 0 %}
       <p class="grocery-count">{{ list.items | size }} items</p>
-      <ul class="grocery-list" id="grocery-items">
+      <ul class="grocery-list">
         {% for item in list.items %}
           <li>
             <input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)">
@@ -300,28 +354,32 @@ permalink: /grocery-list/
 {% endif %}
 
 <script>
-  // Persist checkbox state via sessionStorage
+  // Persist checkbox state via sessionStorage (keyed by ingredient text)
   var KEY = 'grocery-checked';
 
   function saveState() {
     var checked = [];
-    document.querySelectorAll('#grocery-items input[type="checkbox"]').forEach(function (cb, i) {
-      if (cb.checked) checked.push(i);
+    document.querySelectorAll('.grocery-list input[type="checkbox"]').forEach(function (cb) {
+      if (cb.checked) {
+        var span = cb.nextElementSibling;
+        if (span) checked.push(span.textContent.trim().toLowerCase());
+      }
     });
     sessionStorage.setItem(KEY, JSON.stringify(checked));
   }
 
   function restoreState() {
     var saved = JSON.parse(sessionStorage.getItem(KEY) || '[]');
-    document.querySelectorAll('#grocery-items input[type="checkbox"]').forEach(function (cb, i) {
-      if (saved.includes(i)) {
+    document.querySelectorAll('.grocery-list input[type="checkbox"]').forEach(function (cb) {
+      var span = cb.nextElementSibling;
+      if (span && saved.includes(span.textContent.trim().toLowerCase())) {
         cb.checked = true;
         cb.parentElement.classList.add('checked');
       }
     });
   }
 
-  document.querySelectorAll('#grocery-items input[type="checkbox"]').forEach(function (cb) {
+  document.querySelectorAll('.grocery-list input[type="checkbox"]').forEach(function (cb) {
     cb.addEventListener('change', saveState);
   });
 
