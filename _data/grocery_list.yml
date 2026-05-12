@@ -1,9 +1,11 @@
 week_of: '2026-05-12'
 categories:
-- name: Pantry & Staples
-  items:
-  - rice vinegar
-  - honey
-  - paprika
-  - red pepper flakes
-
+  - name: Pantry & Staples
+    items:
+      - rice vinegar
+      - honey
+      - paprika
+      - red pepper flakes
+  - name: Pantry Needs
+    items:
+      - garlic
