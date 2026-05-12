@@ -550,12 +550,73 @@ permalink: /pantry/
   </main>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <script>
 var REPO = 'clarklab/chowdown';
+var BRANCH = 'main';
 var selectedStore = 'auto';
 
 /* ---- Token helpers (shared with import.html) ---- */
 function getPAT() { return localStorage.getItem('gh_pat') || ''; }
+
+/* ---- GitHub Contents API helpers ---- */
+async function apiGet(path) {
+  var token = getPAT();
+  if (!token) throw new Error('No GitHub token — save one on the <a href="{{ "/import/" | relative_url }}">Import page</a>');
+  var resp = await fetch(
+    'https://api.github.com/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH,
+    { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' } }
+  );
+  if (!resp.ok) {
+    var body = {}; try { body = await resp.json(); } catch (e) {}
+    throw new Error(body.message || ('HTTP ' + resp.status));
+  }
+  var data = await resp.json();
+  return { text: decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))), sha: data.sha };
+}
+
+async function apiPut(path, text, sha, message) {
+  var token = getPAT();
+  var resp = await fetch(
+    'https://api.github.com/repos/' + REPO + '/contents/' + path,
+    {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: message, content: btoa(unescape(encodeURIComponent(text))), sha: sha, branch: BRANCH }),
+    }
+  );
+  if (!resp.ok) {
+    var body = {}; try { body = await resp.json(); } catch (e) {}
+    throw new Error(body.message || ('HTTP ' + resp.status));
+  }
+}
+
+async function updatePantry(updateFn, message) {
+  var file = await apiGet('_data/pantry.yml');
+  var data = jsyaml.load(file.text) || {};
+  data.staples = data.staples || [];
+  data.on_hand = data.on_hand || [];
+  updateFn(data);
+  var newText = jsyaml.dump(data, { lineWidth: -1, sortKeys: false });
+  await apiPut('_data/pantry.yml', newText, file.sha, message);
+}
+
+async function updateGrocery(item) {
+  var file = await apiGet('_data/grocery_list.yml');
+  var data = jsyaml.load(file.text) || {};
+  var key = data.categories ? 'categories' : 'recipes';
+  data[key] = data[key] || [];
+  var nameKey = key === 'categories' ? 'name' : 'recipe';
+  var group = data[key].find(function (g) { return g[nameKey] === 'Pantry Needs'; });
+  if (!group) {
+    group = {}; group[nameKey] = 'Pantry Needs'; group.items = [];
+    data[key].push(group);
+  }
+  group.items = group.items || [];
+  if (!group.items.includes(item)) group.items.push(item);
+  var newText = jsyaml.dump(data, { lineWidth: -1, sortKeys: false });
+  await apiPut('_data/grocery_list.yml', newText, file.sha, 'Grocery: add ' + item + ' from pantry');
+}
 
 async function triggerWorkflow(workflow, inputs) {
   var token = getPAT();
@@ -644,7 +705,11 @@ async function addStaple() {
   status.className = 'status-msg';
 
   try {
-    await triggerWorkflow('pantry-update.yml', { action: 'add_staple', item: item });
+    await updatePantry(function (data) {
+      if (!data.staples.some(function (s) { return s.toLowerCase() === item.toLowerCase(); })) {
+        data.staples.push(item);
+      }
+    }, 'Pantry: add_staple ' + item);
     status.innerHTML = '\u2713 "' + item + '" added — reload to see it.';
     status.className = 'status-msg ok';
     input.value = '';
@@ -689,18 +754,21 @@ async function doRemove(type, item, rowId, addToGrocery) {
   var statusId = type === 'staple' ? 'staple-status' : 'onhand-status';
   var status = document.getElementById(statusId);
   var row = document.getElementById(rowId);
+  var itemLower = item.toLowerCase();
 
   if (row) row.style.opacity = '0.3';
   status.innerHTML = (addToGrocery ? 'Adding to list &amp; removing\u2026' : 'Removing\u2026');
   status.className = 'status-msg';
 
   try {
-    if (addToGrocery) {
-      // Single combined workflow — one commit, no push conflict
-      await triggerWorkflow('pantry-remove-and-add.yml', { action: action, item: item });
-    } else {
-      await triggerWorkflow('pantry-update.yml', { action: action, item: item });
-    }
+    await updatePantry(function (data) {
+      if (action === 'remove_staple') {
+        data.staples = data.staples.filter(function (s) { return s.toLowerCase() !== itemLower; });
+      } else {
+        data.on_hand = data.on_hand.filter(function (e) { return (e.item || '').toLowerCase() !== itemLower; });
+      }
+    }, 'Pantry: ' + action + ' ' + item);
+    if (addToGrocery) await updateGrocery(item);
     if (row) row.remove();
     status.innerHTML = addToGrocery
       ? '\u2713 Removed and added to grocery list.'
@@ -721,7 +789,7 @@ async function clearOnHand() {
   status.className = 'status-msg';
 
   try {
-    await triggerWorkflow('pantry-update.yml', { action: 'clear_on_hand', item: '' });
+    await updatePantry(function (data) { data.on_hand = []; }, 'Pantry: clear_on_hand');
     document.querySelectorAll('#on-hand-list li').forEach(function (li) { li.remove(); });
     status.innerHTML = '\u2713 Cleared — will persist after next page rebuild.';
     status.className = 'status-msg ok';
