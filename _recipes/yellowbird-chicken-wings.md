@@ -20,7 +20,7 @@ directions:
   - In a big bowl, toss the wings in the wing sauce. If you want to do a few other flavors, split the wings into a few bowls with a few sauces.
 season: [all]
 last_made: ~
-rating: 5
+rating: 3
 difficulty: medium
 kid_friendly: true
 ---
