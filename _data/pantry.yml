@@ -1,65 +1,20 @@
 staples:
-- olive oil
-- salt
-- black pepper
-- flour
-- sugar
-- butter
-- onions
-- eggs
-- soy sauce
-- rice vinegar
-- chicken broth
-- tomato paste
-- pasta
-- rice
-- hot sauce
-- dijon mustard
-- baking powder
-- cumin
-on_hand:
-- item: provolone cheese
-  source: wholefoods
-  added: '2026-05-13'
-- item: organic honeycrisp apple 3
-  source: wholefoods
-  added: '2026-05-13'
-- item: nature's own butterbread
-  source: wholefoods
-  added: '2026-05-13'
-- item: teddie peanut butter
-  source: wholefoods
-  added: '2026-05-13'
-- item: red raspberries
-  source: wholefoods
-  added: '2026-05-13'
-- item: cascadian farm
-  source: wholefoods
-  added: '2026-05-13'
-- item: organicgirl baby arugula greens
-  source: wholefoods
-  added: '2026-05-13'
-- item: driscoll's sweetest batch blackberries - 1
-  source: wholefoods
-  added: '2026-05-13'
-- item: gotham greens gourmet medley lettuce
-  source: wholefoods
-  added: '2026-05-13'
-- item: bonne maman peanut chocolate 1
-  source: wholefoods
-  added: '2026-05-13'
-- item: greens kale green organic
-  source: wholefoods
-  added: '2026-05-13'
-- item: mcconnells vanilla with see's candies ice cream
-  source: wholefoods
-  added: '2026-05-13'
-- item: mary's gone crackers super seed crackers
-  source: wholefoods
-  added: '2026-05-13'
-- item: driscoll's sweetest batch blueberries - 1
-  source: wholefoods
-  added: '2026-05-13'
-- item: avocado hass organic
-  source: wholefoods
-  added: '2026-05-13'
+  - olive oil
+  - salt
+  - black pepper
+  - flour
+  - sugar
+  - butter
+  - onions
+  - eggs
+  - soy sauce
+  - rice vinegar
+  - chicken broth
+  - tomato paste
+  - pasta
+  - rice
+  - hot sauce
+  - dijon mustard
+  - baking powder
+  - cumin
+on_hand: []
