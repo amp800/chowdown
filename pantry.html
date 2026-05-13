@@ -512,6 +512,11 @@ permalink: /pantry/
       <script type="application/json" id="on-hand-data">{{ pantry.on_hand | jsonify }}</script>
       <script type="application/json" id="staples-data">{{ pantry.staples | jsonify }}</script>
       <div id="on-hand-content"></div>
+
+      <div class="add-row" style="margin-top:24px;">
+        <input type="text" id="new-onhand" placeholder="e.g. Greek yogurt" onkeydown="if(event.key==='Enter') addOnHand()" />
+        <button class="add-btn" onclick="addOnHand()">+ Add</button>
+      </div>
       <button class="danger-btn" id="clear-onhand-btn" onclick="clearOnHand()" style="display:none;margin-top:16px;">Clear all on-hand items</button>
       <div class="status-msg" id="onhand-status" style="margin-top:16px;"></div>
     </div>
@@ -734,6 +739,49 @@ async function addStaple() {
     status.className = 'status-msg err';
   } finally {
     input.disabled = false;
+  }
+}
+
+/* ---- Add on-hand item manually ---- */
+async function addOnHand() {
+  var input = document.getElementById('new-onhand');
+  var status = document.getElementById('onhand-status');
+  var item = input.value.trim();
+  if (!item) return;
+
+  input.disabled = true;
+  status.innerHTML = 'Saving\u2026';
+  status.className = 'status-msg';
+
+  var today = new Date().toISOString().slice(0, 10);
+
+  try {
+    await updatePantry(function (data) {
+      var exists = data.on_hand.some(function (e) { return (e.item || '').toLowerCase() === item.toLowerCase(); });
+      if (!exists) {
+        data.on_hand.push({ item: item, source: 'manual', added: today });
+      }
+    }, 'Pantry: add_on_hand ' + item);
+
+    // Optimistically add the new item to the rendered list
+    var dataEl = document.getElementById('on-hand-data');
+    var existing = JSON.parse(dataEl.textContent || '[]') || [];
+    var alreadyThere = existing.some(function (e) { return (e.item || '').toLowerCase() === item.toLowerCase(); });
+    if (!alreadyThere) {
+      existing.push({ item: item, source: 'manual', added: today });
+      dataEl.textContent = JSON.stringify(existing);
+    }
+    renderOnHand();
+
+    status.innerHTML = '\u2713 "' + escapeHtml(item) + '" added.';
+    status.className = 'status-msg ok';
+    input.value = '';
+  } catch (e) {
+    status.innerHTML = '\u2717 ' + e.message;
+    status.className = 'status-msg err';
+  } finally {
+    input.disabled = false;
+    input.focus();
   }
 }
 
