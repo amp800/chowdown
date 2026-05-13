@@ -431,6 +431,29 @@ permalink: /pantry/
     .page-header-row { flex-direction: column; align-items: flex-start; }
     .receipt-box { padding: 18px; }
   }
+
+  /* ---- On-hand category groups ---- */
+  .category-group { margin-bottom: 32px; }
+
+  .category-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #fff;
+    background: #000;
+    padding: 4px 12px;
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  .category-label.cat-produce { background: #2A9D8F; }
+  .category-label.cat-meat    { background: #E63946; }
+  .category-label.cat-snacks  { background: #f4a261; color: #000; }
+  .category-label.cat-frozen  { background: #457b9d; }
+  .category-label.cat-staples { background: #666; }
+  .category-label.cat-other   { background: #aaa; color: #000; }
 </style>
 
 <div class="bauhaus-home-layout">
@@ -486,32 +509,10 @@ permalink: /pantry/
 
     <!-- ========== ON HAND TAB ========== -->
     <div id="tab-on-hand" class="tab-panel">
-      {% if pantry.on_hand and pantry.on_hand.size > 0 %}
-        <p class="list-label">{{ pantry.on_hand | size }} item(s) on hand</p>
-        <ul class="item-list" id="on-hand-list">
-          {% for entry in pantry.on_hand %}
-            <li id="onhand-{{ entry.item | slugify }}">
-              <span>{{ entry.item }}</span>
-              <div class="item-right">
-                {% if entry.source == 'freshdirect' %}
-                  <span class="badge badge-fd">FreshDirect</span>
-                {% elsif entry.source == 'wholefoods' %}
-                  <span class="badge badge-wf">Whole Foods</span>
-                {% else %}
-                  <span class="badge badge-manual">Manual</span>
-                {% endif %}
-                {% if entry.added %}
-                  <span class="item-meta">{{ entry.added }}</span>
-                {% endif %}
-                <button class="remove-btn" title="Remove" onclick="confirmRemove('on_hand', '{{ entry.item | escape }}', 'onhand-{{ entry.item | slugify }}')">✕</button>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
-        <button class="danger-btn" onclick="clearOnHand()">Clear all on-hand items</button>
-      {% else %}
-        <div class="empty-state">Nothing on hand yet &mdash; import a receipt to add items.</div>
-      {% endif %}
+      <script type="application/json" id="on-hand-data">{{ pantry.on_hand | jsonify }}</script>
+      <script type="application/json" id="staples-data">{{ pantry.staples | jsonify }}</script>
+      <div id="on-hand-content"></div>
+      <button class="danger-btn" id="clear-onhand-btn" onclick="clearOnHand()" style="display:none;margin-top:16px;">Clear all on-hand items</button>
       <div class="status-msg" id="onhand-status" style="margin-top:16px;"></div>
     </div>
 
@@ -739,19 +740,43 @@ async function addStaple() {
 /* ---- Remove item — with grocery-list prompt ---- */
 function confirmRemove(type, item, rowId) {
   var row = document.getElementById(rowId);
-  if (!row || row.querySelector('.confirm-bar')) return; // already showing
+  if (!row || row.querySelector('.confirm-bar')) return;
 
   var itemRight = row.querySelector('.item-right');
   if (itemRight) itemRight.style.display = 'none';
 
-  var safeItem = item.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
   var bar = document.createElement('div');
   bar.className = 'confirm-bar';
-  bar.innerHTML =
-    '<span class="confirm-question">Add <em>' + item + '</em> to grocery list?</span>' +
-    '<button class="confirm-yes" onclick="doRemove(\'' + type + '\',\'' + safeItem + '\',\'' + rowId + '\',true)">+ Add &amp; Remove</button>' +
-    '<button class="confirm-no" onclick="doRemove(\'' + type + '\',\'' + safeItem + '\',\'' + rowId + '\',false)">Just Remove</button>' +
-    '<button class="confirm-cancel" onclick="cancelRemove(\'' + rowId + '\')">Cancel</button>';
+
+  var question = document.createElement('span');
+  question.className = 'confirm-question';
+  question.innerHTML = 'Add <em>' + escapeHtml(item) + '</em> to grocery list?';
+
+  var yesBtn = document.createElement('button');
+  yesBtn.className = 'confirm-yes';
+  yesBtn.textContent = '+ Add & Remove';
+  yesBtn.dataset.type = type;
+  yesBtn.dataset.item = item;
+  yesBtn.dataset.row = rowId;
+  yesBtn.onclick = function () { doRemove(this.dataset.type, this.dataset.item, this.dataset.row, true); };
+
+  var noBtn = document.createElement('button');
+  noBtn.className = 'confirm-no';
+  noBtn.textContent = 'Just Remove';
+  noBtn.dataset.type = type;
+  noBtn.dataset.item = item;
+  noBtn.dataset.row = rowId;
+  noBtn.onclick = function () { doRemove(this.dataset.type, this.dataset.item, this.dataset.row, false); };
+
+  var cancelBtn = document.createElement('button');
+  cancelBtn.className = 'confirm-cancel';
+  cancelBtn.textContent = 'Cancel';
+  cancelBtn.onclick = function () { cancelRemove(rowId); };
+
+  bar.appendChild(question);
+  bar.appendChild(yesBtn);
+  bar.appendChild(noBtn);
+  bar.appendChild(cancelBtn);
   row.appendChild(bar);
 }
 
@@ -805,12 +830,163 @@ async function clearOnHand() {
 
   try {
     await updatePantry(function (data) { data.on_hand = []; }, 'Pantry: clear_on_hand');
-    document.querySelectorAll('#on-hand-list li').forEach(function (li) { li.remove(); });
-    status.innerHTML = '\u2713 Cleared — will persist after next page rebuild.';
+    var contentEl = document.getElementById('on-hand-content');
+    if (contentEl) contentEl.innerHTML = '<div class="empty-state">Nothing on hand yet &mdash; import a receipt to add items.</div>';
+    var clearBtn = document.getElementById('clear-onhand-btn');
+    if (clearBtn) clearBtn.style.display = 'none';
+    status.innerHTML = '\u2713 Cleared \u2014 will persist after next page rebuild.';
     status.className = 'status-msg ok';
   } catch (e) {
     status.innerHTML = '\u2717 ' + e.message;
     status.className = 'status-msg err';
   }
 }
+
+/* ---- HTML escape helper ---- */
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/* ---- Slugify helper (mirrors Jekyll's slugify) ---- */
+function slugify(str) {
+  return String(str).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+/* ---- On-hand categorization ---- */
+var ONHAND_CATEGORIES = [
+  { key: 'frozen',  label: 'Frozen',              cls: 'cat-frozen',  keywords: ['ice cream', 'frozen', 'gelato', 'sorbet', 'popsicle'] },
+  { key: 'produce', label: 'Fruits & Vegetables',  cls: 'cat-produce', keywords: ['apple', 'banana', 'berr', 'grape', 'orange', 'mango', 'pear', 'peach', 'plum', 'cherry', 'lemon', 'lime', 'melon', 'pineapple', 'strawberry', 'raspberry', 'blueberry', 'blackberry', 'avocado', 'tomato', 'spinach', 'kale', 'lettuce', 'arugula', 'broccoli', 'cauliflower', 'carrot', 'celery', 'cucumber', 'zucchini', 'squash', 'pepper', 'corn', 'beet', 'radish', 'mushroom', 'asparagus', 'artichoke', 'leek', 'basil', 'cilantro', 'parsley', 'ginger', 'scallion', 'greens', 'produce', 'herb', 'vegetable', 'fruit'] },
+  { key: 'meat',    label: 'Meat & Dairy',         cls: 'cat-meat',    keywords: ['chicken', 'beef', 'pork', 'lamb', 'turkey', 'fish', 'salmon', 'shrimp', 'tuna', 'milk', 'cheese', 'yogurt', 'cream', 'butter', 'egg', 'tofu', 'sausage', 'bacon', 'ham', 'steak', 'ground', 'seafood', 'provolone', 'cheddar', 'mozzarella', 'feta', 'dairy', 'whey'] },
+  { key: 'snacks',  label: 'Snacks',               cls: 'cat-snacks',  keywords: ['cracker', 'granola', 'chip', 'bar', 'cookie', 'candy', 'chocolate', 'almond', 'cashew', 'peanut', 'pretzel', 'popcorn', 'cereal', 'biscuit', 'wafer', 'snack', 'trail', 'bread', 'syrup', 'jam', 'honey', 'spread', 'muffin', 'pastry', 'cake'] },
+];
+
+function getOnHandCategory(itemName, staplesArr) {
+  var name = itemName.toLowerCase();
+  // Check staples first
+  for (var i = 0; i < staplesArr.length; i++) {
+    if (name.includes(staplesArr[i].toLowerCase())) return 'staples';
+  }
+  // Check categories in priority order
+  for (var c = 0; c < ONHAND_CATEGORIES.length; c++) {
+    var cat = ONHAND_CATEGORIES[c];
+    for (var k = 0; k < cat.keywords.length; k++) {
+      if (name.includes(cat.keywords[k])) return cat.key;
+    }
+  }
+  return 'other';
+}
+
+function renderOnHand() {
+  var el = document.getElementById('on-hand-data');
+  var staplesEl = document.getElementById('staples-data');
+  if (!el) return;
+
+  var items = JSON.parse(el.textContent || '[]') || [];
+  var staples = JSON.parse(staplesEl ? staplesEl.textContent : '[]') || [];
+  var container = document.getElementById('on-hand-content');
+  var clearBtn = document.getElementById('clear-onhand-btn');
+
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state">Nothing on hand yet &mdash; import a receipt to add items.</div>';
+    if (clearBtn) clearBtn.style.display = 'none';
+    return;
+  }
+
+  // Group items by category
+  var groups = { produce: [], meat: [], snacks: [], frozen: [], staples: [], other: [] };
+  items.forEach(function (entry) {
+    var cat = getOnHandCategory(entry.item || '', staples);
+    groups[cat].push(entry);
+  });
+
+  var ORDER = [
+    { key: 'produce', label: 'Fruits & Vegetables', cls: 'cat-produce' },
+    { key: 'meat',    label: 'Meat & Dairy',         cls: 'cat-meat'    },
+    { key: 'snacks',  label: 'Snacks',               cls: 'cat-snacks'  },
+    { key: 'frozen',  label: 'Frozen',               cls: 'cat-frozen'  },
+    { key: 'other',   label: 'Other',                cls: 'cat-other'   },
+    { key: 'staples', label: 'Staples',              cls: 'cat-staples' },
+  ];
+
+  container.innerHTML = '';
+
+  var nonStapleCount = items.length - groups.staples.length;
+  var countEl = document.createElement('p');
+  countEl.className = 'list-label';
+  countEl.textContent = nonStapleCount + ' item' + (nonStapleCount !== 1 ? 's' : '') + ' on hand';
+  container.appendChild(countEl);
+
+  ORDER.forEach(function (meta) {
+    var grp = groups[meta.key];
+    if (!grp || !grp.length) return;
+
+    var groupDiv = document.createElement('div');
+    groupDiv.className = 'category-group';
+
+    var labelEl = document.createElement('div');
+    labelEl.className = 'category-label ' + meta.cls;
+    labelEl.textContent = meta.label + (meta.key === 'staples' ? ' \u2014 already tracked' : '');
+    groupDiv.appendChild(labelEl);
+
+    var ul = document.createElement('ul');
+    ul.className = 'item-list';
+
+    grp.forEach(function (entry) {
+      var item = entry.item || '';
+      var rowId = 'onhand-' + slugify(item);
+
+      var li = document.createElement('li');
+      li.id = rowId;
+      if (meta.key === 'staples') li.style.opacity = '0.6';
+
+      var nameSpan = document.createElement('span');
+      nameSpan.textContent = item;
+      li.appendChild(nameSpan);
+
+      var itemRight = document.createElement('div');
+      itemRight.className = 'item-right';
+
+      var badge = document.createElement('span');
+      badge.className = 'badge';
+      if (entry.source === 'freshdirect') {
+        badge.classList.add('badge-fd'); badge.textContent = 'FreshDirect';
+      } else if (entry.source === 'wholefoods') {
+        badge.classList.add('badge-wf'); badge.textContent = 'Whole Foods';
+      } else {
+        badge.classList.add('badge-manual'); badge.textContent = 'Manual';
+      }
+      itemRight.appendChild(badge);
+
+      if (entry.added) {
+        var metaSpan = document.createElement('span');
+        metaSpan.className = 'item-meta';
+        metaSpan.textContent = entry.added;
+        itemRight.appendChild(metaSpan);
+      }
+
+      var removeBtn = document.createElement('button');
+      removeBtn.className = 'remove-btn';
+      removeBtn.title = 'Remove';
+      removeBtn.textContent = '\u2715';
+      removeBtn.dataset.item = item;
+      removeBtn.dataset.row = rowId;
+      removeBtn.onclick = function () { confirmRemove('on_hand', this.dataset.item, this.dataset.row); };
+      itemRight.appendChild(removeBtn);
+
+      li.appendChild(itemRight);
+      ul.appendChild(li);
+    });
+
+    groupDiv.appendChild(ul);
+    container.appendChild(groupDiv);
+  });
+
+  if (clearBtn) clearBtn.style.display = '';
+}
+
+document.addEventListener('DOMContentLoaded', renderOnHand);
 </script>
