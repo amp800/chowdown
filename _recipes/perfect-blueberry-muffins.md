@@ -20,7 +20,7 @@ directions:
 - Heat oven to 375°F. Line a muffin tin with 9 paper liners or spray each cup with a nonstick spray. 
 - Melt butter in the bottom of a large bowl and whisk in sugar, zest, yogurt and egg until smooth. Whisk in baking powder, baking soda and salt until fully combined, then lightly fold in flour and berries. Batter will be very thick, like a cookie dough. 
 - Divide between prepared muffin cups and sprinkle each with 1 teaspoon turbinado sugar, which will seem over-the-top but I promise, will be the perfect crunchy lid at the end. 
-- Bake for 25 to 30 minutes, until tops are golden and a tester inserted into the center of muffins comes out clean (you know, except for blueberry goo). 
+- Bake for 20 minutes, until tops are golden and a tester inserted into the center of muffins comes out clean (you know, except for blueberry goo). 
 - Let cool in pan for 10 minutes then the rest of the way on a rack.
 date_added: 2026-05-11
 season:
