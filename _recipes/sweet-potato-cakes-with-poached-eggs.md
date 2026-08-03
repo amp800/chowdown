@@ -29,7 +29,7 @@ directions:
 date_added: 2026-08-03
 season:
 - all
-last_made: null
+last_made: 2026-08-03
 rating: 4
 difficulty: easy
 kid_friendly: false
