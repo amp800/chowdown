@@ -1,0 +1,10 @@
+/.c9
+/_site/
+/.jekyll-cache/
+.DS_Store
+_recipes/.obsidian/app.json
+_recipes/.obsidian/appearance.json
+_recipes/.obsidian/core-plugins.json
+_recipes/.obsidian/workspace.json
+vendor/bundle/
+tools/importer/.env

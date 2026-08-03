@@ -1,0 +1,21 @@
+# Site settings
+title: Chowdown
+email: your-email@domain.com
+description: The plain text recipe database for hackers
+baseurl: "/chowdown"
+twitter_username: clarklab
+github_username:  clarklab
+
+# Build settings
+markdown: kramdown
+
+permalink: /:title:output_ext
+
+collections:
+  recipes:
+    output: true
+
+exclude: ['Gemfile', 'Gemfile.lock', 'readme.md']
+
+# Recipe imports use GitHub Actions directly via the GitHub API.
+# No server URL needed.

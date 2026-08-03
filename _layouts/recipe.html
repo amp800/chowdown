@@ -1,0 +1,884 @@
+---
+layout: default
+---
+
+<div class="bauhaus-split-layout">
+  
+  <div class="split-image-container">
+    
+<div class="image-div" style="background-image: url('{{ "/images/" | append: page.image | relative_url }}');"></div>    
+    {% unless page.image %}
+      <div class="no-image-msg">
+        NO IMAGE FOUND<br>
+        (Make sure file is in /images/ folder)
+      </div>
+    {% endunless %}
+    {% if page.original_url and page.original_url != "" %}
+    <a class="original-recipe-link" href="{{ page.original_url | escape }}" target="_blank" rel="noopener noreferrer"
+       aria-label="Link to original recipe" title="Link to original recipe">
+      <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
+    </a>
+    {% endif %}
+  </div>
+
+  <div class="split-content-container">
+    <div class="content-padding">
+      
+      <h1 class="recipe-title">{{ page.title }}</h1>
+      
+      <div class="recipe-meta">
+        {% if page.total_time %}
+          <div class="meta-chip">
+            <span class="meta-chip-label">Total</span>
+            <span class="meta-chip-value">{{ page.total_time }}</span>
+          </div>
+        {% elsif page.cook_time %}
+          <div class="meta-chip">
+            <span class="meta-chip-label">Cook</span>
+            <span class="meta-chip-value">{{ page.cook_time }}</span>
+          </div>
+        {% endif %}
+        {% if page.prep_time %}
+          <div class="meta-chip">
+            <span class="meta-chip-label">Prep</span>
+            <span class="meta-chip-value">{{ page.prep_time }}</span>
+          </div>
+        {% endif %}
+        {% if page.yield %}
+          <div class="servings-control" id="servings-control">
+            <div class="servings-row">
+              <button type="button" class="servings-btn" id="servings-minus" aria-label="Decrease servings">−</button>
+              <span class="servings-value" id="servings-value">1</span>
+              <button type="button" class="servings-btn" id="servings-plus" aria-label="Increase servings">+</button>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      {% if page.tags and page.tags.size > 0 %}
+      <div class="recipe-tags">
+        {% for tag in page.tags %}
+          <span class="recipe-tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+      
+      {% if page.description and page.description != "" %}
+      <div class="recipe-description">
+        {{ page.description | markdownify }}
+      </div>
+      {% endif %}
+      <div class="recipe-intro">
+        {{ content }}
+      </div>
+
+      {% if page.ingredients %}
+      <script id="ingredients-data" type="application/json">{{ page.ingredients | jsonify }}</script>
+      <script id="servings-data" type="application/json">{{ page.yield | jsonify }}</script>
+      <button id="cooking-mode-btn" onclick="toggleCookingMode()">COOKING MODE</button>
+      <div id="ingredients-section" class="recipe-section">
+        <h2>Ingredients</h2>
+        <ul>
+          {% for ingredient in page.ingredients %}
+            <li>
+              <input type="checkbox">
+              <span class="ingredient-text">{{ ingredient }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if page.directions %}
+      <div id="directions-section" class="recipe-section">
+        <h2>Directions</h2>
+        <ol>
+          {% for direction in page.directions %}
+            <li>
+              <input type="checkbox">
+              <span class="direction-text">{{ direction }}</span>
+            </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+
+      <div style="height: 150px;"></div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  /* --- GLOBAL RESET --- */
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #fff;
+  }
+
+  /* --- DESKTOP LAYOUT (Split Screen) --- */
+  @media (min-width: 900px) {
+    .bauhaus-split-layout {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    /* Fixed Left Image */
+    .split-image-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      height: 100vh;
+      z-index: 10;
+      border-right: 8px solid #000;
+      background: #ddd;
+    }
+
+    /* Scrolling Right Content */
+    .split-content-container {
+      width: 50%;
+      margin-left: 50%;
+      background: #fff;
+      min-height: 100vh;
+    }
+
+    .content-padding {
+      padding: 60px;
+      max-width: 800px;
+    }
+  }
+
+  /* --- MOBILE LAYOUT (Stack) --- */
+  @media (max-width: 899px) {
+    .bauhaus-split-layout { display: block; }
+
+    .split-image-container {
+      position: relative;
+      width: 100%;
+      height: 350px;
+      border-right: none;
+      border-bottom: 8px solid #000;
+    }
+
+    .split-content-container {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .content-padding { padding: 30px 20px; }
+    .recipe-title { font-size: 2.2rem !important; }
+  }
+
+  /* --- SHARED STYLES --- */
+  .image-div {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .recipe-title {
+    font-family: 'Jost', sans-serif !important;
+    font-size: 3.5rem;
+    background: #E63946;
+    color: #fff;
+    display: inline-block;
+    padding: 15px 25px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    border: 3px solid #000;
+    transform: rotate(-1.5deg);
+    line-height: 1;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+
+  .recipe-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .meta-chip {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #000;
+    padding: 6px 12px;
+    background: #fff;
+    min-width: 52px;
+    border-radius: 3px;
+  }
+
+  .meta-chip-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #999;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .meta-chip-value {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #000;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .original-recipe-link {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.15s;
+  }
+
+  .original-recipe-link .material-symbols-outlined {
+    font-size: 45px;
+    line-height: 1;
+    font-weight: 400;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .original-recipe-link:hover,
+  .original-recipe-link:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 899px) {
+    .original-recipe-link {
+      bottom: 16px;
+      right: 16px;
+      width: 56px;
+      height: 56px;
+    }
+
+    .original-recipe-link .material-symbols-outlined {
+      font-size: 40px;
+    }
+  }
+
+  .recipe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 36px;
+  }
+
+  .recipe-tag {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    background: #000;
+    color: #fff;
+    border-radius: 2px;
+  }
+
+  .recipe-description,
+  .recipe-intro {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #000;
+    margin: 0 0 28px;
+  }
+
+  .recipe-description p,
+  .recipe-intro p {
+    margin: 0 0 12px;
+  }
+
+  .recipe-description p:last-child,
+  .recipe-intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    border-bottom: 5px solid #000;
+    padding-bottom: 10px;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-family: 'Jost', sans-serif !important;
+    color: #000;
+  }
+
+  ul, ol { padding-left: 0; list-style: none; }
+
+  li {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: flex-start;
+    font-size: 1.2rem;
+    color: #000;
+    line-height: 1.4;
+  }
+
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    border: 3px solid #000;
+    margin-right: 20px;
+    margin-top: 3px;
+    background: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: #E63946;
+  }
+
+  #cooking-mode-btn {
+    display: inline-block;
+    margin: 30px 0 10px;
+    padding: 14px 28px;
+    background: #000;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 3px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  #cooking-mode-btn.active {
+    background: #E63946;
+    color: #fff;
+    border-color: #E63946;
+  }
+
+  #cooking-mode-btn:hover {
+    background: #E63946;
+    color: #fff;
+    border-color: #E63946;
+  }
+
+  .cooking-ingredient {
+    background: #E63946;
+    color: #fff;
+    padding: 1px 5px;
+    font-weight: 700;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .servings-control {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #000;
+    padding: 6px 12px;
+    background: #fff;
+    min-width: 52px;
+    border-radius: 3px;
+    gap: 6px;
+  }
+
+  .servings-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .servings-btn {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #000;
+    background: #fff;
+    color: #000;
+    font-family: 'Jost', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .servings-btn:hover {
+    background: #E63946;
+    color: #fff;
+    border-color: #E63946;
+  }
+
+  .servings-value {
+    min-width: 24px;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #000;
+    line-height: 1.2;
+  }
+
+</style>
+
+<script>
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+var STRIP_WORDS = [
+  'finely','coarsely','roughly','thinly','freshly','fresh','frozen','canned','dried','toasted','roasted',
+  'chopped','seeded','diced','sliced','minced','grated','shredded','crushed','peeled','beaten','whisked',
+  'melted','softened','drained','rinsed','pitted','halved','quartered','stemmed','cored','julienned',
+  'ground','sifted','separated','packed','tightly','loosely','leftover','cooked','raw','uncooked','baby',
+  'coarse','crumbled','soft','firm','hard','virgin','extra-virgin','light','dark','sweet','hot','mild',
+  'large','medium','small','little',
+  'cups','cup','tablespoons','tablespoon','tbsp','tbs','teaspoons','teaspoon','tsp','fl','fluid',
+  'ounces','ounce','oz','pounds','pound','lbs','lb','grams','gram','g','kilograms','kilogram','kg',
+  'milliliters','milliliter','millilitres','millilitre','ml','liters','liter','litres','litre','l',
+  'pinches','pinch','dashes','dash','handfuls','handful','cloves','clove','cans','can','slices','slice',
+  'bunches','bunch','heads','head','pieces','piece','sprigs','sprig','stalks','stalk','ears','ear',
+  'sticks','stick','squirts','squirt','thumbs','thumb','inches','inch','cm','jars','jar','packages',
+  'package','packets','packet','pouches','pouch','containers','container','tins','tin','bottles',
+  'bottle','bags','bag','loaves','loaf','pints','pint','quarts','quart','gallons','gallon'
+];
+
+var TRAILING_QUALIFIERS = [
+  'to taste','for serving','to serve','for garnish','optional','if using','if desired',
+  'plus more for serving','plus more to serve','plus more for garnish','at room temperature','divided'
+];
+
+function stripLeadingWords(name, words) {
+  var changed = true;
+  while (changed) {
+    changed = false;
+    var lower = name.toLowerCase();
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      if (lower === w) { name = ''; changed = true; break; }
+      if (lower.indexOf(w + ' ') === 0) {
+        name = name.slice(w.length).replace(/^\s+/, '');
+        changed = true;
+        break;
+      }
+    }
+  }
+  return name;
+}
+
+function stripTrailingQualifier(name, qualifiers) {
+  var lower = name.toLowerCase();
+  for (var i = 0; i < qualifiers.length; i++) {
+    var q = qualifiers[i];
+    if (lower === q) return '';
+    var sepIdx = lower.lastIndexOf(', ' + q);
+    var sepLen = 2;
+    if (sepIdx === -1) { sepIdx = lower.lastIndexOf(' ' + q); sepLen = 1; }
+    if (sepIdx !== -1 && sepIdx + sepLen + q.length === lower.length) {
+      return name.slice(0, sepIdx);
+    }
+  }
+  return name;
+}
+
+function stripTrailingWords(name, words) {
+  var changed = true;
+  while (changed) {
+    changed = false;
+    var parts = name.split(/\s+/);
+    if (parts.length > 1) {
+      var last = parts[parts.length - 1].replace(/[\s,;]+$/, '').toLowerCase();
+      if (words.indexOf(last) !== -1) {
+        parts.pop();
+        name = parts.join(' ');
+        changed = true;
+      }
+    }
+  }
+  return name.replace(/[\s,;]+$/, '');
+}
+
+function parseIngredientName(ingredientStr) {
+  var name = (ingredientStr || '').trim();
+
+  // Strip leading "Juice of / Zest of / Rind of / Peel of" phrases.
+  name = name.replace(/^(?:juice|zest|rind|peel)\s+of\s+/i, '');
+
+  // Strip a leading quantity token (reuses the scaler's tokenizer).
+  var q = parseQuantityToken(name);
+  if (q) name = name.slice(q.token.length).trim();
+
+  // Remove parenthetical / bracketed asides.
+  name = name.replace(/\([^)]*\)/g, ' ').replace(/\[[^\]]*\]/g, ' ');
+
+  // Remove common trailing qualifiers like ", to taste" / "for serving".
+  name = stripTrailingQualifier(name, TRAILING_QUALIFIERS);
+
+  // Stop at the first comma: the rest is usually prep detail
+  // ("garlic, finely chopped" → "garlic").
+  name = name.split(',')[0].trim();
+
+  // Strip leading and trailing descriptor / unit words.
+  name = stripLeadingWords(name, STRIP_WORDS);
+  name = stripTrailingWords(name, STRIP_WORDS);
+
+  // For "A or B" / "A and B" lists, keep the first item (unless a hyphenated
+  // range like "medium- or long-grain rice" is involved).
+  var orIdx = name.search(/\s+(?:or|and)\s+/i);
+  if (orIdx > 0 && !/-\s*$/.test(name.slice(0, orIdx))) {
+    name = name.slice(0, orIdx).trim();
+    name = stripTrailingWords(name, STRIP_WORDS);
+  }
+
+  name = name.replace(/^[\s,;]+|[\s,;]+$/g, '').replace(/\s+/g, ' ').trim();
+  return name;
+}
+
+var _originalDirections = null;
+
+function singularize(name) {
+  if (!name || name.length < 3) return name;
+  if (/ies$/.test(name) && name.length > 4) return name.slice(0, -3) + 'y';
+  if (/ss$/.test(name)) return name;
+  if (/[^s]es$/.test(name)) return name.slice(0, -2);
+  if (/[^s]s$/.test(name)) return name.slice(0, -1);
+  return name;
+}
+
+function nameVariants(name) {
+  var seen = {};
+  var result = [];
+  function add(v) {
+    var key = v.toLowerCase();
+    if (!key || seen[key]) return;
+    seen[key] = true;
+    result.push(v);
+  }
+  add(name);
+  var s = singularize(name);
+  add(s);
+  add(s + 's');
+  if (/[^aeiou]y$/.test(s)) add(s.slice(0, -1) + 'ies');
+  if (/[^s]o$/.test(s) || /(?:s|x|z|ch|sh)$/.test(s)) add(s + 'es');
+
+  // For multi-word names, also match the final significant word
+  // (e.g. "kosher salt" also matches "salt", "vegetable stock" → "stock").
+  var words = s.split(/\s+/);
+  if (words.length > 1) {
+    var last = words[words.length - 1];
+    if (last.length >= 3) {
+      add(last);
+      add(singularize(last));
+      add(singularize(last) + 's');
+    }
+  }
+  return result;
+}
+
+function buildParsedIngredients(ingredients) {
+  var parsed = [];
+  for (var i = 0; i < ingredients.length; i++) {
+    var name = parseIngredientName(ingredients[i]);
+    if (name && name.length > 1) {
+      parsed.push({ full: ingredients[i], name: name, variants: nameVariants(name) });
+    }
+  }
+  parsed.sort(function (a, b) { return b.name.length - a.name.length; });
+  return parsed;
+}
+
+function buildCombinedRegex(parsed) {
+  var alternatives = [];
+  for (var i = 0; i < parsed.length; i++) {
+    var v = parsed[i].variants.slice().sort(function (a, b) { return b.length - a.length; });
+    for (var j = 0; j < v.length; j++) {
+      alternatives.push(escapeRegex(v[j]));
+    }
+  }
+  if (!alternatives.length) return null;
+  return new RegExp('(^|[^\\p{L}\\p{N}])(' + alternatives.join('|') + ')(?![\\p{L}\\p{N}])', 'giu');
+}
+
+function matchToIngredient(matchedText, parsed) {
+  var m = matchedText.toLowerCase();
+  for (var i = 0; i < parsed.length; i++) {
+    var variants = parsed[i].variants;
+    for (var j = 0; j < variants.length; j++) {
+      if (variants[j].toLowerCase() === m) return parsed[i];
+    }
+  }
+  return null;
+}
+
+function highlightInElement(el, parsed) {
+  if (!el || !parsed || !parsed.length) return;
+  var re = buildCombinedRegex(parsed);
+  if (!re) return;
+
+  var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+    acceptNode: function (node) {
+      if (node.parentNode && node.parentNode.classList &&
+          node.parentNode.classList.contains('cooking-ingredient')) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+
+  var nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+
+  for (var n = 0; n < nodes.length; n++) {
+    var node = nodes[n];
+    var text = node.nodeValue;
+    if (!text) continue;
+
+    re.lastIndex = 0;
+    var frag = document.createDocumentFragment();
+    var lastIndex = 0;
+    var m;
+    while ((m = re.exec(text)) !== null) {
+      var nameStart = m.index + m[1].length;
+      if (nameStart > lastIndex) {
+        frag.appendChild(document.createTextNode(text.slice(lastIndex, nameStart)));
+      }
+      var item = matchToIngredient(m[2], parsed);
+      if (item) {
+        var mark = document.createElement('mark');
+        mark.className = 'cooking-ingredient';
+        mark.title = item.full;
+        mark.textContent = item.full;
+        frag.appendChild(mark);
+      } else {
+        frag.appendChild(document.createTextNode(m[2]));
+      }
+      lastIndex = m.index + m[0].length;
+      if (m.index === re.lastIndex) re.lastIndex++;
+    }
+    if (lastIndex < text.length) {
+      frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+    }
+    if (node.parentNode) node.parentNode.replaceChild(frag, node);
+  }
+}
+
+function applyIngredientsToDirections(ingredients) {
+  var spans = document.querySelectorAll('#directions-section .direction-text');
+  _originalDirections = [];
+  var parsed = buildParsedIngredients(ingredients);
+
+  spans.forEach(function (span) {
+    _originalDirections.push(span.innerHTML);
+    highlightInElement(span, parsed);
+  });
+}
+
+function toggleCookingMode() {
+  var btn = document.getElementById('cooking-mode-btn');
+  var ingSection = document.getElementById('ingredients-section');
+  if (!btn || !ingSection) return;
+
+  var isActive = btn.classList.toggle('active');
+
+  if (isActive) {
+    btn.textContent = 'EXIT COOKING MODE';
+    ingSection.style.display = 'none';
+    applyIngredientsToDirections(getCurrentIngredients());
+  } else {
+    btn.textContent = 'COOKING MODE';
+    ingSection.style.display = '';
+    restoreDirections();
+  }
+}
+
+function restoreDirections() {
+  if (!_originalDirections) return;
+  var spans = document.querySelectorAll('#directions-section .direction-text');
+  spans.forEach(function(span, i) {
+    span.innerHTML = _originalDirections[i];
+  });
+  _originalDirections = null;
+}
+
+// ---------------------------------------------------------------------------
+// Servings scaler
+// ---------------------------------------------------------------------------
+var _recipeIngredients = [];
+var _baseServings = 1;
+var _currentServings = 1;
+
+var UNICODE_FRACTIONS = {
+  '¼': 0.25, '½': 0.5, '¾': 0.75,
+  '⅓': 1/3, '⅔': 2/3,
+  '⅕': 0.2, '⅖': 0.4, '⅗': 0.6, '⅘': 0.8,
+  '⅙': 1/6, '⅚': 5/6,
+  '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875,
+  '⅐': 1/7, '⅑': 1/9, '⅒': 0.1
+};
+
+// Repair common mojibake where UTF-8 fractions were read as Latin-1 ("Â½" → "½")
+function normalizeQuantityText(str) {
+  return str.replace(/Â([¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒])/g, '$1');
+}
+
+function parseQuantityToken(str) {
+  if (str == null) return null;
+  var s = normalizeQuantityText(str).replace(/^\s+/, '');
+  var m;
+  if ((m = s.match(/^(\d+)\s+(\d+)\/(\d+)/))) {
+    return { value: parseInt(m[1], 10) + parseInt(m[2], 10) / parseInt(m[3], 10), token: m[0] };
+  }
+  if ((m = s.match(/^(\d+)\s*([¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒])/))) {
+    return { value: parseInt(m[1], 10) + UNICODE_FRACTIONS[m[2]], token: m[0] };
+  }
+  if ((m = s.match(/^(\d+)\/(\d+)/))) {
+    return { value: parseInt(m[1], 10) / parseInt(m[2], 10), token: m[0] };
+  }
+  if ((m = s.match(/^\d+\.\d+/))) {
+    return { value: parseFloat(m[0]), token: m[0] };
+  }
+  if ((m = s.match(/^([¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅐⅑⅒])/))) {
+    return { value: UNICODE_FRACTIONS[m[1]], token: m[0] };
+  }
+  if ((m = s.match(/^\d+/))) {
+    return { value: parseInt(m[0], 10), token: m[0] };
+  }
+  return null;
+}
+
+function formatQuantity(value) {
+  value = Math.round(value * 1000) / 1000;
+  var whole = Math.floor(value);
+  var frac = value - whole;
+  if (frac < 0.0005) return String(whole);
+
+  var fractions = [
+    [1/2, '1/2'], [1/3, '1/3'], [2/3, '2/3'],
+    [1/4, '1/4'], [3/4, '3/4'],
+    [1/5, '1/5'], [2/5, '2/5'], [3/5, '3/5'], [4/5, '4/5'],
+    [1/6, '1/6'], [5/6, '5/6'],
+    [1/8, '1/8'], [3/8, '3/8'], [5/8, '5/8'], [7/8, '7/8']
+  ];
+  var best = null, bestDiff = Infinity;
+  for (var i = 0; i < fractions.length; i++) {
+    var d = Math.abs(frac - fractions[i][0]);
+    if (d < bestDiff) { bestDiff = d; best = fractions[i]; }
+  }
+  if (bestDiff < 0.02) {
+    if (whole === 0) return best[1];
+    return whole + ' ' + best[1];
+  }
+  var rounded = Math.round(value * 100) / 100;
+  return String(rounded);
+}
+
+function scaleIngredient(ingredient, factor) {
+  if (factor === 1) return ingredient;
+  var normalized = normalizeQuantityText(ingredient);
+  var q = parseQuantityToken(normalized);
+  if (!q) return ingredient;
+  return normalized.replace(q.token, formatQuantity(q.value * factor));
+}
+
+function applyServings() {
+  var valueEl = document.getElementById('servings-value');
+  if (valueEl) valueEl.textContent = String(_currentServings);
+  var factor = _currentServings / _baseServings;
+  var spans = document.querySelectorAll('#ingredients-section .ingredient-text');
+  spans.forEach(function (span, i) {
+    var original = _recipeIngredients[i];
+    if (original == null) return;
+    span.textContent = scaleIngredient(original, factor);
+  });
+
+  // Keep cooking-mode highlights in sync when servings change.
+  var btn = document.getElementById('cooking-mode-btn');
+  if (btn && btn.classList.contains('active')) {
+    restoreDirections();
+    applyIngredientsToDirections(getCurrentIngredients());
+  }
+}
+
+function loadRecipeIngredients() {
+  var ingData = document.getElementById('ingredients-data');
+  if (ingData) {
+    try { _recipeIngredients = JSON.parse(ingData.textContent) || []; } catch (e) {}
+  }
+}
+
+function getCurrentIngredients() {
+  loadRecipeIngredients();
+  if (!_baseServings || _baseServings < 1) return _recipeIngredients;
+  var factor = _currentServings / _baseServings;
+  return _recipeIngredients.map(function (ing) { return scaleIngredient(ing, factor); });
+}
+
+function initServingsScaler() {
+  loadRecipeIngredients();
+
+  var valueEl = document.getElementById('servings-value');
+  var minusBtn = document.getElementById('servings-minus');
+  var plusBtn = document.getElementById('servings-plus');
+  if (!valueEl || !minusBtn || !plusBtn) return;
+
+  var base = null;
+  var servingsData = document.getElementById('servings-data');
+  if (servingsData) {
+    try {
+      var raw = JSON.parse(servingsData.textContent);
+      if (raw != null) {
+        var m = String(raw).match(/(\d+)/);
+        if (m) base = parseInt(m[1], 10);
+      }
+    } catch (e) {}
+  }
+  if (!base || base < 1) return; // no yield → no scaler
+
+  _baseServings = base;
+  _currentServings = base;
+  valueEl.textContent = String(base);
+
+  minusBtn.addEventListener('click', function () {
+    if (_currentServings <= 1) return;
+    _currentServings--;
+    applyServings();
+  });
+  plusBtn.addEventListener('click', function () {
+    if (_currentServings >= 99) return;
+    _currentServings++;
+    applyServings();
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initServingsScaler);
+} else {
+  initServingsScaler();
+}
+</script>
