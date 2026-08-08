@@ -199,26 +199,13 @@ permalink: /import/
         <input type="url" id="url" name="url" placeholder="https://cooking.nytimes.com/recipes/…" required />
       </div>
 
-      <div class="row-2">
-        <div class="field-group">
-          <label for="difficulty">Difficulty</label>
-          <select id="difficulty" name="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
-        <div class="field-group">
-          <label for="rating">Rating <span class="hint">1–5</span></label>
-          <select id="rating" name="rating">
-            <option value="">—</option>
-            <option value="1">★</option>
-            <option value="2">★★</option>
-            <option value="3">★★★</option>
-            <option value="4">★★★★</option>
-            <option value="5">★★★★★</option>
-          </select>
-        </div>
+      <div class="field-group">
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty" name="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
       </div>
 
       <div class="row-3">
@@ -311,7 +298,6 @@ async function importRecipe(e) {
     url:          document.getElementById('url').value.trim(),
     tags:         document.getElementById('tags').value.trim(),
     season:       document.getElementById('season').value,
-    rating:       document.getElementById('rating').value,
     difficulty:   document.getElementById('difficulty').value,
     kid_friendly: document.getElementById('kid_friendly').value,
   };

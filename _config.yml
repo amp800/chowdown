@@ -22,7 +22,7 @@ collections:
 
 exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'README.md']
 
-# Recipe actions (plan, import) now use GitHub Actions directly via the GitHub API.
+# Recipe imports use GitHub Actions directly via the GitHub API.
 # No server URL needed.
 
 translation:

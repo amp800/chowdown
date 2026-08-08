@@ -41,8 +41,6 @@ directions:
 - Transfer salad to a platter. Serve with lettuce leaves for wrapping and lime wedges for squeezing over.
 yield: 4 servings
 season: [spring, summer]
-last_made: ~
-rating: 4
 difficulty: medium
 kid_friendly: false
 ---

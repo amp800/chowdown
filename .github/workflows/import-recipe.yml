@@ -14,10 +14,6 @@ on:
         description: "Season (all / spring / summer / fall / winter)"
         required: false
         default: "all"
-      rating:
-        description: "Rating 1-5"
-        required: false
-        default: ""
       difficulty:
         description: "easy / medium / hard"
         required: false
@@ -49,7 +45,6 @@ jobs:
             --url "${{ inputs.url }}" \
             --tags "${{ inputs.tags }}" \
             --season "${{ inputs.season }}" \
-            --rating "${{ inputs.rating }}" \
             --difficulty "${{ inputs.difficulty }}" \
             --kid_friendly "${{ inputs.kid_friendly }}"
 

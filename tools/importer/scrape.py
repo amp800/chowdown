@@ -5,7 +5,6 @@ Usage:
     --url "https://..." \
     --tags "chicken quick" \
     --season "fall winter" \
-    --rating 4 \
     --difficulty medium \
     --kid_friendly false
 Writes _recipes/<slug>.md and images/<slug>.<ext> relative to the repo root.
@@ -146,7 +145,7 @@ def fetch_recipe(url: str) -> dict:
 
 
 def build_markdown(data: dict, image_ref: str, user_tags: list,
-                   season: str, rating, difficulty: str, kid_friendly: bool) -> str:
+                   season: str, difficulty: str, kid_friendly: bool) -> str:
     auto_tags = guess_tags(data["title"])
     all_tags = sorted(list(set(auto_tags + (user_tags or []))))
     season_list = (
@@ -164,8 +163,6 @@ def build_markdown(data: dict, image_ref: str, user_tags: list,
         "directions": format_instructions(data.get("instructions", [])),
         "date_added": date.today(),
         "season": season_list,
-        "last_made": None,
-        "rating": rating,
         "difficulty": difficulty,
         "kid_friendly": kid_friendly,
     }
@@ -185,17 +182,11 @@ def main():
     parser.add_argument("--url", required=True)
     parser.add_argument("--tags", default="")
     parser.add_argument("--season", default="all")
-    parser.add_argument("--rating", default="")
     parser.add_argument("--difficulty", default="easy")
     parser.add_argument("--kid_friendly", default="false")
     args = parser.parse_args()
 
     user_tags = [t.strip() for t in args.tags.split() if t.strip()]
-    rating_int = (
-        int(args.rating)
-        if args.rating.strip().isdigit() and 1 <= int(args.rating.strip()) <= 5
-        else None
-    )
     kid_bool = args.kid_friendly.lower() in ("true", "1", "yes", "on")
     difficulty_clean = (
         args.difficulty.strip().lower()
@@ -236,7 +227,7 @@ def main():
 
     md_content = build_markdown(
         data, image_ref, user_tags,
-        season=args.season, rating=rating_int,
+        season=args.season,
         difficulty=difficulty_clean, kid_friendly=kid_bool,
     )
     recipes_dir = REPO_ROOT / "_recipes"

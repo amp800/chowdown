@@ -47,8 +47,6 @@ directions:
 season:
 - spring
 - summer
-last_made: null
-rating: 4
 difficulty: easy
 kid_friendly: false
 yield: 6 servings

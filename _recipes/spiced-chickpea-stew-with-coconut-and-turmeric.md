@@ -41,8 +41,6 @@ date_added: 2026-05-08
 season:
 - fall
 - winter
-last_made: null
-rating: 5
 difficulty: easy
 kid_friendly: false
 yield: 6 servings

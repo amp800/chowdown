@@ -36,8 +36,6 @@ total_time: '35'
 category: dinner, quick, weeknight, main course
 cuisine: korean
 season: [all]
-last_made: ~
-rating: 4
 difficulty: medium
 kid_friendly: true
 ---

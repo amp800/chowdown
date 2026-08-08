@@ -8,8 +8,6 @@ prep_time: 5 minutes
 cook_time: 0 minutes
 yields: 8 servings
 season: [all]
-last_made: ~
-rating: 4
 difficulty: easy
 kid_friendly: true
 ---

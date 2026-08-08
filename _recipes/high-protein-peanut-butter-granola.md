@@ -32,8 +32,6 @@ total_time: '60'
 category: Granola, Breakfast, Snack
 cuisine: American
 season: [all]
-last_made: ~
-rating: 4
 difficulty: easy
 kid_friendly: true
 ---

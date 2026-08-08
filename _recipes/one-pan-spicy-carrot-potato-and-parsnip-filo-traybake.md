@@ -36,8 +36,6 @@ directions:
 - Mix the nutritional yeast with the 300ml of yesterday’s soup and add to the cooked veg.
 - Meanwhile, in a frying pan over medium heat, melt 3 tbsp butter and gently fry 1/2 tsp caraway seeds, 1 tsp smoked paprika and 1/2 tsp chilli powder and cook for 2 minutes. Unwrap the filo pastry and brush one of the sheets with the spiced butter mixture and then scrunch up to look a little like a rose. Snuggle all of the scrunched-up filo pastry onto the top of the filling. Slide into the oven and bake for 15-18 mins, until the tops of the pastry are golden brown.
 season: [fall, winter]
-last_made: ~
-rating: 4
 difficulty: medium
 kid_friendly: false
 ---

@@ -4,7 +4,7 @@ import subprocess
 from pathlib import Path
 from urllib.parse import urlparse, urljoin
 
-from fastapi import FastAPI, Form, HTTPException, Request
+from fastapi import FastAPI, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
@@ -34,9 +34,6 @@ REPO_BRANCH = os.getenv("CHOWDOWN_REPO_BRANCH", "main")
 GIT_USER    = os.getenv("GIT_USER", "Recipe Bot")
 GIT_EMAIL   = os.getenv("GIT_EMAIL", "bot@example.com")
 REPO_DIR    = Path("/app/repo")
-
-DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -160,7 +157,6 @@ def build_markdown(
     image_filename: str,
     user_tags: list = None,
     season: str = "all",
-    rating: int = None,
     difficulty: str = "easy",
     kid_friendly: bool = False,
 ) -> str:
@@ -181,8 +177,6 @@ def build_markdown(
         "directions": format_instructions(data.get("instructions", [])),
         "date_added": str(__import__("datetime").date.today()),
         "season": season_list,
-        "last_made": None,
-        "rating": rating,
         "difficulty": difficulty,
         "kid_friendly": kid_friendly,
     }
@@ -214,30 +208,6 @@ def git_commit_and_push(message: str):
         pass
     subprocess.run(["git", "-C", str(REPO_DIR), "pull", "--rebase", "origin", REPO_BRANCH], check=True)
     subprocess.run(["git", "-C", str(REPO_DIR), "push", "origin", REPO_BRANCH], check=True)
-
-
-def load_meal_plan() -> dict:
-    plan_path = REPO_DIR / "_data" / "meal_plan.yml"
-    if not plan_path.exists():
-        return {}
-    try:
-        return yaml.safe_load(plan_path.read_text(encoding="utf-8")) or {}
-    except yaml.YAMLError:
-        return {}
-
-
-def write_frontmatter_field(path: Path, key: str, value: str):
-    raw = path.read_text(encoding="utf-8")
-    parts = raw.split("---", 2)
-    if len(parts) < 3:
-        return
-    fm_text = parts[1]
-    pattern = re.compile(r"^(" + re.escape(key) + r":\s*)(.*)$", re.MULTILINE)
-    if pattern.search(fm_text):
-        new_fm = pattern.sub(rf"\g<1>{value}", fm_text)
-    else:
-        new_fm = fm_text.rstrip("\n") + f"\n{key}: {value}\n"
-    path.write_text("---" + new_fm + "---" + parts[2], encoding="utf-8")
 
 
 # ---------------------------------------------------------------------------
@@ -278,23 +248,15 @@ async def form():
     <input type="url" name="url" placeholder="https://cooking.nytimes.com/recipes/..." required>
     <label>Extra tags</label>
     <input type="text" name="tags" placeholder="space separated">
-    <div class="section-title">Meal planning metadata</div>
+    <div class="section-title">Recipe metadata</div>
     <label>Season</label>
     <input type="text" name="season" placeholder="all  or  fall, winter" value="all">
-    <div class="row">
-      <div>
-        <label>Rating (1-5)</label>
-        <input type="number" name="rating" min="1" max="5" placeholder="4">
-      </div>
-      <div>
-        <label>Difficulty</label>
-        <select name="difficulty">
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-      </div>
-    </div>
+    <label>Difficulty</label>
+    <select name="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
     <div class="check-row">
       <input type="checkbox" name="kid_friendly" id="kid_friendly" value="true">
       <label for="kid_friendly">Kid-friendly</label>
@@ -348,7 +310,6 @@ async def import_recipe(
     url: str = Form(...),
     tags: str = Form(""),
     season: str = Form("all"),
-    rating: str = Form(""),
     difficulty: str = Form("easy"),
     kid_friendly: str = Form("false"),
 ):
@@ -356,7 +317,6 @@ async def import_recipe(
         raise HTTPException(status_code=500, detail="CHOWDOWN_REPO_URL not configured")
 
     user_tags = [t.strip() for t in tags.split() if t.strip()]
-    rating_int = int(rating) if rating.strip().isdigit() and 1 <= int(rating.strip()) <= 5 else None
     kid_bool = kid_friendly.lower() in ("true", "1", "yes", "on")
     difficulty_clean = difficulty.strip().lower() if difficulty.strip().lower() in ("easy", "medium", "hard") else "easy"
 
@@ -393,7 +353,7 @@ async def import_recipe(
 
     md_content = build_markdown(
         data, image_ref, user_tags,
-        season=season, rating=rating_int,
+        season=season,
         difficulty=difficulty_clean, kid_friendly=kid_bool,
     )
     recipes_dir = REPO_DIR / "_recipes"
@@ -412,168 +372,3 @@ async def import_recipe(
         tags=data.get("tags", []),
         image=image_ref,
     )
-
-
-# ---------------------------------------------------------------------------
-# Planning API -- headless JSON only; all UI lives on the Jekyll site
-# ---------------------------------------------------------------------------
-
-@app.post("/plan/save")
-async def plan_save(request: Request):
-    """Save a full week plan. Form fields: week_of, monday...sunday (each a recipe slug)."""
-    form = await request.form()
-    week_of = str(form.get("week_of", ""))
-    plan: dict = {"week_of": week_of}
-    for day in DAYS:
-        slug = str(form.get(day, "")).strip()
-        plan[day] = {"recipe": slug if slug else None, "notes": None}
-
-    try:
-        ensure_repo()
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Git error: {e}")
-
-    plan_path = REPO_DIR / "_data" / "meal_plan.yml"
-    plan_path.parent.mkdir(parents=True, exist_ok=True)
-    plan_path.write_text(
-        yaml.dump(plan, default_flow_style=False, allow_unicode=True, sort_keys=False),
-        encoding="utf-8",
-    )
-    try:
-        git_commit_and_push(f"Update meal plan for week of {week_of}")
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Git push failed: {e}")
-
-    return {"message": f"Meal plan saved for week of {week_of}", "week_of": week_of}
-
-
-@app.post("/plan/add")
-async def plan_add(slug: str = Form(...)):
-    """Append a recipe slug to the first empty slot in the current week's plan."""
-    from datetime import date, timedelta
-
-    try:
-        ensure_repo()
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Git error: {e}")
-
-    if not (REPO_DIR / "_recipes" / f"{slug}.md").exists():
-        raise HTTPException(status_code=404, detail=f"Recipe not found: {slug}")
-
-    plan = load_meal_plan()
-    week_of = date.today() - timedelta(days=date.today().weekday())
-    if str(plan.get("week_of", "")) != str(week_of):
-        plan = {"week_of": str(week_of)}
-        for day in DAYS:
-            plan[day] = {"recipe": None, "notes": None}
-
-    added_to = None
-    for day in DAYS:
-        day_data = plan.get(day, {})
-        existing = day_data.get("recipe") if isinstance(day_data, dict) else day_data
-        if not existing or str(existing) in ("None", "", "null", "~"):
-            if isinstance(plan.get(day), dict):
-                plan[day]["recipe"] = slug
-            else:
-                plan[day] = {"recipe": slug, "notes": None}
-            added_to = day
-            break
-
-    if not added_to:
-        raise HTTPException(status_code=409, detail="All days this week are already planned")
-
-    plan_path = REPO_DIR / "_data" / "meal_plan.yml"
-    plan_path.parent.mkdir(parents=True, exist_ok=True)
-    plan_path.write_text(
-        yaml.dump(plan, default_flow_style=False, allow_unicode=True, sort_keys=False),
-        encoding="utf-8",
-    )
-    try:
-        git_commit_and_push(f"Add {slug} to meal plan ({added_to})")
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Git push failed: {e}")
-
-    return {"message": f"Added '{slug}' to {added_to}", "day": added_to}
-
-
-@app.post("/update-made")
-async def update_made(slug: str = Form(...)):
-    """Set last_made to today for a recipe slug."""
-    from datetime import date
-
-    try:
-        ensure_repo()
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Git error: {e}")
-
-    path = REPO_DIR / "_recipes" / f"{slug}.md"
-    if not path.exists():
-        raise HTTPException(status_code=404, detail=f"Recipe not found: {slug}")
-
-    today = date.today().isoformat()
-    write_frontmatter_field(path, "last_made", today)
-
-    try:
-        git_commit_and_push(f"Log last_made for {slug}: {today}")
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Git push failed: {e}")
-
-    return {"message": f"Updated last_made for '{slug}' to {today}"}
-
-
-@app.post("/grocery/save")
-async def grocery_save():
-    """Aggregate ingredients from the current meal plan and save to grocery_list.yml."""
-    try:
-        ensure_repo()
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Git error: {e}")
-
-    plan = load_meal_plan()
-    if not plan:
-        raise HTTPException(status_code=404, detail="No meal plan found")
-
-    slugs = []
-    for day in DAYS:
-        day_data = plan.get(day, {})
-        slug = day_data.get("recipe") if isinstance(day_data, dict) else day_data
-        if slug and str(slug) not in ("None", "", "null", "~"):
-            slugs.append(str(slug))
-
-    all_ingredients: list = []
-    for slug in slugs:
-        path = REPO_DIR / "_recipes" / f"{slug}.md"
-        if not path.exists():
-            continue
-        parts = path.read_text(encoding="utf-8").split("---", 2)
-        if len(parts) < 3:
-            continue
-        try:
-            fields = yaml.safe_load(parts[1]) or {}
-        except yaml.YAMLError:
-            continue
-        ings = fields.get("ingredients", [])
-        if isinstance(ings, list):
-            all_ingredients.extend([str(i).strip() for i in ings if str(i).strip()])
-        elif isinstance(ings, str):
-            all_ingredients.extend([ln.strip().lstrip("-").strip() for ln in ings.splitlines() if ln.strip()])
-
-    seen: set = set()
-    unique: list = []
-    for ing in all_ingredients:
-        key = re.sub(r"[^a-z]", "", ing.lower())
-        if key not in seen:
-            seen.add(key)
-            unique.append(ing)
-
-    out = {"week_of": str(plan.get("week_of", "")), "items": unique}
-    out_path = REPO_DIR / "_data" / "grocery_list.yml"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(yaml.dump(out, default_flow_style=False, allow_unicode=True), encoding="utf-8")
-
-    try:
-        git_commit_and_push(f"Update grocery list for week of {out['week_of']}")
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Git push failed: {e}")
-
-    return {"message": f"Saved {len(unique)} items", "count": len(unique), "week_of": out["week_of"]}

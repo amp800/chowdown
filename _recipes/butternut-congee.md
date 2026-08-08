@@ -31,8 +31,6 @@ directions:
 - Turn off heat and discard any larger pieces of seaweed, though it is fine to leave them in. Using a wooden spoon, stir vigorously to break up the rice, butternut and garlic. Some of the butternut will stay intact, while some will break apart and impart a golden hue to the dish. Add salt to taste.
 - To serve, top with scallions and a few drops of chile oil or chile crisp.
 season: [fall, winter]
-last_made: ~
-rating: 4
 difficulty: medium
 kid_friendly: true
 ---

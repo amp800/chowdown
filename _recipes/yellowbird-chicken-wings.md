@@ -19,8 +19,6 @@ directions:
   - Move all the wings to a sheet pan, and put under a ripping hot broiler (450°+). After a minute or two, flip the wings. Broil and flip and broil and flip until the wings look perfect to you. We usually lean on the well-done side.
   - In a big bowl, toss the wings in the wing sauce. If you want to do a few other flavors, split the wings into a few bowls with a few sauces.
 season: [all]
-last_made: ~
-rating: 3
 difficulty: medium
 kid_friendly: true
 ---

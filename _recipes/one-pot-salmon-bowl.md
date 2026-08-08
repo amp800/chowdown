@@ -25,8 +25,6 @@ directions:
   - Remove the pan from the heat. Stir in the lemon juice, Dijon mustard, and scallion greens. Season with salt and pepper to taste.
   - Flake the salmon into large chunks and return to the pot (or serve the fillets whole on top of the lentil salad). Serve warm.
 season: [spring, summer]
-last_made: ~
-rating: 4
 difficulty: easy
 kid_friendly: true
 ---

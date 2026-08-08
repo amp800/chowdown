@@ -38,8 +38,6 @@ yield: 4 servings
 total_time: '30'
 category: easy, weeknight, seafood, main course
 season: [spring, winter]
-last_made: ~
-rating: 4
 difficulty: medium
 kid_friendly: false
 ---

@@ -17,8 +17,6 @@ layout: default
     <div class="sort-bar">
       <span class="sort-label">Sort:</span>
       <button class="sort-btn active" data-sort="date">Recently Added</button>
-      <button class="sort-btn" data-sort="last_made">Last Cooked</button>
-      <button class="sort-btn" data-sort="rating">Top Rated</button>
       <button class="sort-btn" data-sort="time">Quickest</button>
     </div>
 
@@ -29,8 +27,6 @@ layout: default
       <a href="{{ post.url | relative_url }}" class="recipe-card"
          data-title="{{ post.title | downcase }}"
          data-date="{{ post.date_added | date: '%s' }}"
-         data-last-made="{% if post.last_made %}{{ post.last_made | date: '%s' }}{% else %}0{% endif %}"
-         data-rating="{{ post.rating | default: 0 }}"
          data-time="{{ post.total_time | default: post.cook_time | default: 9999 }}">
         
         <div class="card-image-box">
@@ -38,16 +34,13 @@ layout: default
           {% unless post.image %}
             <div class="no-image-pattern">NO IMG</div>
           {% endunless %}
-          {% if post.last_made %}
-            <span class="last-made-badge" data-date="{{ post.last_made }}">Made {{ post.last_made }}</span>
-          {% endif %}
         </div>
 
         <div class="card-text">
           <h3 class="card-title">{{ post.title }}</h3>
           <span class="card-arrow">→</span>
         </div>
-        {% if post.difficulty or post.rating or post.cook_time or post.total_time or post.kid_friendly == true or post.kid_friendly == "true" %}
+        {% if post.difficulty or post.cook_time or post.total_time or post.kid_friendly == true or post.kid_friendly == "true" %}
         <div class="card-meta">
           {% if post.difficulty %}
             <span class="card-badge {{ post.difficulty }}">{{ post.difficulty }}</span>
@@ -59,9 +52,6 @@ layout: default
             <span class="card-badge time">{{ post.total_time }}</span>
           {% elsif post.cook_time %}
             <span class="card-badge time">{{ post.cook_time }}</span>
-          {% endif %}
-          {% if post.rating %}
-            <span class="card-rating">{% assign _r = post.rating %}{% for i in (1.._r) %}★{% endfor %}</span>
           {% endif %}
         </div>
         {% endif %}
@@ -207,36 +197,6 @@ layout: default
   .card-badge.kid    { border-color: #1a4b8a; color: #1a4b8a; }
   .card-badge.time   { border-color: #555; color: #555; }
 
-  .card-rating {
-    font-size: 0.75rem;
-    color: #E63946;
-    letter-spacing: 0.04em;
-    margin-left: auto;
-  }
-
-  .card-image-box {
-    position: relative;
-  }
-
-  .last-made-badge {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
-    background: rgba(0,0,0,0.72);
-    color: #fff;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.25em 0.55em;
-    border-radius: 2px;
-    pointer-events: none;
-  }
-
-  .last-made-badge.stale {
-    background: #E63946;
-  }
-
   /* --- SEARCH BAR --- */
   .search-bar {
     display: flex;
@@ -358,26 +318,6 @@ layout: default
 </style>
 
 <script>
-(function () {
-  var now = Date.now();
-  document.querySelectorAll('.last-made-badge[data-date]').forEach(function (badge) {
-    var raw = badge.dataset.date;
-    if (!raw || raw === 'null' || raw === '') return;
-    var d = new Date(raw);
-    if (isNaN(d)) return;
-    var days = Math.round((now - d.getTime()) / 86400000);
-    var label;
-    if (days === 0)       label = 'Made today';
-    else if (days === 1)  label = 'Made yesterday';
-    else if (days < 14)   label = 'Made ' + days + 'd ago';
-    else if (days < 60)   label = 'Made ' + Math.floor(days / 7) + 'w ago';
-    else                  label = 'Made ' + Math.floor(days / 30) + 'mo ago';
-    badge.textContent = label;
-    // Mark as stale if not made in the last 30 days
-    if (days > 30) badge.classList.add('stale');
-  });
-})();
-
 // Search filter
 (function () {
   var input = document.getElementById('recipe-search');
@@ -427,20 +367,6 @@ layout: default
         if (sort === 'date') {
           av = parseInt(a.dataset.date, 10) || 0;
           bv = parseInt(b.dataset.date, 10) || 0;
-          return bv - av;
-        } else if (sort === 'last_made') {
-          av = parseInt(a.dataset.lastMade, 10) || 0;
-          bv = parseInt(b.dataset.lastMade, 10) || 0;
-          if (av === 0 && bv === 0) return 0;
-          if (av === 0) return 1;
-          if (bv === 0) return -1;
-          return bv - av;
-        } else if (sort === 'rating') {
-          av = parseFloat(a.dataset.rating) || 0;
-          bv = parseFloat(b.dataset.rating) || 0;
-          if (av === 0 && bv === 0) return 0;
-          if (av === 0) return 1;
-          if (bv === 0) return -1;
           return bv - av;
         } else if (sort === 'time') {
           av = parseInt(a.dataset.time, 10) || 9999;

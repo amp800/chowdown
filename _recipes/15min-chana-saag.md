@@ -26,8 +26,6 @@ directions:
 - Add chickpeas and the green sauce to the pan. Rinse the blender with a splash of water and add to the pan.
 - Simmer to heat through. Stir in lemon juice and salt. Serve with rice or bread.
 season: [all]
-last_made: ~
-rating: 5
 difficulty: easy
 kid_friendly: false
 ---

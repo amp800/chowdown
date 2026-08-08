@@ -25,8 +25,6 @@ directions:
 - Uncover and taste. Add another splash of fish sauce, lime juice, or a pinch of salt if needed. Stir in the chopped cashews or peanuts if using.
 - Remove from the heat and top generously with extra torn mint, cilantro, and the reserved dark green scallion slices. Serve immediately.
 season: [spring, summer]
-last_made: ~
-rating: 4
 difficulty: easy
 kid_friendly: false
 ---

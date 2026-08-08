@@ -45,8 +45,6 @@ directions:
   the sliced chile and cilantro. Squeeze a bit of lemon juice on top before serving.
 season:
 - all
-last_made: null
-rating: null
 difficulty: easy
 kid_friendly: false
 yield: 4 servings

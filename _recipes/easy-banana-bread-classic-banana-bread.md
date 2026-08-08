@@ -34,8 +34,6 @@ directions:
 date_added: 2026-05-14
 season:
 - all
-last_made: null
-rating: 5
 difficulty: easy
 kid_friendly: false
 yield: 12 servings
