@@ -1,9 +1,0 @@
-fastapi
-uvicorn[standard]
-recipe-scrapers
-requests
-pyyaml
-python-multipart
-curl-cffi
-beautifulsoup4
-openai

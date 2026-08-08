@@ -3,8 +3,6 @@ title: Chowdown
 email: your-email@domain.com
 description: The plain text recipe database for hackers
 baseurl: "/chowdown"
-language: "en"
-lang_direction: "ltr"
 color: "#F53200"
 twitter_username: clarklab
 github_username:  clarklab
@@ -24,25 +22,3 @@ exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'README.md']
 
 # Recipe imports use GitHub Actions directly via the GitHub API.
 # No server URL needed.
-
-translation:
-  en:
-    components: "Components"
-    ingredients: "Ingredients"
-    directions: "Directions"
-    category: "Category"
-    nutritional_information: "Nutritional Information"
-    component_based: 'This is a <strong class="blue">component-based recipe</strong>.'
-    search: "Search"
-    blog: "Blog"
-    subscribe: "Subscribe"
-  de:
-    components: "Komponenten"
-    ingredients: "Zutaten"
-    directions: "Zubereitung"
-    category: "Kategorie"
-    nutritional_information: "Nährwertangaben"
-    component_based: 'Dieses Rezept besteht aus <strong class="blue">mehreren Komponenten</strong>.'
-    search: "Suche"
-    blog: "Blog"
-    subscribe: "Abonnieren"

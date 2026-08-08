@@ -9,7 +9,39 @@ permalink: /import/
   body, html { margin: 0; padding: 0; background: #f4f4f4; }
 
   .bauhaus-home-layout { display: flex; min-height: 100vh; }
-  .bauhaus-page-content { flex: 1; margin-left: 300px; padding: 60px 48px; max-width: 780px; }
+  .bauhaus-page-content { flex: 1; margin-left: 0; padding: 60px 48px; max-width: 780px; }
+
+  .floating-nav-button {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border: 3px solid #E63946;
+    border-radius: 8px;
+    background: #E63946;
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+  }
+
+  .floating-nav-button svg {
+    width: 30px;
+    height: 30px;
+    fill: currentColor;
+  }
+
+  .floating-nav-button:hover,
+  .floating-nav-button:focus-visible {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+    transform: translateY(-2px);
+  }
 
   h1 {
     font-family: 'Jost', sans-serif;
@@ -71,6 +103,7 @@ permalink: /import/
     color: #000;
     outline: none;
     width: 100%;
+    border-radius: 4px;
     transition: border-color 0.15s;
   }
 
@@ -105,12 +138,12 @@ permalink: /import/
     background: #000;
     color: #fff;
     border: 3px solid #000;
+    border-radius: 4px;
     cursor: pointer;
-    box-shadow: 6px 6px 0 #E63946;
-    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
-  .import-btn:hover { background: #E63946; border-color: #E63946; box-shadow: 6px 6px 0 #000; }
-  .import-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+  .import-btn:hover { background: #E63946; border-color: #E63946; }
+  .import-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   #import-status {
     font-family: 'Jost', sans-serif;
@@ -123,6 +156,7 @@ permalink: /import/
 
   .pat-section {
     border: 3px solid #000;
+    border-radius: 4px;
     padding: 24px;
     background: #fff;
     margin-bottom: 40px;
@@ -147,6 +181,7 @@ permalink: /import/
     background: #000;
     color: #fff;
     border: 3px solid #000;
+    border-radius: 4px;
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
@@ -166,15 +201,19 @@ permalink: /import/
   .workflow-note a { color: #000; font-weight: 700; }
 
   @media (max-width: 860px) {
-    .bauhaus-page-content { margin-left: 0; padding: 32px 20px; }
+    .bauhaus-page-content { padding: 32px 20px; }
+    .floating-nav-button { top: 16px; right: 16px; width: 58px; height: 58px; }
     .row-2, .row-3 { grid-template-columns: 1fr; }
   }
 </style>
 
 <div class="bauhaus-home-layout">
-  {% include sidebar.html %}
-
   <main class="bauhaus-page-content">
+    <a class="floating-nav-button" href="{{ '/' | relative_url }}" aria-label="Return to recipes" title="Return to recipes">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M3 10.8 12 3l9 7.8v8.7a1.5 1.5 0 0 1-1.5 1.5h-5v-6h-5v6h-5A1.5 1.5 0 0 1 3 19.5v-8.7Z"/>
+      </svg>
+    </a>
     <h1>Import Recipe</h1>
     <p class="page-sub">Paste a recipe URL — a GitHub Actions workflow scrapes it and commits directly to the repo. Takes about 30 seconds to appear.</p>
 

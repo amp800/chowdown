@@ -191,7 +191,7 @@ layout: default
     display: inline-block;
     padding: 15px 25px;
     margin-bottom: 30px;
-    box-shadow: 10px 10px 0px 0px #000;
+    border-radius: 4px;
     border: 3px solid #000;
     transform: rotate(-1.5deg);
     line-height: 1;
@@ -213,6 +213,7 @@ layout: default
     padding: 6px 12px;
     background: #fff;
     min-width: 52px;
+    border-radius: 3px;
   }
 
   .meta-chip-label {
@@ -261,6 +262,7 @@ layout: default
     padding: 3px 10px;
     background: #000;
     color: #fff;
+    border-radius: 2px;
   }
 
   h2 {
@@ -296,6 +298,7 @@ layout: default
     margin-right: 20px;
     margin-top: 3px;
     background: #fff;
+    border-radius: 3px;
     cursor: pointer;
     flex-shrink: 0;
   }
@@ -316,16 +319,15 @@ layout: default
     text-transform: uppercase;
     letter-spacing: 0.08em;
     border: 3px solid #000;
-    box-shadow: 6px 6px 0px 0px #E63946;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
 
   #cooking-mode-btn.active {
     background: #E63946;
     color: #fff;
     border-color: #E63946;
-    box-shadow: 6px 6px 0px 0px #000;
   }
 
   #cooking-mode-btn:hover {
