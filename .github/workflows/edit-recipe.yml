@@ -1,0 +1,40 @@
+name: Edit Recipe
+
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "Recipe file path (e.g. _recipes/one-pot-salmon-bowl.md)"
+        required: true
+      payload:
+        description: "Base64-encoded JSON payload of the recipe fields"
+        required: true
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Write recipe
+        run: |
+          python tools/editor/save_recipe.py \
+            --path "${{ inputs.path }}" \
+            --payload "${{ inputs.payload }}"
+
+      - name: Commit recipe
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Edit recipe ${{ inputs.path }}"
+          file_pattern: "_recipes/*.md"
+          skip_dirty_check: "true"

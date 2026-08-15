@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign yield_value = page.yield | default: page.yields | default: page.servings %}
+
 <div class="bauhaus-split-layout">
   
   <div class="split-image-container">
@@ -23,6 +25,8 @@ layout: default
 
   <div class="split-content-container">
     <div class="content-padding">
+
+      <div id="recipe-view">
       
       <h1 class="recipe-title">{{ page.title }}</h1>
       
@@ -44,7 +48,7 @@ layout: default
             <span class="meta-chip-value">{{ page.prep_time }}</span>
           </div>
         {% endif %}
-        {% if page.yield %}
+        {% if yield_value %}
           <div class="servings-control" id="servings-control">
             <div class="servings-row">
               <button type="button" class="servings-btn" id="servings-minus" aria-label="Decrease servings">−</button>
@@ -73,7 +77,7 @@ layout: default
 
       {% if page.ingredients %}
       <script id="ingredients-data" type="application/json">{{ page.ingredients | jsonify }}</script>
-      <script id="servings-data" type="application/json">{{ page.yield | jsonify }}</script>
+      <script id="servings-data" type="application/json">{{ yield_value | jsonify }}</script>
       <button id="cooking-mode-btn" onclick="toggleCookingMode()">COOKING MODE</button>
       <div id="ingredients-section" class="recipe-section">
         <h2>Ingredients</h2>
@@ -103,10 +107,95 @@ layout: default
       {% endif %}
 
       <div style="height: 150px;"></div>
+      </div>
+
+      <script id="recipe-source-data" type="application/json">
+{
+  "path": {{ page.path | jsonify }},
+  "title": {{ page.title | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "yield": {{ yield_value | jsonify }},
+  "prep_time": {{ page.prep_time | jsonify }},
+  "cook_time": {{ page.cook_time | jsonify }},
+  "total_time": {{ page.total_time | jsonify }},
+  "tags": {{ page.tags | jsonify }},
+  "ingredients": {{ page.ingredients | jsonify }},
+  "directions": {{ page.directions | jsonify }}
+}
+</script>
+
+      <div id="recipe-editor" hidden>
+        <h2 class="editor-heading">Edit Recipe</h2>
+
+        <div class="editor-field">
+          <label for="edit-title">Title</label>
+          <input type="text" id="edit-title" autocomplete="off" />
+        </div>
+
+        <div class="editor-field">
+          <label for="edit-description">Description</label>
+          <textarea id="edit-description" rows="3"></textarea>
+        </div>
+
+        <div class="editor-row editor-row-3">
+          <div class="editor-field">
+            <label for="edit-serves">Serves</label>
+            <input type="text" id="edit-serves" inputmode="numeric" autocomplete="off" />
+          </div>
+          <div class="editor-field">
+            <label for="edit-prep">Prep time</label>
+            <input type="text" id="edit-prep" autocomplete="off" />
+          </div>
+          <div class="editor-field">
+            <label for="edit-cook">Cook time</label>
+            <input type="text" id="edit-cook" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="editor-row">
+          <div class="editor-field">
+            <label for="edit-total">Total time</label>
+            <input type="text" id="edit-total" autocomplete="off" />
+          </div>
+          <div class="editor-field">
+            <label for="edit-tags">Tags <span class="editor-hint">comma or space separated</span></label>
+            <input type="text" id="edit-tags" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="editor-field">
+          <label for="edit-ingredients">Ingredients <span class="editor-hint">one per line</span></label>
+          <textarea id="edit-ingredients" rows="12" spellcheck="false"></textarea>
+        </div>
+
+        <div class="editor-field">
+          <label for="edit-directions">Directions <span class="editor-hint">one step per line</span></label>
+          <textarea id="edit-directions" rows="12" spellcheck="false"></textarea>
+        </div>
+
+        <div class="editor-token-row" id="editor-token-row" hidden>
+          <label for="edit-pat">GitHub token</label>
+          <div class="editor-token-inner">
+            <input type="password" id="edit-pat" placeholder="ghp_…" autocomplete="off" />
+            <button type="button" class="editor-token-save" id="edit-pat-save">Save token</button>
+          </div>
+          <p class="editor-token-note">Stored in this browser only, and used only to trigger the edit workflow. Needs <strong>workflow</strong> scope.</p>
+        </div>
+
+        <div class="editor-actions">
+          <button type="button" class="editor-cancel" id="edit-cancel">Cancel</button>
+          <button type="button" class="editor-save" id="edit-save">Save</button>
+          <span id="edit-status"></span>
+        </div>
+      </div>
     </div>
   </div>
 
 </div>
+
+<button type="button" id="edit-recipe-btn" class="edit-recipe-btn" aria-label="Edit this recipe" title="Edit this recipe">
+  <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+</button>
 
 <style>
   /* --- GLOBAL RESET --- */
@@ -445,6 +534,197 @@ layout: default
     line-height: 1.2;
   }
 
+  /* --- INLINE RECIPE EDITOR --- */
+  #recipe-view[hidden],
+  #recipe-editor[hidden] { display: none; }
+
+  .edit-recipe-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border: 3px solid #E63946;
+    border-radius: 8px;
+    background: #E63946;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  }
+
+  .edit-recipe-btn .material-symbols-outlined {
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 400;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .edit-recipe-btn:hover,
+  .edit-recipe-btn:focus-visible {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .editor-heading {
+    margin-top: 0;
+    margin-bottom: 24px;
+    border-bottom: 5px solid #000;
+    padding-bottom: 10px;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-family: 'Jost', sans-serif;
+    color: #000;
+  }
+
+  .editor-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+
+  .editor-field label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000;
+  }
+
+  .editor-hint {
+    font-weight: 400;
+    color: #888;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.75rem;
+    margin-left: 6px;
+  }
+
+  .editor-field input,
+  .editor-field textarea {
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 4px;
+    padding: 12px 16px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+  }
+
+  .editor-field textarea { resize: vertical; line-height: 1.5; min-height: 60px; }
+
+  .editor-field input:focus,
+  .editor-field textarea:focus { border-color: #E63946; }
+
+  .editor-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .editor-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .editor-token-row {
+    border: 3px solid #000;
+    border-radius: 4px;
+    padding: 16px 20px;
+    background: #fff;
+    margin-bottom: 20px;
+  }
+
+  .editor-token-row label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .editor-token-inner { display: flex; gap: 10px; }
+  .editor-token-inner input { flex: 1; }
+
+  .editor-token-save {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 12px 18px;
+    background: #000;
+    color: #fff;
+    border: 3px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .editor-token-save:hover { background: #E63946; border-color: #E63946; }
+
+  .editor-token-note {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    color: #888;
+    margin: 10px 0 0;
+  }
+
+  .editor-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .editor-save,
+  .editor-cancel {
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 14px 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .editor-save {
+    background: #000;
+    color: #fff;
+    border: 3px solid #000;
+  }
+
+  .editor-save:hover { background: #E63946; border-color: #E63946; color: #fff; }
+  .editor-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .editor-cancel {
+    background: #fff;
+    color: #000;
+    border: 3px solid #000;
+  }
+
+  .editor-cancel:hover { background: #000; color: #fff; }
+
+  #edit-status {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #555;
+  }
+
+  #edit-status.ok { color: #155724; font-style: normal; font-weight: 700; }
+  #edit-status.err { color: #721c24; font-style: normal; font-weight: 700; }
+
+  @media (max-width: 899px) {
+    .edit-recipe-btn { bottom: 16px; right: 16px; width: 58px; height: 58px; }
+    .editor-row, .editor-row-3 { grid-template-columns: 1fr; }
+  }
+
 </style>
 
 <script>
@@ -715,6 +995,9 @@ function toggleCookingMode() {
     ingSection.style.display = '';
     restoreDirections();
   }
+
+  var editBtn = document.getElementById('edit-recipe-btn');
+  if (editBtn) editBtn.style.display = isActive ? 'none' : '';
 }
 
 function restoreDirections() {
@@ -881,4 +1164,199 @@ if (document.readyState === 'loading') {
 } else {
   initServingsScaler();
 }
+</script>
+
+<script>
+// ---------------------------------------------------------------------------
+// Inline recipe editor
+// ---------------------------------------------------------------------------
+var EDIT_REPO = 'amp800/chowdown';
+var _editing = false;
+
+function getEditPAT() {
+  return localStorage.getItem('gh_pat') || '';
+}
+
+function getRecipeSource() {
+  var el = document.getElementById('recipe-source-data');
+  if (!el) return {};
+  try { return JSON.parse(el.textContent) || {}; } catch (e) { return {}; }
+}
+
+function normalizeTags(value) {
+  if (Array.isArray(value)) {
+    return value.map(function (t) { return String(t).trim(); }).filter(function (t) { return t.length > 0; });
+  }
+  return String(value || '').split(/[\s,]+/).filter(function (t) { return t.length > 0; });
+}
+
+function syncEditButton() {
+  var btn = document.getElementById('edit-recipe-btn');
+  if (!btn) return;
+  var cmBtn = document.getElementById('cooking-mode-btn');
+  var cooking = !!(cmBtn && cmBtn.classList.contains('active'));
+  btn.style.display = (_editing || cooking) ? 'none' : '';
+}
+
+function enterEditMode() {
+  var cmBtn = document.getElementById('cooking-mode-btn');
+  if (cmBtn && cmBtn.classList.contains('active')) toggleCookingMode();
+
+  var data = getRecipeSource();
+
+  document.getElementById('edit-title').value = data.title || '';
+  document.getElementById('edit-description').value = data.description || '';
+  document.getElementById('edit-serves').value = data.yield || '';
+  document.getElementById('edit-prep').value = data.prep_time || '';
+  document.getElementById('edit-cook').value = data.cook_time || '';
+  document.getElementById('edit-total').value = data.total_time || '';
+  document.getElementById('edit-tags').value = normalizeTags(data.tags).join(', ');
+  document.getElementById('edit-ingredients').value = Array.isArray(data.ingredients) ? data.ingredients.join('\n') : '';
+  document.getElementById('edit-directions').value = Array.isArray(data.directions) ? data.directions.join('\n') : '';
+
+  document.getElementById('editor-token-row').hidden = !!getEditPAT();
+
+  var status = document.getElementById('edit-status');
+  status.textContent = '';
+  status.className = '';
+
+  _editing = true;
+  document.getElementById('recipe-view').hidden = true;
+  document.getElementById('recipe-editor').hidden = false;
+  syncEditButton();
+  window.scrollTo(0, 0);
+}
+
+function exitEditMode() {
+  _editing = false;
+  document.getElementById('recipe-editor').hidden = true;
+  document.getElementById('recipe-view').hidden = false;
+  syncEditButton();
+}
+
+function saveEditorPAT() {
+  var input = document.getElementById('edit-pat');
+  var status = document.getElementById('edit-status');
+  var val = input.value.trim();
+  if (!val) {
+    status.textContent = '✗ Enter a token first';
+    status.className = 'err';
+    return;
+  }
+  localStorage.setItem('gh_pat', val);
+  input.value = '';
+  document.getElementById('editor-token-row').hidden = true;
+  status.textContent = '✓ Token saved — press Save';
+  status.className = 'ok';
+}
+
+function buildYield(raw) {
+  var s = String(raw || '').trim();
+  if (!s) return '';
+  if (/^\d+(\.\d+)?$/.test(s)) return s + ' servings';
+  return s;
+}
+
+function linesFromTextarea(id) {
+  return document.getElementById(id).value
+    .split(/\r?\n/)
+    .map(function (s) { return s.trim(); })
+    .filter(function (s) { return s.length > 0; });
+}
+
+function buildEditPayload() {
+  return {
+    title: document.getElementById('edit-title').value.trim(),
+    description: document.getElementById('edit-description').value.trim(),
+    yield: buildYield(document.getElementById('edit-serves').value),
+    prep_time: document.getElementById('edit-prep').value.trim(),
+    cook_time: document.getElementById('edit-cook').value.trim(),
+    total_time: document.getElementById('edit-total').value.trim(),
+    tags: document.getElementById('edit-tags').value.split(/[\s,]+/).map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 0; }),
+    ingredients: linesFromTextarea('edit-ingredients'),
+    directions: linesFromTextarea('edit-directions')
+  };
+}
+
+function encodeBase64Unicode(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+async function saveEdit() {
+  var status = document.getElementById('edit-status');
+  var saveBtn = document.getElementById('edit-save');
+
+  var payload = buildEditPayload();
+  if (!payload.title) {
+    status.textContent = '✗ Title is required';
+    status.className = 'err';
+    return;
+  }
+
+  var token = getEditPAT();
+  if (!token) {
+    document.getElementById('editor-token-row').hidden = false;
+    status.textContent = '✗ Save a GitHub token first';
+    status.className = 'err';
+    return;
+  }
+
+  var path = getRecipeSource().path;
+  if (!path) {
+    status.textContent = '✗ Could not determine the recipe file path';
+    status.className = 'err';
+    return;
+  }
+
+  saveBtn.disabled = true;
+  status.textContent = 'Saving…';
+  status.className = '';
+
+  try {
+    var resp = await fetch(
+      'https://api.github.com/repos/' + EDIT_REPO + '/actions/workflows/edit-recipe.yml/dispatches',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ref: 'main',
+          inputs: {
+            path: path,
+            payload: encodeBase64Unicode(JSON.stringify(payload))
+          }
+        })
+      }
+    );
+
+    if (resp.status === 204) {
+      status.textContent = '✓ Saved — the site rebuilds in ~30 seconds. Refresh to see changes.';
+      status.className = 'ok';
+    } else {
+      var body = {};
+      try { body = await resp.json(); } catch (e) {}
+      throw new Error(body.message || ('HTTP ' + resp.status));
+    }
+  } catch (err) {
+    status.textContent = '✗ ' + err.message;
+    status.className = 'err';
+  } finally {
+    saveBtn.disabled = false;
+  }
+}
+
+(function initEditor() {
+  var editBtn = document.getElementById('edit-recipe-btn');
+  if (editBtn) editBtn.addEventListener('click', enterEditMode);
+  var cancelBtn = document.getElementById('edit-cancel');
+  if (cancelBtn) cancelBtn.addEventListener('click', exitEditMode);
+  var saveBtn = document.getElementById('edit-save');
+  if (saveBtn) saveBtn.addEventListener('click', saveEdit);
+  var patBtn = document.getElementById('edit-pat-save');
+  if (patBtn) patBtn.addEventListener('click', saveEditorPAT);
+  syncEditButton();
+})();
 </script>

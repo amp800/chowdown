@@ -9,11 +9,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-  # Rebuild after the "Import Recipe" workflow commits a new recipe. Commits
+  # Rebuild after the "Import Recipe" or "Edit Recipe" workflow commits. Commits
   # made with the action's GITHUB_TOKEN do not trigger the "push" event above,
-  # so this ensures website imports are deployed automatically too.
+  # so this ensures imports and edits are deployed automatically too.
   workflow_run:
-    workflows: ["Import Recipe"]
+    workflows: ["Import Recipe", "Edit Recipe"]
     types:
       - completed
 
@@ -33,7 +33,7 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    # Skip deploys triggered by a failed import run.
+    # Skip deploys triggered by a failed import or edit run.
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout
