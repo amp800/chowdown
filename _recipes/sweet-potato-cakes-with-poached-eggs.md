@@ -2,6 +2,8 @@
 layout: recipe
 title: Sweet potato cakes with poached eggs
 image: sweet-potato-cakes-with-poached-eggs.jpg
+original_url:
+# ---
 tags:
 - baking
 - dessert
@@ -16,6 +18,7 @@ ingredients:
 - 4 egg whites
 - 50g harissa
 - olive oil for frying
+# ---
 directions:
 - To make the potato cakes, squeeze the excess moisture from the sweet potato, then combine with flour, parsley, egg white,
   harissa and some salt in a bowl until the mixture sticks together. Shape into 8 potato cakes. Heat a little oil in a frying
@@ -27,7 +30,6 @@ directions:
   then sandwich another potato cake on top with more yogurt. Top each stack with the remaining yogurt and an egg. Season and
   drizzle with more harissa and scatter over the micro herbs.
 date_added: 2026-08-03
-original_url:
 yield: 4 servings
 prep_time: '15'
 cook_time: '15'

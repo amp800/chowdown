@@ -3,6 +3,8 @@ date_added: 2026-05-06
 layout: recipe
 title: Laotian-Style Chicken and Rice Salad
 image: laotian-style-chicken-and-rice-salad.jpg
+original_url:
+# ---
 tags:
 - chicken
 - salad
@@ -22,6 +24,7 @@ ingredients:
 - 1 cup (packed) cilantro leaves
 - ½ cup (packed) mint leaves
 - Lettuce leaves and lime wedges (for serving)
+# ---
 directions:
 - Place 1 medium red onion, thinly sliced, and one 3" piece ginger, peeled, cut into thin matchsticks, in a medium bowl of
   ice water and let soak while you prepare the chicken and rice.
@@ -40,5 +43,4 @@ directions:
   peanuts, 1 cup (packed) cilantro leaves, ½ cup (packed) mint leaves, and rice. Toss well to combine.
 - Transfer salad to a platter. Serve with lettuce leaves for wrapping and lime wedges for squeezing over.
 yield: 4 servings
-original_url:
 ---

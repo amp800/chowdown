@@ -3,6 +3,8 @@ date_added: 2025-10-23
 layout: recipe
 title: "Cranberry Lemon Bars"
 image: cranberry-lemon-bars.jpg
+original_url: https://www.savoryexperiments.com/cranberry-lemon-bars/
+# ---
 tags:
 - dessert
 ingredients:
@@ -15,6 +17,7 @@ ingredients:
 - 1/2 cup fresh lemon juice (about 4 lemons)
 - 1/2 cup flour
 - 1 cup canned whole berry cranberry sauce
+# ---
 directions:
 - Line a 9×9 inch pan with parchment paper and preheat the oven to 350°F.
 - In the bowl of a stand mixer fitted with the paddle attachment or a large mixing bowl using a hand mixer, cream together the softened **1/2 cup salted butter** and **1/4 cup sugar** until light and fluffy, approximately 2-3 minutes.
@@ -25,6 +28,5 @@ directions:
 - Sift the **1/2 cup flour** and add to the mixture. Mix until the lemon mixture is smooth.
 - Top the still-warm crust with the **1 cup canned whole berry cranberry sauce**.
 - Smooth the lemon layer on top of the cranberry sauce and bake for another **30-35 minutes** until the lemon layer has set, but is not browned. Let the bars cool completely and then chill in the refrigerator for a minimum of **4 hours**, but up to overnight.
-original_url: https://www.savoryexperiments.com/cranberry-lemon-bars/
 ---
 Recipe scanned from [Savory Experiments](https://www.savoryexperiments.com/cranberry-lemon-bars/), suggested by squirrelgirl.

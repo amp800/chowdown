@@ -2,6 +2,8 @@
 layout: recipe
 title: Cherry Cobbler Recipe (fresh or frozen cherries)
 image: cherry-cobbler-recipe-fresh-or-frozen-cherries.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - 1 1/2 pounds of cherries, pitted, fresh or frozen
@@ -17,6 +19,7 @@ ingredients:
 - 1/4 cup plus 1 tablespoon (62 grams) granulated sugar
 - 1 teaspoon pure vanilla extract
 - 1 teaspoon almond extract
+# ---
 directions:
 - Heat the oven to 350° F (176° C).
 - Add all the filling ingredients to a 9-inch square baking dish and stir to mix. Spread the cherries out in the pan into
@@ -27,7 +30,6 @@ directions:
   needs to bake will depend on the temperature of the berries.
 - Let stand for about 10 minutes before serving. Serve in bowls with with a scoop of vanilla ice cream if you like.
 date_added: 2026-05-23
-original_url:
 yield: 9 servings
 prep_time: '10'
 cook_time: '60'

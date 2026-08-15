@@ -2,6 +2,8 @@
 layout: recipe
 title: Blondie Recipe
 image: blondie-recipe.jpg
+original_url:
+# ---
 tags:
 - baking
 ingredients:
@@ -14,6 +16,7 @@ ingredients:
 - 1 teaspoon baking powder
 - Â½ teaspoon salt
 - 1 cup white chocolate chips (optional (190 grams) )
+# ---
 directions:
 - Preheat the oven to 350Â°F (177Â°C). Line a 9x13-inch baking pan with parchment paper or aluminum foil, leaving some overhang
   for easy removal, and set aside.
@@ -24,7 +27,6 @@ directions:
 - Bake for 28 to 32 minutes or until the top is set and lightly browned. Remove from the oven and transfer the pan to a wire
   rack to cool completely before slicing into bars.
 date_added: 2026-05-13
-original_url:
 yield: 24 servings
 prep_time: '15'
 cook_time: '30'

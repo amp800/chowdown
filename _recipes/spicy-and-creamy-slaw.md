@@ -2,6 +2,8 @@
 layout: recipe
 title: Spicy and Creamy Slaw
 image: spicy-and-creamy-slaw.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - ½ small red onion or 1 medium shallot, thinly sliced
@@ -15,6 +17,7 @@ ingredients:
 - 1 Tbsp. fresh lemon juice
 - 1 medium head of savoy or green cabbage (about 2 lb.)
 - ½ cup chopped dill or parsley
+# ---
 directions:
 - Combine red onion and vinegar in a small bowl; add ½–1 chile, depending on the heat of your chile and your preference; season
   with salt and pepper. Let sit 10 minutes. Whisk in garlic, yogurt, oil, and lemon zest and juice; set dressing aside.
@@ -25,6 +28,5 @@ directions:
 - 'Do Ahead: Dressing can be made 12 hours ahead; cover and chill. Slaw (without dill) can be made 1 day ahead; cover and
   chill.'
 date_added: 2026-05-11
-original_url:
 yield: 6 servings
 ---

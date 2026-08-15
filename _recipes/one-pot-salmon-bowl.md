@@ -3,6 +3,8 @@ date_added: 2026-02-01
 layout: recipe
 title: "One-Pot Salmon, Spinach and Lentil Salad"
 image: one-pot-salmon-bowl.jpg
+original_url:
+# ---
 ingredients:
   - 4 (6-ounce) skin-on salmon fillets
   - Kosher salt and black pepper
@@ -13,6 +15,7 @@ ingredients:
   - 1 (5-ounce) package baby spinach
   - 2 tablespoons fresh lemon juice
   - 1 teaspoon Dijon mustard
+# ---
 directions:
   - Pat the salmon fillets dry with paper towels and season generously with salt and pepper.
   - In a large high-sided skillet or Dutch oven, heat 2 tablespoons of the olive oil over medium-high heat.
@@ -24,5 +27,4 @@ directions:
   - Add the spinach in batches, stirring constantly, until just wilted, about 1 to 2 minutes.
   - Remove the pan from the heat. Stir in the lemon juice, Dijon mustard, and scallion greens. Season with salt and pepper to taste.
   - Flake the salmon into large chunks and return to the pot (or serve the fillets whole on top of the lentil salad). Serve warm.
-original_url:
 ---

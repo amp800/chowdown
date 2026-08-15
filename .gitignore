@@ -8,3 +8,5 @@ _recipes/.obsidian/core-plugins.json
 _recipes/.obsidian/workspace.json
 vendor/bundle/
 tools/importer/.env
+__pycache__/
+*.pyc

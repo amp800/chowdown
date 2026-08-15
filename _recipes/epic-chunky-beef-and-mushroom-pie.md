@@ -3,6 +3,7 @@ layout: recipe
 title: Epic Chunky Beef and Mushroom Pie
 image: epic-chunky-beef-and-mushroom-pie.jpg
 original_url: https://www.recipetineats.com/epic-chunky-beef-and-mushroom-pie/
+# ---
 tags:
 - beef
 - dinner
@@ -26,6 +27,7 @@ ingredients:
 - 300 - 400g / 10 – 13 oz Swiss brown mushrooms (, larger ones halved)
 - 1 – 2 sheets puff pastry (enough to cover pie)
 - 1 egg yolk
+# ---
 directions:
 - Place porcini in a bowl and add hot water. Leave to soak for at least 30 minutes. Strain mushrooms and reserve soaking liquid.
   Roughly chop porcini.

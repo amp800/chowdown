@@ -3,6 +3,8 @@ date_added: 2026-05-06
 layout: recipe
 title: Roasted Fish With Leeks and Olive Salsa Verde
 image: roasted-fish-with-leeks-and-olive-salsa-verde.jpg
+original_url:
+# ---
 tags:
 - fish
 - seafood
@@ -18,6 +20,7 @@ ingredients:
 - Large pinch of red-pepper flakes, or to taste
 - Fine sea or table salt
 - 1/3 cup extra-virgin olive oil
+# ---
 directions:
 - Heat oven to 425 degrees. Season fish all over with salt and pepper, and set aside while you prepare the leeks.
 - 'Cut the leeks into matchsticks: Place a leek half, flat side down, on a cutting board and cut it in half crosswise. Then
@@ -36,5 +39,4 @@ directions:
 - Place fish on plates and surround with leeks. Top with olive salsa verde.
 yield: 4 servings
 total_time: '30'
-original_url:
 ---

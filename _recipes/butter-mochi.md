@@ -2,6 +2,8 @@
 layout: recipe
 title: Butter Mochi
 image: butter-mochi.jpg
+original_url:
+# ---
 tags:
 - baking
 ingredients:
@@ -16,6 +18,7 @@ ingredients:
 - 1 1/2 packed cups/219 grams confectioners’ sugar
 - 2 to 4 tablespoons passion fruit pulp or purée (see Tip)
 - Pink or red food coloring (optional)
+# ---
 directions:
 - 'Make the mochi: Heat the oven to 350 degrees. Lightly butter a 9-by-13-inch cake pan, then line the bottom and sides with
   parchment paper.'
@@ -33,7 +36,6 @@ directions:
 - Cut the mochi into squares or bars. Serve immediately, or keep in an airtight container at room temperature for up to 3
   days.
 date_added: 2026-05-11
-original_url:
 yield: 1 cake
 total_time: '120'
 ---

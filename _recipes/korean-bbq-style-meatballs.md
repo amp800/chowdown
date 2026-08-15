@@ -2,6 +2,8 @@
 layout: recipe
 title: Korean BBQ-Style Meatballs
 image: korean-bbq-style-meatballs.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - 1 pound ground beef (round or chuck)
@@ -11,12 +13,12 @@ ingredients:
 - 2 tablespoons minced garlic
 - 1 teaspoon kosher salt (such as Diamond Crystal)
 - 1 teaspoon freshly ground black pepper
+# ---
 directions:
 - Heat oven to 425 degrees. In a large bowl, combine all of the ingredients and use your hands to gently mix.
 - Shape the meat into 12 golf-ball-size rounds (about 2 inches in diameter), and arrange on a greased rimmed baking sheet.
 - Bake until golden and cooked through, about 15 minutes. Serve warm.
 date_added: 2026-05-18
-original_url:
 yield: 4 servings
 total_time: '20'
 ---

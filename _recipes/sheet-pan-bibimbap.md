@@ -3,6 +3,8 @@ date_added: 2026-05-06
 layout: recipe
 title: Sheet-Pan Bibimbap
 image: sheet-pan-bibimbap.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - 6 ounces oyster mushrooms, torn into bite-size pieces
@@ -16,6 +18,7 @@ ingredients:
 - 4 teaspoons toasted sesame oil, plus more to taste, for serving
 - 4 teaspoons gochujang, plus more to taste, for serving
 - Kimchi, for serving (optional)
+# ---
 directions:
 - Position racks in the top and bottom thirds of the oven and heat oven to 450 degrees.
 - On a large sheet pan, arrange the mushrooms, sweet potato, red onion and kale into four separate quadrants. Drizzle the
@@ -33,5 +36,4 @@ directions:
   before diving in, and serve kimchi alongside, if you prefer.
 yield: 4 servings
 total_time: '35'
-original_url:
 ---

@@ -3,6 +3,8 @@ date_added: 2025-10-14
 layout: recipe
 title: "One-pan Spicy Carrot, Potato and Parsnip Filo Traybake"
 image: one-pan-spicy-carrot-potato-and-parsnip-filo-traybake.webp
+original_url:
+# ---
 tags:
 - mains
 - vegetarian
@@ -27,6 +29,7 @@ ingredients:
 - 1/2 tsp caraway seeds
 - salt and black pepper, to taste
 - Serve with a salad
+# ---
 directions:
 - You will need an ovenproof skillet or baking dish.
 - Preheat the oven to 160°C fan.
@@ -35,6 +38,5 @@ directions:
 - Add the carrots, parsnips, and potatoes and stir well to coat everything, then tip in the whole can of chickpeas - including the water from the can. Add the vegetable stock and bring to the boil, then turn to a simmer and cook for 20 mins, until the vegetables are beginning to soften. Remove from heat.
 - Mix the nutritional yeast with the 300ml of yesterday’s soup and add to the cooked veg.
 - Meanwhile, in a frying pan over medium heat, melt 3 tbsp butter and gently fry 1/2 tsp caraway seeds, 1 tsp smoked paprika and 1/2 tsp chilli powder and cook for 2 minutes. Unwrap the filo pastry and brush one of the sheets with the spiced butter mixture and then scrunch up to look a little like a rose. Snuggle all of the scrunched-up filo pastry onto the top of the filling. Slide into the oven and bake for 15-18 mins, until the tops of the pastry are golden brown.
-original_url:
 ---
 Recipe scanned from maxlamanna-com-recipes-one-pan-spicy-carrot-potato-and-parsnip-filo-traybake-10-14-2025_12_38_AM.png.

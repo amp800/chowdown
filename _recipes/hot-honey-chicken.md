@@ -3,6 +3,8 @@ date_added: 2026-05-06
 layout: recipe
 title: Hot Honey Chicken
 image: hot-honey-chicken.jpg
+original_url:
+# ---
 tags:
 - chicken
 ingredients:
@@ -20,6 +22,7 @@ ingredients:
 - 3 tablespoons hot sauce
 - 3 large eggs, beaten
 - 1/3 cup all-purpose flour
+# ---
 directions:
 - In a small saucepan, mix together the honey, red-pepper flakes and cayenne. Heat over medium until the honey begins to lightly
   simmer, then remove from the heat and let infuse for 15 minutes. Strain through a fine-mesh sieve set over a small bowl,
@@ -41,5 +44,4 @@ yield: 4 servings
 prep_time: '15'
 cook_time: '45'
 total_time: '60'
-original_url:
 ---

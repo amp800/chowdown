@@ -2,6 +2,8 @@
 layout: recipe
 title: Ultimate Bibimbap Sauce, 4 Ways
 image: ultimate-bibimbap-sauce-4-ways.jpg
+original_url:
+# ---
 tags:
 - sauce
 ingredients:
@@ -23,10 +25,10 @@ ingredients:
 - 4 tsp toasted sesame seeds
 - 2 tsp toasted sesame oil
 - 1 tsp minced garlic
+# ---
 directions:
 - Choose your choice of sauce. Combine all ingredients in a bowl and mix them well.
 date_added: 2026-05-11
-original_url:
 yield: 12 servings
 prep_time: '5'
 total_time: '5'

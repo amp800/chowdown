@@ -2,6 +2,8 @@
 layout: recipe
 title: Easy Banana Bread (Classic Banana Bread)
 image: easy-banana-bread-classic-banana-bread.jpg
+original_url:
+# ---
 tags:
 - baking
 - bread
@@ -15,6 +17,7 @@ ingredients:
 - 1 Teaspoon Baking Soda
 - 1 Teaspoon Baking Powder
 - 1/2 Teaspoon Salt
+# ---
 directions:
 - Preheat oven to 325 degrees F (163 C).
 - Mash bananas with a fork.
@@ -32,7 +35,6 @@ directions:
   cool. This cool down may take 1 to 2 hours.
 - Watch my recipe video on Bread Dad (BreadDad.com) if you want to see how each recipe step is done.
 date_added: 2026-05-14
-original_url:
 yield: 12 servings
 prep_time: '10'
 cook_time: '70'

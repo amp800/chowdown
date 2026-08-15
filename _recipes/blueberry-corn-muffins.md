@@ -3,6 +3,8 @@ date_added: 2026-05-08
 layout: recipe
 title: Blueberry Corn Muffins
 image: blueberry-corn-muffins.jpg
+original_url:
+# ---
 tags:
 - baking
 ingredients:
@@ -17,6 +19,7 @@ ingredients:
 - 1 large egg
 - 1/2 packed cup/110 grams brown sugar (light or dark)
 - 2 cups/280 grams blueberries (fresh or frozen)
+# ---
 directions:
 - Heat oven to 400 degrees. Generously grease a standard-size muffin tin with butter or coat with cooking spray.
 - In a medium bowl, whisk together cornmeal, flour, lemon zest (if using), baking powder, baking soda and salt. In a large
@@ -27,7 +30,6 @@ directions:
   comes out clean, 18 to 20 minutes. Cool in the pan for 5 minutes, then remove to a wire rack to cool further. Serve warm
   or at room temperature. Store refrigerated in a paper towel-lined, airtight container for up to 3 days. Or, freeze for up
   to 3 months and thaw at room temperature.
-original_url:
 yield: 12 muffins
 prep_time: '15'
 cook_time: '40'

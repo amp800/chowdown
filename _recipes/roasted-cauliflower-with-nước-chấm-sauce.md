@@ -2,6 +2,8 @@
 layout: recipe
 title: Roasted Cauliflower With Nước Chấm Sauce
 image: roasted-cauliflower-with-nước-chấm-sauce.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - 2 heads cauliflower, stems removed, sliced vertically about ½-inch thick
@@ -15,6 +17,7 @@ ingredients:
 - 2 tablespoons chopped cilantro
 - 2 tablespoons crushed roasted peanuts or other nuts
 - Cooked white rice (optional), for serving
+# ---
 directions:
 - Heat oven to 500 degrees.
 - Lay the cauliflower steaks on a large sheet pan, making sure they aren’t touching. (Use multiple sheet pans if necessary.)
@@ -25,7 +28,6 @@ directions:
 - Remove the cauliflower from the oven and top with onion, chiles, cilantro and peanuts. Pour the sauce over all the ingredients
   and serve.
 date_added: 2026-05-11
-original_url:
 yield: 4 servings
 prep_time: '10'
 cook_time: '30'

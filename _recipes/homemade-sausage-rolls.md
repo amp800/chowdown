@@ -3,6 +3,7 @@ layout: recipe
 title: Homemade Sausage Rolls
 image: homemade-sausage-rolls.jpg
 original_url: https://www.recipetineats.com/special-pork-fennel-sausage-rolls/
+# ---
 tags:
 - snacks
 description: Epic, EASY classic homemade sausage rolls recipe that I dare say rivals the famous Bourke St Bakery, declared
@@ -22,6 +23,7 @@ ingredients:
 - 2 1/2 sheets puff pastry (, thawed then each cut into half
 - 1 egg (lightly whisked)
 - Ketchup / tomato sauce
+# ---
 directions:
 - Heat oil in a non stick fry pan over medium high heat. Sauté garlic, onion & celery for 2 minutes, then add bacon.
 - Cook for a further 2 minutes (don't make bacon golden) then transfer to bowl and allow to cool for 10 minutes.

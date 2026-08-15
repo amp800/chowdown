@@ -2,6 +2,8 @@
 layout: recipe
 title: Spiced Chickpea Stew With Coconut and Turmeric
 image: spiced-chickpea-stew-with-coconut-and-turmeric.jpg
+original_url:
+# ---
 tags:
 - soup
 - stew
@@ -20,6 +22,7 @@ ingredients:
 - 1 cup mint leaves, for serving
 - Yogurt, for serving (optional)
 - Toasted pita, lavash or other flatbread, for serving (optional)
+# ---
 directions:
 - Heat 1/4 cup oil in a large pot over medium. Add garlic, onion and ginger. Season with salt and pepper, and cook, stirring
   occasionally until onion is translucent and starts to brown a little at the edges, 3 to 5 minutes.
@@ -38,7 +41,6 @@ directions:
 - Divide among bowls and top with mint, reserved chickpeas, a sprinkle of red-pepper flakes and a good drizzle of olive oil.
   Serve alongside yogurt and toasted pita if using; dust the yogurt with turmeric if you'd like.
 date_added: 2026-05-08
-original_url:
 yield: 6 servings
 total_time: '55'
 ---

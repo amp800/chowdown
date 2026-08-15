@@ -2,6 +2,8 @@
 layout: recipe
 title: Green Falafel Smash Burgers
 image: green-falafel-smash-burgers.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - 1 medium red onion, ½ thinly sliced, ½ coarsely chopped
@@ -21,6 +23,7 @@ ingredients:
 - 4 hamburger buns
 - 3 Tbsp. (or more) extra-virgin olive oil
 - Lettuce leaves and sliced cucumbers (for serving)
+# ---
 directions:
 - Cut out 11 small pieces of parchment paper (about 5x5"); set aside. Toss ½ medium red onion, thinly sliced, 3 Tbsp. white
   wine vinegar, and a pinch of kosher salt in a small bowl. Let sit until ready to serve.
@@ -45,6 +48,5 @@ directions:
   each. (Wrap remaining 2 patties and reserve in refrigerator for another use. You can reheat in a dry hot skillet until warmed
   through, 1–2 minutes per side.) Do Ahead: Patties can be formed 1 day ahead. Wrap tightly and chill.'
 date_added: 2026-05-11
-original_url:
 yield: 4 items
 ---

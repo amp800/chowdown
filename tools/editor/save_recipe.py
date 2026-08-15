@@ -25,6 +25,8 @@ from pathlib import Path
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(REPO_ROOT / "tools"))
+from recipe_frontmatter import render_recipe_markdown
 
 # Front matter keys the editor manages. These are taken from the payload (or
 # dropped when empty) rather than preserved from the existing file.
@@ -44,10 +46,14 @@ def sanitize_path(rel: str) -> Path:
 
 
 def split_existing(path: Path):
-    """Return (front_matter_dict, raw_body) from an existing recipe file."""
+    """Return (front_matter_dict, raw_body) from an existing recipe file.
+
+    Front matter is delimited by a ``---`` line (the same rule Jekyll uses), so
+    the ``# ---`` section dividers inside the block are left untouched.
+    """
     raw = path.read_text(encoding="utf-8")
     if raw.startswith("---"):
-        parts = raw.split("---", 2)
+        parts = re.split(r"(?m)^---[ \t]*$", raw, maxsplit=2)
         fm_raw = parts[1] if len(parts) > 1 else ""
         body = parts[2] if len(parts) > 2 else ""
     else:
@@ -133,18 +139,7 @@ def build_front_matter(existing: dict, data: dict) -> dict:
 
 
 def build_markdown(fm: dict, body: str) -> str:
-    yaml_content = yaml.dump(
-        fm,
-        default_flow_style=False,
-        sort_keys=False,
-        allow_unicode=True,
-        width=120,
-    )
-    out = f"---\n{yaml_content}---\n"
-    cleaned_body = body.strip("\n")
-    if cleaned_body:
-        out += "\n" + cleaned_body + "\n"
-    return out
+    return render_recipe_markdown(fm, body)
 
 
 def main():

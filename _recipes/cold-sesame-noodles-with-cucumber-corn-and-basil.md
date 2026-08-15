@@ -3,6 +3,8 @@ date_added: 2026-05-06
 layout: recipe
 title: Cold Sesame Noodles With Cucumber, Corn and Basil
 image: cold-sesame-noodles-with-cucumber-corn-and-basil.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - Salt
@@ -14,6 +16,7 @@ ingredients:
 - 2 ears corn, kernels removed (about 2 cups of kernels)
 - Toasted white sesame seeds, to serve
 - Handful of basil leaves
+# ---
 directions:
 - Bring a large pot of salted water to a boil. Add the noodles and cook according to packet instructions until al dente. Drain,
   refresh under cold water and drain again.
@@ -28,5 +31,4 @@ yield: 4 servings
 prep_time: '15'
 cook_time: '10'
 total_time: '25'
-original_url:
 ---

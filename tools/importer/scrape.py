@@ -13,7 +13,6 @@ from pathlib import Path
 from urllib.parse import urlparse, urljoin
 
 import requests
-import yaml
 from bs4 import BeautifulSoup
 
 try:
@@ -23,6 +22,8 @@ except ImportError:
     sys.exit(1)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent  # tools/importer/scrape.py → repo root
+sys.path.insert(0, str(REPO_ROOT / "tools"))
+from recipe_frontmatter import render_recipe_markdown
 
 
 # ---------------------------------------------------------------------------
@@ -226,6 +227,7 @@ def build_markdown(data: dict, image_ref: str, user_tags: list,
     all_tags = sorted(list(set(auto_tags + (user_tags or []))))
     from datetime import date
     fm = {
+        "date_added": date.today(),
         "layout": "recipe",
         "title": data.get("title", "Untitled Recipe"),
         "image": image_ref,
@@ -233,13 +235,11 @@ def build_markdown(data: dict, image_ref: str, user_tags: list,
         "tags": all_tags,
         "ingredients": format_ingredients(data.get("ingredients", [])),
         "directions": format_instructions(data.get("instructions", [])),
-        "date_added": date.today(),
     }
     for key in ["description", "yield", "prep_time", "cook_time", "total_time"]:
         if key in data and data[key]:
             fm[key] = data[key]
-    yaml_content = yaml.dump(fm, default_flow_style=False, sort_keys=False, allow_unicode=True, width=120)
-    return f"---\n{yaml_content}---\n"
+    return render_recipe_markdown(fm)
 
 
 # ---------------------------------------------------------------------------

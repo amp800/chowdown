@@ -2,6 +2,8 @@
 layout: recipe
 title: Pressure Cooker Chipotle-Honey Chicken Tacos
 image: pressure-cooker-chipotle-honey-chicken-tacos.jpg
+original_url:
+# ---
 tags:
 - chicken
 - mexican
@@ -19,6 +21,7 @@ ingredients:
 - Warmed tortillas, for serving
 - Pickled onion, for serving (see Tip)
 - Sliced or cubed avocado, for serving
+# ---
 directions:
 - Combine the chicken, chipotles and adobo sauce, honey, onion powder, garlic powder, salt and cumin in an electric pressure
   cooker. Stir well. Cover and set steam valve to sealed position. Cook on high pressure for 13 minutes. Let the pressure
@@ -28,7 +31,6 @@ directions:
 - Stir in the black beans and a squeeze of lime juice, set to sauté and let the beans warm through, 2 to 3 minutes. Taste
   and add more salt or lime juice if necessary. Serve in tortillas with pickled onions and avocado.
 date_added: 2026-05-08
-original_url:
 yield: 4 servings
 total_time: '35'
 ---

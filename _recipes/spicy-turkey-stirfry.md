@@ -3,6 +3,8 @@ date_added: 2026-02-02
 layout: recipe
 title: "Spicy Turkey Stir-Fry with Crisp Garlic and Ginger"
 image: spicy-turkey-stirfry.jpg
+original_url:
+# ---
 
 tags:
 - dinner
@@ -31,6 +33,7 @@ ingredients:
 - Cooked rice or noodles, for serving
 - Sesame seeds, for garnish (optional)
 
+# ---
 directions:
 - Whisk soy sauce, rice vinegar, oyster sauce (if using), sesame oil, sugar, and cornstarch slurry in a small bowl; set aside.
 - Heat 1 tablespoon oil in a wok or large skillet over medium-high heat. Add sliced garlic in a single layer and cook, stirring, until just golden and crisp; transfer to a paper-towel-lined plate.
@@ -39,7 +42,6 @@ directions:
 - Pour sauce over the turkey and stir vigorously to coat. Cook until sauce thickens and glazes the meat, 1–2 minutes. Season with salt and pepper to taste.
 - Stir in most of the crisped garlic and the green scallion slices. Remove from heat and drizzle with a little extra sesame oil if desired.
 - Serve immediately over rice or noodles and sprinkle with remaining garlic and sesame seeds.
-original_url:
 ---
 
 notes:

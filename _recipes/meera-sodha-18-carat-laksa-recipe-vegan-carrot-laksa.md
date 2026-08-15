@@ -3,6 +3,8 @@ date_added: 2026-05-06
 layout: recipe
 title: Meera Sodha 18-Carat Laksa Recipe | Vegan Carrot Laksa
 image: meera-sodha-18-carat-laksa-recipe-vegan-carrot-laksa.jpg
+original_url:
+# ---
 tags:
 - vegan
 ingredients:
@@ -25,6 +27,7 @@ ingredients:
 - 240g or 16 tofu puffs
 - 320g medium rice vermicelli noodles
 - 20g fresh Thai basil, leaves picked, to serve
+# ---
 directions:
 - Preheat the oven to 200°C fan/220°C/gas 7.
 - To make the pickle, pop the bean sprouts into a small heatproof bowl with the vinegar, salt and 150ml of freshly boiled
@@ -48,5 +51,4 @@ yield: 4 servings
 prep_time: '20'
 cook_time: '60'
 total_time: '80'
-original_url:
 ---

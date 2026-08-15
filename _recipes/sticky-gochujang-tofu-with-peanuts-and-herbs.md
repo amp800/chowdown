@@ -2,6 +2,8 @@
 layout: recipe
 title: Sticky Gochujang Tofu with Peanuts and Herbs
 image: sticky-gochujang-tofu-with-peanuts-and-herbs.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - 1 16-ounce block extra firm tofu – ideally the kind that comes vacuum-packed
@@ -17,6 +19,7 @@ ingredients:
 - Rice
 - Cilantro, green onion, and/or peanuts as a garnish
 - Cucumber, or other veggies for the bowl
+# ---
 directions:
 - Prep
 - Preheat the oven to 400 degrees. Press the tofu a few times with paper towels (if you use the vacuum-packed kind, this is
@@ -35,7 +38,6 @@ directions:
 - Remove the pan from the oven and toss with a fresh drizzle of sauce. Serve with rice and a vegetable, and top with chopped
   peanuts, cilantro, green onion, and any remaining sauce. SO GOOD!
 date_added: 2026-05-11
-original_url:
 yield: 3 servings
 prep_time: '10'
 cook_time: '30'

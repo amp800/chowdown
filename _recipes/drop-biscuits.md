@@ -4,6 +4,8 @@ date_added: 2026-02-02
 layout: recipe
 title: "Quick and Easy Drop Biscuits"
 image: drop-biscuit.jpg
+original_url:
+# ---
 
 tags:
 - sides
@@ -17,6 +19,7 @@ ingredients:
 - 4 ounces cold unsalted butter (1 stick; 115 g), cut into 1/4-inch cubes and refrigerated
 - 3/4 cup (180 ml) whole milk
 
+# ---
 directions:
 - Preheat oven to 400°F (200°C) and line a baking sheet with parchment paper; alternatively, grease the baking sheet with butter.
 - In a large bowl, whisk together flour, baking powder, and salt.
@@ -24,7 +27,6 @@ directions:
 - Add milk and stir with a fork until the mixture just comes together into a slightly sticky, shaggy dough.
 - For small biscuits, use a teaspoon or a small cookie scoop to mound walnut-sized balls of dough onto the prepared baking sheet. For large biscuits, use a 1/4-cup measuring cup to mound balls of dough onto the prepared baking sheet.
 - Bake biscuits until golden brown, about 15 minutes for small biscuits and 20 minutes for large ones. Let cool slightly, then transfer to a wire rack. Serve warm or at room temperature.
-original_url:
 ---
 
 notes:

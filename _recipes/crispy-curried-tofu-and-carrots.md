@@ -3,6 +3,8 @@ date_added: 2026-05-07
 layout: recipe
 title: Crispy Curried Tofu and Carrots
 image: crispy-curried-tofu-and-carrots.jpg
+original_url:
+# ---
 tags: []
 ingredients:
 - 1 (14-ounce) block extra-firm tofu, drained
@@ -20,6 +22,7 @@ ingredients:
 - 1 serrano chile or jalapeño, thinly sliced (remove membranes for less heat)
 - 1 handful fresh cilantro leaves and tender stems, chopped
 - Cooked white rice, for serving
+# ---
 directions:
 - Arrange racks in the upper and lower thirds of the oven. Heat to 425 degrees. Grab two rimmed sheet pans and line one with
   parchment paper.
@@ -43,7 +46,6 @@ directions:
   as desired (see Tip).'
 - Divide cooked rice among bowls. Top with the roasted carrots, onions and tofu. Spoon the yogurt sauce on top and top with
   the sliced chile and cilantro. Squeeze a bit of lemon juice on top before serving.
-original_url:
 yield: 4 servings
 prep_time: '10'
 cook_time: '45'

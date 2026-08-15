@@ -3,6 +3,8 @@ date_added: 2026-05-07
 layout: recipe
 title: Linguine With Shrimp and Lemon-Pistachio Bread Crumbs
 image: linguine-with-shrimp-and-lemon-pistachio-bread-crumbs.jpg
+original_url:
+# ---
 tags:
 - baking
 - bread
@@ -26,6 +28,7 @@ ingredients:
 - 1 teaspoon lemon zest, from 1 lemon
 - 3 tablespoons finely chopped mint or Italian parsley
 - Flaky salt
+# ---
 directions:
 - Bring a large pot of well-salted water (2 heaping tablespoons kosher salt to about 7 quarts water) to a boil. Add pasta,
   and cook until it is just short of al dente, according to package directions. Reserve 1 cup of the pasta cooking water,
@@ -44,7 +47,6 @@ directions:
   reserved pasta water, if needed, to loosen up the sauce. Top with half the bread crumbs and a good squeeze of lemon. Serve
   in bowls and pass the remaining bread crumbs at the table. Drizzle with additional olive oil and season with flaky salt,
   if desired.
-original_url:
 yield: 6 servings
 total_time: '25'
 ---

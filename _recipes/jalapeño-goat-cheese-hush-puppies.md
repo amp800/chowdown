@@ -2,6 +2,8 @@
 layout: recipe
 title: Jalapeño-Goat-Cheese Hush Puppies
 image: jalapeño-goat-cheese-hush-puppies.jpg
+original_url:
+# ---
 tags:
 - southern
 ingredients:
@@ -16,6 +18,7 @@ ingredients:
 - 1 1/2 tablespoons chopped seeded jalapeño chile
 - 4 ounces coarsely crumbled soft fresh goat cheese (about 1 cup)
 - Canola oil or vegetable oil (for deep-frying)
+# ---
 directions:
 - Whisk first 6 ingredients in medium bowl to blend. Whisk buttermilk, egg, and chile in small bowl to blend. Stir buttermilk
   mixture and cheese into dry ingredients.
@@ -24,7 +27,6 @@ directions:
   about 4 minutes. Using slotted spoon, transfer hush puppies to paper towels. DO AHEAD Can be made 2 hours ahead. Let stand
   at room temperature. Rewarm until crisp in 375°F oven, 12 to 14 minutes.
 date_added: 2026-05-11
-original_url:
 yield: 18 items
 prep_time: '30'
 ---
