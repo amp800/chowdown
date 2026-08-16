@@ -190,6 +190,53 @@ permalink: /import/
   #pat-status { font-family: 'Jost', sans-serif; font-size: 0.8rem; margin-top: 8px; color: #555; }
   #pat-status.ok { color: #155724; font-weight: 700; }
 
+  .import-section {
+    border: 3px solid #000;
+    border-radius: 4px;
+    padding: 24px;
+    background: #fff;
+    margin-bottom: 40px;
+  }
+  .import-section h2 {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 16px;
+  }
+  .import-section-intro {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    color: #555;
+    margin: 0 0 20px;
+  }
+
+  .photo-picker { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .photo-choose-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 12px 20px;
+    background: #000;
+    color: #fff;
+    border: 3px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .photo-choose-btn:hover { background: #E63946; border-color: #E63946; }
+  .photo-preview {
+    max-width: 160px;
+    max-height: 120px;
+    border: 3px solid #000;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+  .photo-name { font-family: 'Jost', sans-serif; font-size: 0.75rem; color: #555; }
+
   .workflow-note {
     font-family: 'Jost', sans-serif;
     font-size: 0.8rem;
@@ -226,33 +273,65 @@ permalink: /import/
       </div>
       <div id="pat-status"></div>
       <p style="font-family:'Jost',sans-serif;font-size:0.75rem;color:#888;margin:12px 0 0;">
-        Needs <strong>workflow</strong> scope (or <em>Actions: write</em> for fine-grained tokens). 
+        Classic token needs <strong>repo</strong> + <strong>workflow</strong> scopes (or fine-grained
+        <em>Contents: read/write</em> + <em>Actions: write</em>) — photo import uploads the photo to the repo too.
         <a href="https://github.com/settings/tokens" target="_blank">Create one here →</a>
       </p>
     </div>
 
-    <!-- Import form -->
-    <form class="import-form" onsubmit="importRecipe(event)">
-      <div class="field-group">
-        <label for="url">Recipe URL <span class="hint">required</span></label>
-        <input type="url" id="url" name="url" placeholder="https://cooking.nytimes.com/recipes/…" required />
-      </div>
+    <!-- Import from URL -->
+    <div class="import-section">
+      <h2>Import from URL</h2>
+      <form class="import-form" onsubmit="importRecipe(event)">
+        <div class="field-group">
+          <label for="url">Recipe URL <span class="hint">required</span></label>
+          <input type="url" id="url" name="url" placeholder="https://cooking.nytimes.com/recipes/…" required />
+        </div>
 
-      <div class="field-group">
-        <label for="tags">Tags <span class="hint">space-separated</span></label>
-        <input type="text" id="tags" name="tags" placeholder="quick weeknight" />
-      </div>
+        <div class="field-group">
+          <label for="tags">Tags <span class="hint">space-separated</span></label>
+          <input type="text" id="tags" name="tags" placeholder="quick weeknight" />
+        </div>
 
-      <div class="submit-row">
-        <button type="submit" class="import-btn" id="import-btn">Import Recipe</button>
-        <span id="import-status"></span>
-      </div>
-    </form>
+        <div class="submit-row">
+          <button type="submit" class="import-btn" id="import-btn">Import Recipe</button>
+          <span id="import-status"></span>
+        </div>
+      </form>
+    </div>
+
+    <!-- Import from photo -->
+    <div class="import-section">
+      <h2>Import from Photo</h2>
+      <p class="import-section-intro">Snap a photo of a printed cookbook or magazine page — Gemini vision (free, no cost) reads the recipe straight off the page, and your photo becomes the recipe image.</p>
+      <form class="import-form" onsubmit="importPhoto(event)">
+        <div class="field-group">
+          <label for="photo-input">Photo <span class="hint">take one now or pick from your library</span></label>
+          <div class="photo-picker">
+            <input type="file" id="photo-input" accept="image/*" style="display:none;" />
+            <button type="button" class="photo-choose-btn" onclick="document.getElementById('photo-input').click()">Choose Photo</button>
+            <img id="photo-preview" class="photo-preview" alt="Recipe photo preview" hidden />
+            <span class="photo-name" id="photo-name"></span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="photo-tags">Tags <span class="hint">space-separated</span></label>
+          <input type="text" id="photo-tags" placeholder="quick weeknight" />
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="import-btn" id="photo-import-btn">Import from Photo</button>
+          <span id="photo-status"></span>
+        </div>
+      </form>
+    </div>
 
     <div class="workflow-note">
       Recipes are imported via 
-      <a href="https://github.com/amp800/chowdown/actions/workflows/import-recipe.yml" target="_blank">GitHub Actions</a>.
-      You can monitor progress there. The page rebuilds automatically once the workflow commits the file.
+      <a href="https://github.com/amp800/chowdown/actions/workflows/import-recipe.yml" target="_blank">URL import</a> or
+      <a href="https://github.com/amp800/chowdown/actions/workflows/photo-import.yml" target="_blank">photo import</a>
+      GitHub Actions. You can monitor progress there. The page rebuilds automatically once the workflow commits the file.
     </div>
   </main>
 </div>
@@ -316,6 +395,159 @@ async function importRecipe(e) {
   } catch (err) {
     status.textContent = '✗ ' + err.message;
     status.className = 'err';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ---------- Photo import ----------
+var photoFile = null;
+
+// Photo picker preview
+(function () {
+  var input = document.getElementById('photo-input');
+  var preview = document.getElementById('photo-preview');
+  var name = document.getElementById('photo-name');
+  input.addEventListener('change', function () {
+    photoFile = input.files && input.files[0];
+    if (photoFile) {
+      name.textContent = photoFile.name + ' (' + Math.round(photoFile.size / 1024) + ' KB)';
+      if (preview.src) URL.revokeObjectURL(preview.src);
+      preview.src = URL.createObjectURL(photoFile);
+      preview.hidden = false;
+    } else {
+      photoFile = null;
+      preview.hidden = true;
+      name.textContent = '';
+    }
+  });
+})();
+
+// Downscale the phone photo so the repo upload stays small and fast.
+function processPhoto(file) {
+  return new Promise(function (resolve, reject) {
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function () {
+      URL.revokeObjectURL(url);
+      var MAX = 1600;
+      var scale = Math.min(1, MAX / Math.max(img.width, img.height));
+      var canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(img.width * scale));
+      canvas.height = Math.max(1, Math.round(img.height * scale));
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(function (blob) {
+        if (blob) resolve(blob);
+        else reject(new Error('Could not compress that photo — try a smaller image'));
+      }, 'image/jpeg', 0.85);
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Could not read that image')); };
+    img.src = url;
+  });
+}
+
+function blobToBase64(blob) {
+  return new Promise(function (resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var dataUrl = reader.result;
+      resolve(dataUrl.split(',')[1]); // strip the "data:image/jpeg;base64," prefix
+    };
+    reader.onerror = function () { reject(new Error('Could not read the photo data')); };
+    reader.readAsDataURL(blob);
+  });
+}
+
+// Upload the compressed photo to images/ via the GitHub Contents API.
+async function uploadPhoto(filename, blob) {
+  var token = getPAT();
+  var content = await blobToBase64(blob);
+  var resp = await fetch(
+    'https://api.github.com/repos/' + REPO + '/contents/images/' + filename,
+    {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: 'Upload photo for recipe import', content: content, branch: 'main' }),
+    }
+  );
+  if (!resp.ok) {
+    var body = {};
+    try { body = await resp.json(); } catch (e) {}
+    throw new Error(body.message || ('HTTP ' + resp.status));
+  }
+}
+
+// Best-effort removal of the uploaded photo if the workflow never starts.
+async function deleteUploadedPhoto(filename) {
+  var token = getPAT();
+  try {
+    var head = await fetch(
+      'https://api.github.com/repos/' + REPO + '/contents/images/' + filename,
+      { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' } }
+    );
+    if (!head.ok) return;
+    var meta = await head.json();
+    await fetch(
+      'https://api.github.com/repos/' + REPO + '/contents/images/' + filename,
+      {
+        method: 'DELETE',
+        headers: {
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: 'Remove failed photo import', sha: meta.sha, branch: 'main' }),
+      }
+    );
+  } catch (e) {}
+}
+
+async function importPhoto(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  var btn = document.getElementById('photo-import-btn');
+  var status = document.getElementById('photo-status');
+  var tagsInput = document.getElementById('photo-tags');
+  var preview = document.getElementById('photo-preview');
+  var name = document.getElementById('photo-name');
+  var photoInput = document.getElementById('photo-input');
+
+  if (!photoFile) {
+    status.textContent = 'Choose a photo first';
+    status.className = '';
+    return;
+  }
+
+  btn.disabled = true;
+  status.textContent = 'Preparing photo…';
+  status.className = '';
+  var filename = null;
+  try {
+    var blob = await processPhoto(photoFile);
+    filename = 'photo-import-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7) + '.jpg';
+
+    status.textContent = 'Uploading photo…';
+    await uploadPhoto(filename, blob);
+
+    status.textContent = 'Queuing workflow…';
+    await triggerWorkflow('photo-import.yml', {
+      image: filename,
+      tags: tagsInput.value.trim(),
+    });
+
+    status.textContent = '✓ Workflow started — Gemini reads the recipe from your photo, and it will appear in about 1–2 minutes.';
+    status.className = 'ok';
+    photoFile = null;
+    photoInput.value = '';
+    preview.hidden = true;
+    name.textContent = '';
+  } catch (err) {
+    status.textContent = '✗ ' + err.message;
+    status.className = 'err';
+    if (filename) await deleteUploadedPhoto(filename);
   } finally {
     btn.disabled = false;
   }

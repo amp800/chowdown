@@ -1,0 +1,57 @@
+name: Import Recipe from Photo
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: "Photo filename in images/ (already uploaded by the browser)"
+        required: true
+      tags:
+        description: "Space-separated tags (e.g. chicken quick)"
+        required: false
+        default: ""
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pyyaml
+
+      - name: Import recipe from photo
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python tools/importer/photo_import.py \
+            --image "${{ inputs.image }}" \
+            --tags "${{ inputs.tags }}"
+
+      - name: Commit recipe
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Import recipe from photo"
+          file_pattern: "_recipes/*.md images/*"
+          skip_dirty_check: "true"
+
+      # If Gemini fails, the browser-uploaded photo would otherwise stay in
+      # the repo forever. Restore the working tree, remove the orphan, and
+      # push the removal (best effort).
+      - name: Clean up failed photo import
+        if: failure()
+        run: |
+          git checkout -- .
+          git clean -fd images/ || true
+          git rm -f --ignore-unmatch "images/${{ inputs.image }}" >/dev/null 2>&1 || true
+          git -c user.name="chowdown-bot" \
+              -c user.email="actions@users.noreply.github.com" \
+              commit -m "Remove orphaned photo import" >/dev/null 2>&1 || true
+          git push || true
