@@ -7,7 +7,8 @@ original_url: https://www.recipetineats.com/epic-chunky-beef-and-mushroom-pie/#r
 # ---
 tags:
 - mains
-- my wifes
+- my
+- wifes
 description: Tender, fall apart chunks of beef with mushrooms in the most incredible gravy ever.
 yield: 6 servings
 prep_time: '15'
@@ -51,12 +52,12 @@ directions:
 - 'PUFF PASTRY: Cut puff pastry into triangles, brush with milk and bake as per packet instructions. Serve beside casserole.'
 # ---
 notes:
-- 1. Any slow cooking cut of beef is ideal for this recipe. Chuck beef and gravy beef are my favourites, brisket is also good.
+- Any slow cooking cut of beef is ideal for this recipe. Chuck beef and gravy beef are my favourites, brisket is also good.
   I would not recommend using blade roast or other lean cuts of beef as they will dry out.
-- '2. SLOW COOKER: Skip the beef broth and use 2 x crumbled beef stock cubes instead. Follow recipe up to step 7 then transfer
+- 'SLOW COOKER: Skip the beef broth and use 2 x crumbled beef stock cubes instead. Follow recipe up to step 7 then transfer
   everything into a slow cooker (liquid might not cover everything, that’s ok). Slow cook for 6 hours on low, or 3 hours on
   high. Then add cooked bacon and mushrooms, slow cook for another 45 minutes or do this step on the stove. If the liquid
   did not thicken to a thin gravy, simmer it uncovered on the stove. When it cools, the sauce thickens more.'
-- '3. STORAGE: As with most slow cooked things, tastes even better the next day so in my perfect world, I make the filling
-  the day before then cool overnight. The filling freezes great. Always thaw before baking.'
+- 'STORAGE: As with most slow cooked things, tastes even better the next day so in my perfect world, I make the filling the
+  day before then cool overnight. The filling freezes great. Always thaw before baking.'
 ---
