@@ -31,8 +31,8 @@ ingredients:
 - milk
 # ---
 directions:
-- VIDEO
-- 'DUTCH OVEN: Cut beef into 3cm cubes. Sprinkle with salt and pepper.'
+- 'DUTCH OVEN:'
+- Cut beef into 3cm cubes. Sprinkle with salt and pepper.
 - Heat 2 tbsp oil in a large heavy based pot. Add half the beef and brown all over, then remove and repeat with remaining
   beef. Set beef aside.
 - Turn stove down to medium low. If the pot is looking dry, add more oil. Add onion and garlic, cook for 2 minutes. Add finely
@@ -43,12 +43,15 @@ directions:
 - Add thyme, bay leaves and cooked beef. Turn heat up slightly, mix, bring to simmer, then cover. Adjust heat so it is simmering
   gently, not energetically.
 - Cook for 1 hr 45 minutes or until beef is tender. (See video)
-- 'FRYPAN: Meanwhile, cook bacon in a frypan over high heat until golden. Remove and reserve bacon drippings in pan. Add mushrooms
+- 'FRYPAN:'
+- Meanwhile, cook bacon in a frypan over high heat until golden. Remove and reserve bacon drippings in pan. Add mushrooms
   and cook for 5 minutes until golden all over. Return bacon into frypan and toss to coat mushrooms. Then add everything to
-  the dutch oven and stir through stew.'
-- 'DUTCH OVEN AGAIN: Simmer stew, uncovered, for 15 minutes until mushrooms are tender. Then remove from stove and cool.'
+  the dutch oven and stir through stew.
+- 'DUTCH OVEN AGAIN:'
+- Simmer stew, uncovered, for 15 minutes until mushrooms are tender. Then remove from stove and cool.
 - Rest for 5 minutes before serving!
-- 'PUFF PASTRY: Cut puff pastry into triangles, brush with milk and bake as per packet instructions. Serve beside casserole.'
+- 'PUFF PASTRY:'
+- Cut puff pastry into triangles, brush with milk and bake as per packet instructions. Serve beside casserole.
 # ---
 notes:
 - Any slow cooking cut of beef is ideal for this recipe. Chuck beef and gravy beef are my favourites, brisket is also good.
