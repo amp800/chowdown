@@ -1,14 +1,13 @@
 ---
 date_added: '2026-02-11'
 layout: recipe
-title: '[MW] Chunky Beef and Mushroom Casserole'
+title: Chunky Beef and Mushroom Casserole
 image: mw-chunky-beef-and-mushroom-casserole.webp
 original_url: https://www.recipetineats.com/epic-chunky-beef-and-mushroom-pie/#recipe
 # ---
 tags:
 - mains
-- my
-- wifes
+- my_wife's
 description: Tender, fall apart chunks of beef with mushrooms in the most incredible gravy ever.
 yield: 6 servings
 prep_time: '15'
