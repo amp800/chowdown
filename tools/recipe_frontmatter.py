@@ -25,6 +25,10 @@ structure:
     # ---
     directions:
     - ...
+
+    # ---
+    notes:
+    - ...
     ---
 
 Why ``# ---`` instead of a literal ``---``?  Jekyll ends front matter at the
@@ -67,6 +71,7 @@ META_KEYS = [
 ]
 INGREDIENT_KEYS = ["ingredients"]
 DIRECTION_KEYS = ["directions"]
+NOTE_KEYS = ["notes"]
 
 
 def _dump_section(data: Mapping) -> str:
@@ -95,9 +100,10 @@ def render_recipe_markdown(fm: Mapping, body: str = "") -> str:
     meta = _pick(fm, META_KEYS)
     ingredients = _pick(fm, INGREDIENT_KEYS)
     directions = _pick(fm, DIRECTION_KEYS)
+    notes = _pick(fm, NOTE_KEYS)
 
     # Keep any keys not listed above so nothing is ever dropped.
-    known = set(HEADER_KEYS + META_KEYS + INGREDIENT_KEYS + DIRECTION_KEYS)
+    known = set(HEADER_KEYS + META_KEYS + INGREDIENT_KEYS + DIRECTION_KEYS + NOTE_KEYS)
     for key, value in fm.items():
         if key not in known:
             meta[key] = value
@@ -114,6 +120,9 @@ def render_recipe_markdown(fm: Mapping, body: str = "") -> str:
     if directions:
         blocks.append(SECTION)
         blocks.append(_dump_section(directions))
+    if notes:
+        blocks.append(SECTION)
+        blocks.append(_dump_section(notes))
     blocks.append("---")
 
     out = "\n".join(block for block in blocks if block != "") + "\n"

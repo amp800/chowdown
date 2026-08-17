@@ -106,6 +106,20 @@ layout: default
       </div>
       {% endif %}
 
+      {% if page.notes %}
+      <div id="notes-section" class="recipe-section">
+        <h2>Notes</h2>
+        <ul>
+          {% for note in page.notes %}
+            <li>
+              <span class="note-bullet" aria-hidden="true">•</span>
+              <span class="note-text">{{ note }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
       <div style="height: 150px;"></div>
       </div>
 
@@ -120,7 +134,8 @@ layout: default
   "total_time": {{ page.total_time | jsonify }},
   "tags": {{ page.tags | jsonify }},
   "ingredients": {{ page.ingredients | jsonify }},
-  "directions": {{ page.directions | jsonify }}
+  "directions": {{ page.directions | jsonify }},
+  "notes": {{ page.notes | jsonify }}
 }
 </script>
 
@@ -171,6 +186,11 @@ layout: default
         <div class="editor-field">
           <label for="edit-directions">Directions <span class="editor-hint">one step per line</span></label>
           <textarea id="edit-directions" rows="12" spellcheck="false"></textarea>
+        </div>
+
+        <div class="editor-field">
+          <label for="edit-notes">Notes <span class="editor-hint">one bullet per line, optional</span></label>
+          <textarea id="edit-notes" rows="6" spellcheck="false"></textarea>
         </div>
 
         <div class="editor-token-row" id="editor-token-row" hidden>
@@ -443,6 +463,19 @@ layout: default
   
   input[type="checkbox"]:checked {
     background-color: #E63946;
+  }
+
+  .note-bullet {
+    color: #E63946;
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-right: 20px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .note-text {
+    white-space: pre-wrap;
   }
 
   #cooking-mode-btn {
@@ -986,6 +1019,9 @@ function toggleCookingMode() {
 
   var isActive = btn.classList.toggle('active');
 
+  var notesSection = document.getElementById('notes-section');
+  if (notesSection) notesSection.style.display = isActive ? 'none' : '';
+
   if (isActive) {
     btn.textContent = 'EXIT COOKING MODE';
     ingSection.style.display = 'none';
@@ -1213,6 +1249,7 @@ function enterEditMode() {
   document.getElementById('edit-tags').value = normalizeTags(data.tags).join(', ');
   document.getElementById('edit-ingredients').value = Array.isArray(data.ingredients) ? data.ingredients.join('\n') : '';
   document.getElementById('edit-directions').value = Array.isArray(data.directions) ? data.directions.join('\n') : '';
+  document.getElementById('edit-notes').value = Array.isArray(data.notes) ? data.notes.join('\n') : '';
 
   document.getElementById('editor-token-row').hidden = !!getEditPAT();
 
@@ -1274,7 +1311,8 @@ function buildEditPayload() {
     total_time: document.getElementById('edit-total').value.trim(),
     tags: document.getElementById('edit-tags').value.split(/[\s,]+/).map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 0; }),
     ingredients: linesFromTextarea('edit-ingredients'),
-    directions: linesFromTextarea('edit-directions')
+    directions: linesFromTextarea('edit-directions'),
+    notes: linesFromTextarea('edit-notes')
   };
 }
 

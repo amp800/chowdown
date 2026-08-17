@@ -10,3 +10,4 @@ vendor/bundle/
 tools/importer/.env
 __pycache__/
 *.pyc
+/mealie-export/

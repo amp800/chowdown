@@ -32,7 +32,7 @@ from recipe_frontmatter import render_recipe_markdown
 # dropped when empty) rather than preserved from the existing file.
 EDITABLE_KEYS = {
     "title", "description", "yield", "yields", "servings", "prep_time",
-    "cook_time", "total_time", "tags", "ingredients", "directions",
+    "cook_time", "total_time", "tags", "ingredients", "directions", "notes",
 }
 
 
@@ -105,6 +105,10 @@ def build_front_matter(existing: dict, data: dict) -> dict:
     directions = as_list(data.get("directions"), split_lines=True)
     if directions:
         fm["directions"] = directions
+
+    notes = as_list(data.get("notes"), split_lines=True)
+    if notes:
+        fm["notes"] = notes
 
     date_added = existing.get("date_added")
     if date_added:
