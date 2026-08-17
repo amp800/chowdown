@@ -785,6 +785,34 @@ layout: default
   #edit-status.ok { color: #155724; font-style: normal; font-weight: 700; }
   #edit-status.err { color: #721c24; font-style: normal; font-weight: 700; }
 
+  .tag-suggest-wrap { position: relative; }
+  .tag-suggest {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: #fff;
+    border: 3px solid #000;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    max-height: 220px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .tag-suggest-item {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    padding: 10px 16px;
+    cursor: pointer;
+    color: #000;
+  }
+  .tag-suggest-item.active,
+  .tag-suggest-item:hover { background: #E63946; color: #fff; }
+
   @media (max-width: 899px) {
     .edit-recipe-btn { bottom: 16px; right: 16px; width: 58px; height: 58px; }
     .editor-row, .editor-row-3 { grid-template-columns: 1fr; }
@@ -1241,6 +1269,16 @@ if (document.readyState === 'loading') {
 var EDIT_REPO = 'amp800/chowdown';
 var _editing = false;
 
+{% assign all_tags = "" | split: "" %}
+{% for recipe in site.recipes %}
+  {% if recipe.tags %}
+    {% for tag in recipe.tags %}
+      {% assign all_tags = all_tags | push: tag %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+var EXISTING_TAGS = {{ all_tags | uniq | sort | jsonify }};
+
 function getEditPAT() {
   return localStorage.getItem('gh_pat') || '';
 }
@@ -1256,6 +1294,89 @@ function normalizeTags(value) {
     return value.map(function (t) { return String(t).trim(); }).filter(function (t) { return t.length > 0; });
   }
   return String(value || '').split(/[\s,]+/).filter(function (t) { return t.length > 0; });
+}
+
+function setupTagAutocomplete(inputId) {
+  var input = document.getElementById(inputId);
+  if (!input) return;
+
+  var wrap = document.createElement('div');
+  wrap.className = 'tag-suggest-wrap';
+  input.parentNode.insertBefore(wrap, input.nextSibling);
+
+  var list = document.createElement('div');
+  list.className = 'tag-suggest';
+  list.style.display = 'none';
+  wrap.appendChild(list);
+
+  var matches = [];
+  var active = -1;
+
+  function tokenStart() {
+    var v = input.value;
+    var i = v.length;
+    while (i > 0 && v[i - 1] !== ' ' && v[i - 1] !== ',') i--;
+    return i;
+  }
+
+  function currentToken() {
+    return input.value.slice(tokenStart()).trim().toLowerCase();
+  }
+
+  function accept(newToken) {
+    var lead = input.value.slice(0, tokenStart());
+    input.value = lead + newToken;
+    hide();
+  }
+
+  function show() {
+    var tok = currentToken();
+    if (!tok) { hide(); return; }
+    matches = EXISTING_TAGS.filter(function (t) {
+      return t.toLowerCase().indexOf(tok) === 0;
+    }).slice(0, 8);
+    if (!matches.length) { hide(); return; }
+    list.innerHTML = '';
+    matches.forEach(function (t, idx) {
+      var el = document.createElement('div');
+      el.className = 'tag-suggest-item' + (idx === active ? ' active' : '');
+      el.textContent = t;
+      el.addEventListener('mousedown', function (ev) {
+        ev.preventDefault();
+        accept(t);
+      });
+      list.appendChild(el);
+    });
+    list.style.display = 'block';
+  }
+
+  function hide() {
+    list.style.display = 'none';
+    active = -1;
+  }
+
+  input.addEventListener('input', function () { active = -1; show(); });
+  input.addEventListener('focus', show);
+  input.addEventListener('blur', function () { setTimeout(hide, 120); });
+  input.addEventListener('keydown', function (ev) {
+    if (list.style.display === 'none') return;
+    if (ev.key === 'ArrowDown') {
+      ev.preventDefault();
+      active = (active + 1) % matches.length;
+      show();
+    } else if (ev.key === 'ArrowUp') {
+      ev.preventDefault();
+      active = (active - 1 + matches.length) % matches.length;
+      show();
+    } else if (ev.key === 'Enter' || ev.key === 'Tab') {
+      if (active >= 0 && matches[active]) {
+        ev.preventDefault();
+        accept(matches[active]);
+      }
+    } else if (ev.key === 'Escape') {
+      hide();
+    }
+  });
 }
 
 function syncEditButton() {
@@ -1494,6 +1615,7 @@ async function deleteRecipe() {
   if (saveBtn) saveBtn.addEventListener('click', saveEdit);
   var patBtn = document.getElementById('edit-pat-save');
   if (patBtn) patBtn.addEventListener('click', saveEditorPAT);
+  setupTagAutocomplete('edit-tags');
   syncEditButton();
 })();
 </script>
