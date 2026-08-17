@@ -306,10 +306,12 @@ permalink: /import/
       <p class="import-section-intro">Snap a photo of a printed cookbook or magazine page — Gemini vision (free, no cost) reads the recipe straight off the page, and your photo becomes the recipe image.</p>
       <form class="import-form" onsubmit="importPhoto(event)">
         <div class="field-group">
-          <label for="photo-input">Photo <span class="hint">take one now or pick from your library</span></label>
+          <label for="photo-input">Photo <span class="hint">take a live photo or pick from your library</span></label>
           <div class="photo-picker">
             <input type="file" id="photo-input" accept="image/*" style="display:none;" />
-            <button type="button" class="photo-choose-btn" onclick="document.getElementById('photo-input').click()">Choose Photo</button>
+            <input type="file" id="photo-camera-input" accept="image/*" capture="environment" style="display:none;" />
+            <button type="button" class="photo-choose-btn" onclick="document.getElementById('photo-camera-input').click()">Take Photo</button>
+            <button type="button" class="photo-choose-btn" onclick="document.getElementById('photo-input').click()">From Gallery</button>
             <img id="photo-preview" class="photo-preview" alt="Recipe photo preview" hidden />
             <span class="photo-name" id="photo-name"></span>
           </div>
@@ -403,25 +405,25 @@ async function importRecipe(e) {
 // ---------- Photo import ----------
 var photoFile = null;
 
-// Photo picker preview
-(function () {
-  var input = document.getElementById('photo-input');
+// Photo picker preview — shared by the "Take Photo" (camera) and
+// "Choose from Library" (gallery) inputs on mobile.
+function handlePhotoChosen(input) {
   var preview = document.getElementById('photo-preview');
   var name = document.getElementById('photo-name');
-  input.addEventListener('change', function () {
-    photoFile = input.files && input.files[0];
-    if (photoFile) {
-      name.textContent = photoFile.name + ' (' + Math.round(photoFile.size / 1024) + ' KB)';
-      if (preview.src) URL.revokeObjectURL(preview.src);
-      preview.src = URL.createObjectURL(photoFile);
-      preview.hidden = false;
-    } else {
-      photoFile = null;
-      preview.hidden = true;
-      name.textContent = '';
-    }
-  });
-})();
+  photoFile = input.files && input.files[0];
+  if (photoFile) {
+    name.textContent = photoFile.name + ' (' + Math.round(photoFile.size / 1024) + ' KB)';
+    if (preview.src) URL.revokeObjectURL(preview.src);
+    preview.src = URL.createObjectURL(photoFile);
+    preview.hidden = false;
+  } else {
+    photoFile = null;
+    preview.hidden = true;
+    name.textContent = '';
+  }
+}
+document.getElementById('photo-input').addEventListener('change', function () { handlePhotoChosen(this); });
+document.getElementById('photo-camera-input').addEventListener('change', function () { handlePhotoChosen(this); });
 
 // Downscale the phone photo so the repo upload stays small and fast.
 function processPhoto(file) {
