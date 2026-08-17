@@ -135,7 +135,8 @@ layout: default
   "tags": {{ page.tags | jsonify }},
   "ingredients": {{ page.ingredients | jsonify }},
   "directions": {{ page.directions | jsonify }},
-  "notes": {{ page.notes | jsonify }}
+  "notes": {{ page.notes | jsonify }},
+  "home": {{ '/' | relative_url | jsonify }}
 }
 </script>
 
@@ -204,6 +205,10 @@ layout: default
 
         <div class="editor-actions">
           <button type="button" class="editor-cancel" id="edit-cancel">Cancel</button>
+          <button type="button" class="editor-delete" id="edit-delete">
+            <span class="material-symbols-outlined" aria-hidden="true">delete</span>
+            Delete
+          </button>
           <button type="button" class="editor-save" id="edit-save">Save</button>
           <span id="edit-status"></span>
         </div>
@@ -709,12 +714,14 @@ layout: default
   .editor-actions {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 16px;
     margin-top: 8px;
   }
 
   .editor-save,
-  .editor-cancel {
+  .editor-cancel,
+  .editor-delete {
     font-family: 'Jost', sans-serif;
     font-size: 1rem;
     font-weight: 900;
@@ -742,6 +749,31 @@ layout: default
   }
 
   .editor-cancel:hover { background: #000; color: #fff; }
+
+  /* Matches the red floating edit button, but inline in the editor actions. */
+  .editor-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #E63946;
+    color: #fff;
+    border: 3px solid #E63946;
+  }
+
+  .editor-delete .material-symbols-outlined {
+    font-size: 22px;
+    line-height: 1;
+    font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .editor-delete:hover,
+  .editor-delete:focus-visible {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+  }
+
+  .editor-delete:disabled { opacity: 0.5; cursor: not-allowed; }
 
   #edit-status {
     font-family: 'Jost', sans-serif;
@@ -1386,11 +1418,78 @@ async function saveEdit() {
   }
 }
 
+async function deleteRecipe() {
+  var status = document.getElementById('edit-status');
+  var delBtn = document.getElementById('edit-delete');
+
+  var data = getRecipeSource();
+  var path = data.path;
+  if (!path) {
+    status.textContent = '✗ Could not determine the recipe file path';
+    status.className = 'err';
+    return;
+  }
+
+  var title = data.title || 'this recipe';
+  if (!window.confirm('Delete "' + title + '"? This permanently removes the recipe and its photo, and cannot be undone.')) {
+    return;
+  }
+
+  var token = getEditPAT();
+  if (!token) {
+    document.getElementById('editor-token-row').hidden = false;
+    status.textContent = '✗ Save a GitHub token first';
+    status.className = 'err';
+    return;
+  }
+
+  delBtn.disabled = true;
+  status.textContent = 'Deleting…';
+  status.className = '';
+
+  try {
+    var resp = await fetch(
+      'https://api.github.com/repos/' + EDIT_REPO + '/actions/workflows/delete-recipe.yml/dispatches',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': 'token ' + token,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ref: 'main',
+          inputs: { path: path }
+        })
+      }
+    );
+
+    if (resp.status === 204) {
+      status.textContent = '✓ Deleted — the site rebuilds in ~30 seconds. Taking you home…';
+      status.className = 'ok';
+      delBtn.disabled = true;
+      setTimeout(function () {
+        window.location.href = data.home || './';
+      }, 1800);
+    } else {
+      var body = {};
+      try { body = await resp.json(); } catch (e) {}
+      throw new Error(body.message || ('HTTP ' + resp.status));
+    }
+  } catch (err) {
+    status.textContent = '✗ ' + err.message;
+    status.className = 'err';
+    delBtn.disabled = false;
+  }
+}
+
 (function initEditor() {
   var editBtn = document.getElementById('edit-recipe-btn');
   if (editBtn) editBtn.addEventListener('click', enterEditMode);
   var cancelBtn = document.getElementById('edit-cancel');
   if (cancelBtn) cancelBtn.addEventListener('click', exitEditMode);
+  var delBtn = document.getElementById('edit-delete');
+  if (delBtn) delBtn.addEventListener('click', deleteRecipe);
   var saveBtn = document.getElementById('edit-save');
   if (saveBtn) saveBtn.addEventListener('click', saveEdit);
   var patBtn = document.getElementById('edit-pat-save');

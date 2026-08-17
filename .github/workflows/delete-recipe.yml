@@ -1,0 +1,36 @@
+name: Delete Recipe
+
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "Recipe file path (e.g. _recipes/one-pot-salmon-bowl.md)"
+        required: true
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Delete recipe
+        run: |
+          python tools/editor/delete_recipe.py \
+            --path "${{ inputs.path }}"
+
+      - name: Commit deletion
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Delete recipe ${{ inputs.path }}"
+          file_pattern: "_recipes/*.md images/*"
+          skip_dirty_check: "true"
