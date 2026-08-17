@@ -6,7 +6,7 @@ image: mh-chinese-sweet-corn-soup.webp
 # ---
 tags:
 - mains
-- my husbands
+- my_husband's
 yield: 4 -6 people
 ingredients:
 - '- 1l chicken stock (or vegetable stock)'

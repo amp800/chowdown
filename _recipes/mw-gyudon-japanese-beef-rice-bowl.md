@@ -7,7 +7,7 @@ original_url: https://www.justonecookbook.com/gyudon/
 # ---
 tags:
 - mains
-- my wifes
+- my_wife's
 description: With thinly sliced beef and tender onions simmered in a savory-sweet sauce and spooned over steamed rice, Gyudon
   (Japanese Beef Rice Bowl) is synonymous with comfort. It's is a simple, satisfying meal that's ready in 20 minutes!
 yield: 4 servings

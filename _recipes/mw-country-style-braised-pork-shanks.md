@@ -7,7 +7,7 @@ original_url: https://www.askchefdennis.com/beer-braised-pork-shank/
 # ---
 tags:
 - mains
-- my wifes
+- my_wife's
 description: My Country-Style Beer Braised Pork Shank recipe is easy to make. You'll love the outrageously tender pork shank
   and the rich and flavourful sauce this recipe makes.
 yield: 4 servings

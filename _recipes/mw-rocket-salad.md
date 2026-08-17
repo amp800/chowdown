@@ -5,7 +5,7 @@ title: '[MW] Rocket Salad'
 image: mw-rocket-salad.webp
 # ---
 tags:
-- my wifes
+- my_wife's
 - salads
 yield: 1 bowl
 ingredients:

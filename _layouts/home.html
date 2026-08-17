@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="bauhaus-home-layout">
+<div class="site-layout">
 
   <main class="home-grid-container">
     <a class="floating-nav-button" href="{{ '/import/' | relative_url }}" aria-label="Import a recipe" title="Import a recipe">
@@ -85,7 +85,7 @@ layout: default
     background-color: #f8f8f8; /* Light grey canvas */
   }
 
-  .bauhaus-home-layout {
+  .site-layout {
     display: flex;
     min-height: 100vh;
   }
@@ -353,7 +353,7 @@ layout: default
 
   /* --- MOBILE RESPONSIVE --- */
   @media (max-width: 900px) {
-    .bauhaus-home-layout { flex-direction: column; }
+    .site-layout { flex-direction: column; }
     
     .home-grid-container {
       padding: 20px;

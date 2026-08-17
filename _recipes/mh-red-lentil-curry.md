@@ -7,7 +7,7 @@ original_url: http://www.amodestfeast.com/2016/04/08/indian-red-lentil-soup-spin
 # ---
 tags:
 - mains
-- my husbands
+- my_husband's
 - vegetarian
 yield: 4 servings
 ingredients:

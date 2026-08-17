@@ -7,7 +7,7 @@ original_url: https://www.acedarspoon.com/moroccan-red-lentil-soup/
 # ---
 tags:
 - mains
-- my wifes
+- my_wife's
 - vegetarian
 description: A warming vegetarian red lentil soup with the flavors of cumin, coriander, paprika, cinnamon and tumeric.
 yield: 6 servings

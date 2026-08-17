@@ -7,7 +7,7 @@ original_url: https://theplantbasedschool.com/eggplant-curry/
 # ---
 tags:
 - mains
-- my husbands
+- my_husband's
 - vegetarian
 description: Buttery-tender eggplant cubes in a creamy and aromatic curry sauce are a winning combination in this easy eggplant
   curry. Serve it with basmati rice or naan bread for a balanced Indian–inspired dinner; it takes about 30 minutes to make.

@@ -6,7 +6,7 @@ image: mh-no-knead-bread.webp
 original_url: https://www.recipetineats.com/easy-yeast-bread-recipe-no-knead/
 # ---
 tags:
-- my husbands
+- my_husband's
 - sides
 yield: 6 servings
 prep_time: '5'

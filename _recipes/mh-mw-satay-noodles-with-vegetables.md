@@ -7,8 +7,8 @@ original_url: https://www.recipetineats.com/stir-fried-peanut-sauce-noodles/
 # ---
 tags:
 - mains
-- my husbands
-- my wifes
+- my_husband's
+- my_wife's
 - vegetarian
 yield: 6 servings
 prep_time: '15'

@@ -7,7 +7,7 @@ original_url: https://scrummylane.com/6-ingredient-gooey-swedish-chocolate-cake-
 # ---
 tags:
 - desserts
-- my wifes
+- my_wife's
 description: Quite possibly the quickest, easiest, gooey-est (and so best) chocolate cake you'll ever make. This has only
   6 ingredients and takes only 30 minutes to make and bake from start to finish. A cake that is so perfect for serving to
   guests... or just scoffing at home in front on the TV!

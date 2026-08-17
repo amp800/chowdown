@@ -7,7 +7,7 @@ original_url: https://www.recipetineats.com/carbonara/
 # ---
 tags:
 - mains
-- my husbands
+- my_husband's
 description: These days, so many carbonara recipes cheat with cream which is a shame. The traditional method uses raw egg
   which is mixed vigorously with hot pasta and parmigiana reggiano cheese which transforms into a silky, creamy, luxurious
   sauce unlike anything you've ever had before. Arguably the best pasta dish in the whole world! This is a pasta that must

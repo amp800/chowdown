@@ -4,7 +4,7 @@ layout: default
 
 {% assign yield_value = page.yield | default: page.yields | default: page.servings %}
 
-<div class="bauhaus-split-layout">
+<div class="split-layout">
   
   <div class="split-image-container">
     
@@ -205,9 +205,8 @@ layout: default
 
         <div class="editor-actions">
           <button type="button" class="editor-cancel" id="edit-cancel">Cancel</button>
-          <button type="button" class="editor-delete" id="edit-delete">
+          <button type="button" class="editor-delete" id="edit-delete" title="Delete recipe" aria-label="Delete recipe">
             <span class="material-symbols-outlined" aria-hidden="true">delete</span>
-            Delete
           </button>
           <button type="button" class="editor-save" id="edit-save">Save</button>
           <span id="edit-status"></span>
@@ -233,7 +232,7 @@ layout: default
 
   /* --- DESKTOP LAYOUT (Split Screen) --- */
   @media (min-width: 900px) {
-    .bauhaus-split-layout {
+    .split-layout {
       display: flex;
       width: 100%;
       min-height: 100vh;
@@ -268,7 +267,7 @@ layout: default
 
   /* --- MOBILE LAYOUT (Stack) --- */
   @media (max-width: 899px) {
-    .bauhaus-split-layout { display: block; }
+    .split-layout { display: block; }
 
     .split-image-container {
       position: relative;
@@ -754,7 +753,8 @@ layout: default
   .editor-delete {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    padding: 14px;
     background: #E63946;
     color: #fff;
     border: 3px solid #E63946;

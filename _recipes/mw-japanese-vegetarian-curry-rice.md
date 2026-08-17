@@ -7,7 +7,7 @@ original_url: https://japan.recipetineats.com/home-made-japanese-vegetarian-curr
 # ---
 tags:
 - mains
-- my wifes
+- my_wife's
 - vegetarian
 description: Japanese Vegetarian Curry is a recipe requested by a reader. The consistency is just like the store-bought Japanese
   curry roux. It’s nothing like Indian curry or any other curries in the world!

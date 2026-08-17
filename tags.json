@@ -1,0 +1,12 @@
+---
+layout: null
+---
+{% assign all_tags = "" | split: "" %}
+{% for recipe in site.recipes %}
+  {% if recipe.tags %}
+    {% for tag in recipe.tags %}
+      {% assign all_tags = all_tags | push: tag %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+{{ all_tags | uniq | sort | jsonify }}
