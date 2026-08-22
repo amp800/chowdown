@@ -26,8 +26,7 @@ ingredients:
 - 120 gram (3/4 cup) roasted hazelnuts, finely chopped
 # ---
 directions:
-- 'Video: https://www.taste.com.au/recipes/ferrero-rocher-cheesecake-slice-recipe/uaeimd48'
-- 'Method: Grease a 20 x 30cm slice pan. Line the base and sides with baking paper, allowing the paper to over the long sides.'
+- Grease a 20 x 30cm slice pan. Line the base and sides with baking paper, allowing the paper to over the long sides.
 - Break biscuits and place in a food processor. Process until finely chopped. Coarsely chop 8 Ferrero Rochers and add to food
   processor with the butter. Pulse until combined then transfer to prepared pan. Press evenly over the base.
 - Place 2 tablespoons water in a small microwave-safe bowl. Sprinkle with the gelatine and stir until combined. Microwave
