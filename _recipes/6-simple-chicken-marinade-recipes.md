@@ -59,9 +59,8 @@ ingredients:
 - 1/2 teaspoon kosher salt
 # ---
 directions:
-- VIDEO
-- 'INSTRUCTIONS: Make the marinade. Choose a chicken marinade flavor and place all the ingredients (minus the chicken breast)
-  into a medium bowl and whisk to combine.'
+- Make the marinade. Choose a chicken marinade flavor and place all the ingredients (minus the chicken breast) into a medium
+  bowl and whisk to combine.
 - Marinate the chicken. Place the chicken breasts into a glass container or sealable bag. Pour the marinade on top of the
   chicken, then seal the bag or cover the bowl with a lid or plastic wrap. Let the chicken marinate in the refrigerator for
   at least 30 minutes or up to 8 hours. *See notes above for cooking and serving ideas.
