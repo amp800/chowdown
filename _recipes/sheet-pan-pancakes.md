@@ -13,6 +13,7 @@ yield: 6 servings
 prep_time: '10'
 total_time: '25'
 ingredients:
+- 'PANCAKE MIXTURE:'
 - 2 cup plain flour
 - 1/4 cup brown sugar
 - 2 tbsp caster sugar
@@ -22,6 +23,7 @@ ingredients:
 - 1 1/4 cup milk
 - 1/4 cup unsalted butter melted
 - 1 tsp vanilla essence
+- 'TOPPINGS:'
 - 1 1/2 tbsp strawberry jam
 - 1/4 cup chocolate chips
 - 1/4 cup blueberries
