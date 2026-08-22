@@ -29,7 +29,6 @@ ingredients:
 - pepper
 # ---
 directions:
-- VIDEO
 - 'PORK: Dry skin: Pat the skin dry with paper towels. If time permits, leave in the fridge uncovered overnight (even 1 hr
   helps). If not, pat extra well.'
 - Preheat oven to 200°C fan
