@@ -43,13 +43,13 @@ directions:
 - Remove brisket onto a tray. Rest 5mins then cut and serve.
 # ---
 notes:
-- '1. Best to get it from a butcher so you can ask for a thick cut which is best. Woolies and Aldi sell rolled brisket which
-  is thinner. Harris Farms also sells brisket but they are small pieces. Recipe will work for these, see notes below for cook
-  times for different weights. 2a). Cook time – The cook times provided yields a tender brisket that is sliceable but tender
-  so the slices tear easily, as demonstrated in the video. Don’t stress too much about cook time – brisket is a cut of beef
-  that holds together pretty well even cooked to the point of being shreddable. So even a 1.5kg brisket slow cooked for 10
-  hours should still be sliceable. Brisket that isn’t tender is tough and chewy but if you pull it out too early, don’t worry,
-  just keep cooking! 2b) DIFFERENT SIZES: For a 800g–1kg piece of brisket, I would still slow cook for 7 to 8 hours on low
-  because the cook time is more about brisket width rather than length. For a 2.5kg–3kg brisket, I would slow cook for 10
-  hours on low.'
+- 1. Best to get it from a butcher so you can ask for a thick cut which is best. Woolies and Aldi sell rolled brisket which
+  is thinner. Harris Farm also sells brisket but they are small pieces. Recipe will work for these, see notes below for cook
+  times for different weights.
+- 2a). Cook time – The cook times provided yields a tender brisket that is sliceable but tender so the slices tear easily,
+  as demonstrated in the video. Don’t stress too much about cook time – brisket is a cut of beef that holds together pretty
+  well even cooked to the point of being shreddable. So even a 1.5kg brisket slow cooked for 10 hours should still be sliceable.
+  Brisket that isn’t tender is tough and chewy but if you pull it out too early, don’t worry, just keep cooking!
+- '2b) DIFFERENT SIZES: For a 800g–1kg piece of brisket, I would still slow cook for 7 to 8 hours on low because the cook
+  time is more about brisket width rather than length. For a 2.5kg–3kg brisket, I would slow cook for 10 hours on low.'
 ---
