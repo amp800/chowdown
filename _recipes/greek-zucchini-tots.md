@@ -16,8 +16,10 @@ yield: 35 servings
 prep_time: '10'
 total_time: '20'
 ingredients:
-- 1 pound / 500 gram zucchinis
+- 'ZUCCHINI:'
+- 500 gram zucchinis
 - 1/4 teaspoon salt
+- 'BATTER:'
 - 3/4 cup scallions/shallots (finely sliced (white and pale green parts only))
 - 2 garlic cloves, minced
 - 1 cup panko breadcrumbs
@@ -27,6 +29,7 @@ ingredients:
 - 1 tablespoon dried oregano
 - 1/2 cup plain flour
 - oil spray
+- '[OPTIONAL] MINTED YOGHURT:'
 - 1 cup plain greek yoghurt
 - 1/2 tablespoon lemon juice
 - 1/2 tablespoon extra virgin olive oil ((or more))
