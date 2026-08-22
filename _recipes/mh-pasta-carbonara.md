@@ -26,14 +26,16 @@ ingredients:
 - 1 garlic clove (finely minced (optional, note 4))
 # ---
 directions:
-- Video
-- 'Bacon (and optional mushrooms): Cut bacon into batons. [Optional] slice mushrooms. Cook over medium-high heat for 5 minutes
-  until golden. No oil needed - as the bacon heats up, the fat will melt so it fries in its own fat. If using garlic, add
-  it in the last minute.'
-- 'Carbonara sauce: Place eggs and yolks in a pyrex cup. Whisk with a fork. Grate the parmesan then stir it in with pepper.'
-- 'Pasta: Cook pasta per the packet directions.'
-- Tip the cooked the pasta into the bacon pan. Add a mug of pasta water as well. Toss together.
-- 'Serve: Pour the egg mixture over the pasta. Quickly stir vigorously using the handle of a wooden spoon for 1 minute. Serve
+- 'BACON (and optional mushrooms):'
+- Cut bacon into batons.
+- '[Optional] slice mushrooms.'
+- Cook over medium-high heat for 5 minutes until golden. No oil needed - as the bacon heats up, the fat will melt so it fries
+  in its own fat.
+- If using garlic, add it in the last minute.
+- 'CARBONARA SAUCE: Place eggs and yolks in a pyrex cup. Whisk with a fork. Grate the parmesan then stir it in with pepper.'
+- 'PASTA: Cook pasta per the packet directions. Tip the cooked the pasta into the bacon pan. Add a mug of pasta water as well.
+  Toss together.'
+- 'SERVE: Pour the egg mixture over the pasta. Quickly stir vigorously using the handle of a wooden spoon for 1 minute. Serve
   immediately.'
 # ---
 notes:
