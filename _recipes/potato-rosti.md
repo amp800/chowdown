@@ -23,13 +23,15 @@ ingredients:
 - 60 gram / 4 tablespoon clarified butter / ghee (separated (sub half butter, half vegetable oil) (note 2))
 # ---
 directions:
-- 'GRATE & SQUEEZE: Peel then grate the potatoes using a box grater, trying to get nice long strands if you can.'
+- 'GRATE & SQUEEZE:'
+- Peel then grate the potatoes using a box grater, trying to get nice long strands if you can.
 - Grab handfuls of potato and squeeze out excess liquid, then place in bowl. This helps make the potato crispier (otherwise
   all that water has to steam out in the pan).
 - Add butter, salt and pepper then toss. Don't worry if your potatoes go brown/reddy - it's still safe to eat, and turns white
   again when cooked.
-- 'COOK: Melt half the clarified butter in a 26cm (or thereabouts) non-stick pan or skillet over medium low heat. Shallow
-  non-stick pan with sloped sides is best for easy rosti removal.'
+- 'COOK:'
+- Melt half the clarified butter in a 26cm (or thereabouts) non-stick pan or skillet over medium low heat. Shallow non-stick
+  pan with sloped sides is best for easy rosti removal.
 - Place the potato in pan, but do not pack down. Use rubber spatula to tidy the edges, then lightly pat down to even surface.
 - 'Cook first side: Cook 12 minutes until underside is very golden and crispy, lifting edge with rubber spatula to check.
   If by 8 minutes it is not going golden, increase heat.'
@@ -40,9 +42,10 @@ directions:
 - 'Cook second side: Melt remaining clarified butter in the pan, then slide the rosti back in and cook for 12 minutes until
   golden crispy, and there is no resistance when a knife is inserted into the middle.'
 - Slide onto cutting board, cut into 4 or 6 wedges and serve immediately!
-- 'SMALL ROSTI: Use 1 1/2 tbsp clarified butter for each batch, medium heat in a non stick pan. Place potato in rounds in
-  a skillet, around 8cm, 1.5 - 2cm thick (without patting down). Cook 5 minutes until deep golden and crispy, flip, and cook
-  another 5 minutes until done.'
+- 'SMALL ROSTI:'
+- Use 1 1/2 tbsp clarified butter for each batch, medium heat in a non stick pan. Place potato in rounds in a skillet, around
+  8cm, 1.5 - 2cm thick (without patting down). Cook 5 minutes until deep golden and crispy, flip, and cook another 5 minutes
+  until done.
 - 'TO HOLD / KEEP WARM: Transfer to rack set over tray in a 120°C oven until ready to serve.'
 # ---
 notes:
