@@ -36,9 +36,8 @@ ingredients:
 - 1 tbsp worcestershire sauce
 # ---
 directions:
-- VIDEO
-- 'RECIPE: Mix ''RUB'' ingredients. Rub all over brisket. If time permits, leave for 30 minutes – 24 hours in the fridge,
-  but I rarely do this.'
+- Mix 'RUB' ingredients. Rub all over brisket. If time permits, leave for 30 minutes – 24 hours in the fridge, but I rarely
+  do this.
 - Combine 'BBQ SAUCE' ingredients in a slow cooker. Mix, then add the brisket – squish it in if needed, like I did (see video).
 - Slow cook in slow cooker for 8 hours (1.5 kg) to 10 hours (2 kg).
 - Remove brisket onto a tray. Rest 5mins then cut and serve.
