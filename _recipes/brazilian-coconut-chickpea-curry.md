@@ -13,6 +13,7 @@ description: A chickpea recipe that even carnivores think is worth making!! The 
 yield: 4 servings
 prep_time: '10'
 ingredients:
+- 'CHICKPEA CURRY:'
 - 1.5 tablespoon olive oil
 - 1 onion (finely chopped)
 - 2 garlic cloves (minced)
@@ -27,6 +28,7 @@ ingredients:
 - 1.5 teaspoon sugar ((any type))
 - 0.5 teaspoon salt
 - 50 gram / 2 ounce baby spinach leaves ((or kale))
+- 'FINISHING & SERVING:'
 - 3 tablespoon coriander/cilantro (roughly chopped, plus more for serving (note 3))
 - 1 tablespoon lime juice (plus extra wedges for serving)
 - yogurt ((optional))
