@@ -27,11 +27,13 @@ ingredients:
 - 400 gram / 14 ounce coconut cream (unsweetened (sub coconut milk, note 4))
 - 1 large head broccoli (florets cut small (can use stem too - peel & dice), (or other veg (4 heaped cups)))
 - 1 cup coriander/cilantro leaves (lightly packed, plus extra for garnish (i'd still make without this))
+- 'SPICE MIX:'
 - 1 1/2 teaspoon cooking/kosher salt
 - 1 1/2 teaspoon garam masala ((note 5))
 - 1 1/2 teaspoon coriander powder
 - 1/2 teaspoon cumin powder
 - 1/2 teaspoon fennel powder ((sub more garam masala))
+- 'SERVING:'
 - crispy fried shallots (store bought, for garnish (note 6))
 - rice
 # ---
