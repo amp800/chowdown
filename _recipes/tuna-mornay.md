@@ -32,8 +32,6 @@ ingredients:
 - chives (or parsley (), optional garnish)
 # ---
 directions:
-- VIDEO
-- 'INSTRUCTIONS: Ingredients'
 - Preheat oven to 180°C.
 - Crunchy Topping - Mix together.
 - Cook pasta per packet directions MINUS 1 minute. Drain then allow to cool slightly, then return into pot.
