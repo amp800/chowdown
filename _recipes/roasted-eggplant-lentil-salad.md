@@ -15,6 +15,7 @@ description: Lentils and roasted eggplant is such a great combination - especial
 yield: 4 servings
 prep_time: '15'
 ingredients:
+- TASTY LENTILS!
 - 1 cup dried green (or brown lentils ((or french/puy) (note 1 for canned)))
 - 1 cup vegetable (or chicken broth ((or water + 1 bouillon cube), crumbled))
 - 1 1/2 cups water
@@ -23,10 +24,12 @@ ingredients:
 - 1 bay leaf (dry (or fresh))
 - 2 sprigs thyme ((or 1/2 teaspoon dried thyme))
 - 1 rib celery (broken into 3 (or 4 pieces (or just a handful of celery leaves), can skip))
+- ROASTED EGGPLANT
 - 700 gram / 1.4 pound eggplant / aubergine ((2 medium))
 - 2 1/2 tablespoon olive oil
 - 1/4 tsp salt
 - 1/4 teaspoon each salt and pepper
+- GARLIC LEMON DRESSING
 - 2 tablespoon lemon juice ((or cider vinegar, white (or red wine vinegar)))
 - 4 tablespoon extra virgin olive oil
 - 1 teaspoon dijon mustard
@@ -35,22 +38,26 @@ ingredients:
 - 1 teaspoon sugar (optional)
 - 1/2 tsp salt
 - 1/2 teaspoon each salt + black pepper
+- SALAD
 - 250 gram / 8 ounce cherry tomatoes (halved (large quartered))
 - 2 handfuls rocket / arugula lettuce (torn into 5cm/2" pieces)
 - 60 gram / 2 ounce feta (crumbled (or more!))
 # ---
 directions:
-- Dressing - shake in a jar.
-- 'LENTILS: Place Lentil ingredients in a saucepan, bring to simmer over medium heat. Place lid on then lower heat to medium
-  low so it''s simmering gently.'
+- 'DRESSING: shake in a jar.'
+- 'LENTILS:'
+- Place Lentil ingredients in a saucepan, bring to simmer over medium heat. Place lid on then lower heat to medium low so
+  it's simmering gently.
 - Cook for 20 minutes (for al dente, my preference), or 25 minutes (for soft), stirring occasionally.
 - Drain, then pick out all the flavouring bits (garlic etc). BRIEFLY rinse to get grit off - don't wash off all the flavour!
   Shake off excess water well.
-- 'ROASTED EGGPLANT: Preheat oven to 240°C (220°C fan forced). Line a tray with parchment/baking paper.'
+- 'ROASTED EGGPLANT:'
+- Preheat oven to 240°C (220°C fan forced). Line a tray with parchment/baking paper.
 - Cut eggplant into large 3cm cubes. Place in large bowl, drizzle with oil, salt and pepper.
 - Toss well, then immediately spread on tray and roast 20 minutes. Flip, then roast for a further 10 minutes - edges should
   be caramelised, soft inside, but they're not shrivelled up and dismal.
-- 'ASSEMBLE: Add tomato and rocket into lentils, drizzle over most of the Dressing then toss.'
+- 'ASSEMBLE:'
+- Add tomato and rocket into lentils, drizzle over most of the Dressing then toss.
 - Pour onto serving platter. Pile over eggplant.
 - Drizzle eggplant with remaining Dressing, sprinkle with feta . Serve warm or at room temp! Great with a side of flatbread
   or this easy crusty bread.
