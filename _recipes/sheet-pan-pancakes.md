@@ -34,12 +34,13 @@ directions:
 - In a large bowl, whisk together the flour, brown sugar, caster sugar, baking powder, and salt. Whisk in the eggs, milk,
   butter, and vanilla essence until combined and smooth.
 - Pour batter onto the prepared pan. Tap the pan on the counter a few times to even out and flatten the batter.
-- 'TOPPING OPTIONS: 1) dollop strawberry jam, then swirl into the batter using a toothpick, making a marbled pattern.'
+- 'TOPPING OPTIONS:'
+- 1) dollop strawberry jam, then swirl into the batter using a toothpick, making a marbled pattern.
 - 2) sprinkle with blueberries.
 - 3) sprinkle with chocolate chips.
 - 4) whisk together melted butter, brown sugar, and cinnamon. Dollop teaspoons of the mixture, then swirl into the batter
   using a toothpick, making a marbled pattern.
-- 'COOKING: Bake for 15 minutes until a toothpick inserted into the centre comes out clean and the pancake springs back to
-  the touch.'
+- 'COOKING:'
+- Bake for 15 minutes until a toothpick inserted into the centre comes out clean and the pancake springs back to the touch.
 - Allow to cool for a minute or so, then slice into portions.
 ---
