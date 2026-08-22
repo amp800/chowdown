@@ -14,6 +14,7 @@ prep_time: '20'
 total_time: '35'
 ingredients:
 - 12 wonton wrappers
+- 'DRESSING:'
 - 1 garlic (smashed (note 1))
 - 1 1/2 tablespoon lime juice
 - 2 teaspoon rice vinegar
@@ -22,10 +23,12 @@ ingredients:
 - 1 1/2 tablespoon canola oil ((or grape seed, vegetable (or other neutral flavoured oil)))
 - 1 teaspoon sugar ((or honey))
 - 1 - 2 birds eye chilli (deseeded and finely chopped (or 1 - 2 teaspoon of chili paste (or hot sauce)))
+- 'CHICKEN SALAD:'
 - 1 1/2 cups shredded cooked chicken ((i used poached chicken breast))
 - 1 1/2 cups finely shredded cabbage
 - 3/4 cup carrot (finely julienned)
 - 1/3 cup finely chopped shallots/scallions ((or sub with red onion (or eschallots)))
+- 'GARNISH:'
 - sesame seeds
 - fresh coriander/cilantro leaves
 # ---
