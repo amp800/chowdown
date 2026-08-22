@@ -8,15 +8,17 @@ original_url: https://www.recipetineats.com/slow-cooker-beef-brisket-with-bbq-sa
 tags:
 - mains
 - my_wife's
-description: Video above. Beef brisket slow cooked until tender, then finished in the oven to get that gorgeous caramelisation,
-  basted with a homemade BBQ Sauce that the brisket is cooked in. Slice it and serve as part of a hearty Southern style supper
-  or pile it up high on sliders!
+description: Beef brisket slow cooked until tender, then finished in the oven to get that gorgeous caramelisation, basted
+  with a homemade BBQ Sauce that the brisket is cooked in. Slice it and serve as part of a hearty Southern style supper or
+  pile it up high on sliders!
 yield: 8 servings
 prep_time: '15'
 total_time: '615'
 ingredients:
+- 'MEAT:'
 - 2 kg beef brisket [Note 1]
 - 1 tbsp olive oil
+- 'RUB:'
 - 1 tbsp brown sugar
 - 2 tsp paprika
 - 1 tsp onion powder
@@ -25,6 +27,7 @@ ingredients:
 - 3/4 tsp mustard powder
 - 1 tsp salt
 - 1/2 tsp pepper
+- 'BBQ SAUCE:'
 - 2 clove garlic minced
 - 1/2 cup apple cider vinegar
 - 1/2 cup ketchup
