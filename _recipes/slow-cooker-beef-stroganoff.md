@@ -43,15 +43,15 @@ directions:
 - Add stock - While stirring, pour in about half the beef stock then mix so the flour mixture dissolves into the liquid. It
   will thicken quite quickly into a gravy-like consistency .Switch to a whisk if needed, to make it lump free. Then add remaining
   stock, stir well, scraping the bottom of the pot, and bring to simmer. Cook using chosen method below.
-- 'SLOW COOKING – CHOOSE METHOD: Slow cooker: Transfer all liquid into slow cooker. Add beef, then slow cook 8 hours on LOW
-  or 5 hours on HIGH.'
-- 'Stove: Add beef into pot. Cover with lid and adjust heat to low/medium low so the it''s simmering gently. Simmer 2 hrs
+- 'SLOW COOKING – CHOOSE METHOD:'
+- 'If slow cooker: Transfer all liquid into slow cooker. Add beef, then slow cook 8 hours on LOW or 5 hours on HIGH.'
+- 'If stove: Add beef into pot. Cover with lid and adjust heat to low/medium low so the it''s simmering gently. Simmer 2 hrs
   (check at 1.5 hrs) until beef beef falls apart easily.'
 - 'GARLIC BUTTER MUSHROOMS: Melt half the butter in a large skillet over high heat. Add half the mushrooms and cook until
   almost golden (~3 minutes). Add half the garlic, salt and pepper, cook until golden. Remove, repeat with remaining butter,
   mushrooms and garlic.'
-- 'FINISHING STEW: Mix sour cream with 1.5 cups of liquid from slow cooker (Note 2), then gently stir into stew - careful,
-  the beef is delicate!'
+- 'FINISHING STEW:'
+- Mix sour cream with 1.5 cups of liquid from slow cooker (Note 2), then gently stir into stew - careful, the beef is delicate!
 - Gently stir in mushrooms.
 - Serve over noodles, pasta or mashed potato, sprinkled with chives!
 # ---
