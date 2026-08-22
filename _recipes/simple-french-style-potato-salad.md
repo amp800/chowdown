@@ -14,12 +14,14 @@ yield: 14 servings
 prep_time: '10'
 total_time: '30'
 ingredients:
+- 'POTATOES & VEGETABLES:'
 - 2 pounds baby yellow potatoes ((we used half yellow, half red))
 - 1 pinch salt
 - 1 pinch sea salt and black pepper
 - 1 tablespoon apple cider vinegar
 - 1 cup diced green onion
 - 1/4 cup fresh chopped parsley ((optional))
+- 'DRESSING:'
 - 2 1/2 tablespoon spicy brown mustard ((or dijon mustard))
 - 3 cloves garlic, minced
 - 1/4 tsp salt
