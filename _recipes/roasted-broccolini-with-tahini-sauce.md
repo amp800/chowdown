@@ -30,11 +30,11 @@ ingredients:
 - 1/4 cup flaked almonds, pine nuts (or pistachios (), toasted (note 2)
 # ---
 directions:
-- Video
-- 'Preheat oven: Preheat oven to 220°C (200°C fan).'
+- Preheat oven to 220°C (200°C fan).
 - 'Sauce: Mix Tahini Sauce ingredients until combined. It should be loose enough so it can be drizzled, but not too runny.
   Set aside 15 minutes.'
-- 'Cook: Pile broccolini on tray, drizzle with oil, sprinkle with salt, pepper and garlic.'
+- 'COOK:'
+- Pile broccolini on tray, drizzle with oil, sprinkle with salt, pepper and garlic.
 - Roast for 12 - 15 minutes until the broccolini floret ends are dark brown and crunchy (the best part!), and the broccolini
   stem is just tender. (But if you want it really soft, lower temp to 180C and cook 20 min).
 - 'Plate up: Transfer to serving plate, allow to cool until warm. Drizzle over tahini sauce, sprinkle with almonds or pine
