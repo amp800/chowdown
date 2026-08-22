@@ -29,27 +29,31 @@ ingredients:
 - ice cream (or dolloping cream)
 # ---
 directions:
-- Video
-- 'Preparation: Preheat oven to 180°C (160°C fan-forced).'
+- 'Preparation:'
+- Preheat oven to 180°C (160°C fan-forced).
 - Grease 7 pudding moulds (Note 2) with butter or grease and line a 20 cm square cake pan with overhang.
-- 'Mashed Dates: Place dates in a bowl, sprinkle over baking soda. Pour over boiling water. Stand 10 minutes, then mash well
-  with a potato masher (or fork) until it resembles sloppy porridge (see video for texture / thickness). (Note 3)'
-- 'Batter: Place butter and sugar in a bowl. Beat until combined and smooth.'
+- 'Mashed Dates:'
+- Place dates in a bowl, sprinkle over baking soda. Pour over boiling water. Stand 10 minutes, then mash well with a potato
+  masher (or fork) until it resembles sloppy porridge (see video for texture / thickness). (Note 3)
+- 'Batter:'
+- Place butter and sugar in a bowl. Beat until combined and smooth.
 - Add eggs, beat until incorporated.
 - Add flour then sprinkle baking powder across the surface. Mix until flour is incorporated.
 - Add dates, mix quickly until dates are well incorporated into the batter. (Note 2) Follow directions to make one pudding
   or individual ones.
-- 'A) One Pudding: Pour into cake pan, smooth surface. Bake 35 minutes or until skewer inserted into the centre comes out
-  clean.'
+- 'OPTION A) ONE PUDDING:'
+- Pour into cake pan, smooth surface. Bake 35 minutes or until skewer inserted into the centre comes out clean.
 - While still hot, poke about 40 holes all over the surface using a skewer. Pour over 1/2 cup Butterscotch Sauce, leave to
   soak for 10 minutes.
 - Use overhang to lift cake out. Cut, serve warm with remaining warm sauce and ice cream or cream.
-- 'B) Individual Puddings: Pour batter into pudding moulds, only fill 2/3 of the way up.'
+- 'OPTION B) INDIVIDUAL PUDDINGS:'
+- Pour batter into pudding moulds, only fill 2/3 of the way up.
 - Bake for 25 minutes, or until skewer inserted into the centre comes out clean.
 - While still hot, poke about 10 holes on the surface of the pudding. Spoon over 1 tbsp of Butterscotch Sauce per Pudding.
   Leave to soak 10 minutes.
 - Turn pudding moulds upside down on serving plate. Serve warm with remaining warm sauce and ice cream or cream.
-- 'Butterscotch Sauce: Place ingredients in a saucepan over medium heat. Once butter is melted, stir, then bring to simmer.'
+- 'Butterscotch Sauce:'
+- Place ingredients in a saucepan over medium heat. Once butter is melted, stir, then bring to simmer.
 - Simmer for 2 minutes, stirring once, then remove from heat. Serve warm.
 # ---
 notes:
