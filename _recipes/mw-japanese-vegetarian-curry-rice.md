@@ -31,12 +31,14 @@ ingredients:
 - 21/2 tbsp tomato paste
 # ---
 directions:
-- 'Make Curry Base: Put oil and butter in a large frying pan over medium high heat and melt the butter.'
+- 'MAKE CURRY BASE:'
+- Put oil and butter in a large frying pan over medium high heat and melt the butter.
 - Add ginger, garlic and onion to the frying pan and sauté for about 10 minutes until the onion becomes yellowish and very
   soft with some browning around the edge (note 5).
 - Reduce the heat to medium and sprinkle flour over the onion. Sauté to cook flour for 1 minute.
 - Add the remaining Curry Base ingredients and cook for another 1 minute, mixing the ingredients well.
-- 'Make Vegetarian Curry: Add potato and carrot to the curry base and cook for a couple of minutes.'
+- 'MAKE VEGETARIAN CURRY:'
+- Add potato and carrot to the curry base and cook for a couple of minutes.
 - Add wine, turn the heat up and mix well.1. When it starts boiling, add the remaining ingredients and mix.
 - Place a lid on and cook for about 7 minutes, then add zucchini. Cook further 8 minutes or so with a lid on until the vegetables
   are cooked through and the curry becomes a béchamel sauce consistency (note 6). Mix the curry occasionally to ensure that
