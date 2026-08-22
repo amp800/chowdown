@@ -49,14 +49,16 @@ directions:
 - Preheat oven to 160°C (140°C fan). Arrange shelf in lower third so the ham will be sitting in the centre of the oven (rather
   than in top half of oven).
 - Place the Glaze ingredients in a bowl and mix until combined - use whisk if needed.
-- 'REMOVE HAM RIND (SKIN): Run small knife around bone handle, down each side of the ham, and under the rind on the cut face.'
+- 'REMOVE HAM RIND (SKIN):'
+- Run small knife around bone handle, down each side of the ham, and under the rind on the cut face.
 - Slide fingers under the rind on the cut face of the ham, and run them back and forth to loosen while pulling the rind back.
   Use knife if needed to slice off any residual rind.
 - Lightly cut 2.5cm diamonds across the fat surface of the ham, about 75% of the way into the fat. Avoid cutting into the
   meat.
 - Insert a clove in the intersection of the cross of each diamond on the surface (optional).
-- 'GLAZE AND BAKING: Place the ham in a large baking dish. Prop handle up on edge of pan + scrunched up foil so surface of
-  the ham is level (for more even caramelisation).'
+- 'GLAZE AND BAKING:'
+- Place the ham in a large baking dish. Prop handle up on edge of pan + scrunched up foil so surface of the ham is level (for
+  more even caramelisation).
 - Squeeze the juice of 1 orange (4 quarters) over the ham. Then place them along with the remaining orange into the baking
   dish around the ham.
 - Brush / spoon half the glaze all over the surface and cut face of the ham (don't worry about underside, glaze drips down
@@ -68,8 +70,9 @@ directions:
   foil.
 - Allow to rest for at least 20 minutes before serving. Baste, baste, baste before serving - as the glaze in the pan cools,
   it thickens which means it "paints" the ham even better - but be sure to save pan juices for drizzling.
-- 'SERVING AND PRESENTATION TIPS: My favourite sauce: Use pan juices as the sauce - it''s loaded with flavour! Pour into a
-  jug and warm so it''s pourable. Thin slightly with water if required. Drizzle sparingly as the glaze flavour is intense!'
+- 'SERVING AND PRESENTATION TIPS:'
+- 'My favourite sauce: Use pan juices as the sauce - it''s loaded with flavour! Pour into a jug and warm so it''s pourable.
+  Thin slightly with water if required. Drizzle sparingly as the glaze flavour is intense!'
 - 'Other condiments: Dijon mustard, wholegrain mustard, onion jam, tomato chutney, cranberry sauce.'
 - 'Presentation: Wrap handle with baking paper and ribbon if desired. Remove cloves. Cover serving platter with lots of green
   fluffage, then place ham on. Surround with more quartered oranges, for colour. Let people admire before carving!'
