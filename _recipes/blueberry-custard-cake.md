@@ -12,27 +12,32 @@ description: A vanilla cake with custard baked into it, studded with bursting bl
 yield: 12 servings
 prep_time: '15'
 ingredients:
+- 'CUSTARD:'
 - 1 1/2 cups milk (full fat)
 - 1 teaspoon vanilla bean paste ((or extract))
 - 1/3 cup superfine/caster sugar ((note 1))
 - 1/4 cup / 60 gram egg yolks (~4 large eggs) ((note 2))
 - 3 1/2 tablespoon cornflour / cornstarch
 - 30 gram / 2 tablespoon unsalted butter (cold, cut into 1 cm / 1/2" cubes)
+- 'CAKE - WET:'
 - 1/2 cup superfine/caster sugar ((note 1))
 - 1/4 cup canola oil ((or other neutral oil))
 - 1 large egg ((note 3))
 - 1/2 cup plain yogurt ((note 4))
 - 1/2 teaspoon vanilla extract
 - 2 teaspoon lemon zest (finely grated (1 large lemon))
+- 'CAKE - DRY:'
 - 1 cup flour (plain / all-purpose)
 - 2 teaspoon baking powder
 - pinch of salt
-- 250 gram / 8 ounce blueberries (fresh (or frozen (do not thaw)))
+- 'BLUEBERRIES: 250 gram / 8 ounce blueberries (fresh (or frozen (do not thaw)))'
 # ---
 directions:
-- 'PREPARE: Preheat oven to 180°C (160°C fan) with the shelf in the middle of the oven.'
+- 'PREPARE:'
+- Preheat oven to 180°C (160°C fan) with the shelf in the middle of the oven.
 - Grease a 20 cm springform pan with butter. Line the base and sides with paper.
-- 'CUSTARD: Heat milk: Heat the milk with vanilla and half the sugar in a medium saucepan over medium heat until hot.'
+- 'CUSTARD:'
+- 'Heat milk: Heat the milk with vanilla and half the sugar in a medium saucepan over medium heat until hot.'
 - 'Whisk egg: Whisk yolks with remaining sugar, then whisk in the cornflour.'
 - 'Milk into egg: Slowly pour about 1/2 cup hot milk into the eggs while whisking. Once incorporated, pour in remaining milk
   and whisk to combine.'
@@ -41,9 +46,10 @@ directions:
   surface, whisk for 30 seconds longer.'
 - 'Enrichen with butter: Take off the stove. Whisk in butter until smooth. Scrape into a bowl then cover with cling wrap touching
   surface. Leave to cool while making the batter (Note 5 for custard tips)'
-- 'CAKE: Batter: Whisk Wet ingredients in a large bowl. Add the Dry ingredients then whisk until smooth. Remove 1/3 cup of
-  the batter (Note 5) then pour the remaining batter into the prepared pan and smooth the surface. (Bake the 1/3 cup batter
-  in a separate greased ramekin for 25 minutes).'
+- 'CAKE:'
+- 'Batter: Whisk Wet ingredients in a large bowl. Add the Dry ingredients then whisk until smooth. Remove 1/3 cup of the batter
+  (Note 5) then pour the remaining batter into the prepared pan and smooth the surface. (Bake the 1/3 cup batter in a separate
+  greased ramekin for 25 minutes).'
 - 'Custard topping: Whisk custard until smooth. Dollop half around the edges of the cake surface then spread inwards with
   offset knife. Smooth the surface, then scatter with half the blueberries. Mix remaining blueberries into remaining custard,
   then spread across the cake surface, pressing blueberries in to flatten the surface.'
