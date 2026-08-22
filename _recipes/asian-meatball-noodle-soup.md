@@ -13,6 +13,7 @@ yield: 4 servings
 prep_time: '10'
 total_time: '25'
 ingredients:
+- 'FOR THE MEATBALLS:'
 - 500 g pork mince
 - 150 g cabbage finely shredded and chopped
 - 2 spring onion finely minced
@@ -22,6 +23,7 @@ ingredients:
 - 1 tbsp crushed garlic
 - 1 tsp sesame oil
 - white pepper
+- 'FOR THE SOUP:'
 - 150 g cabbage chopped
 - 2 litre chicken stock
 - 1 tbsp soy sauce
