@@ -48,9 +48,9 @@ ingredients:
 - fresh coriander/cilantro leaves
 # ---
 directions:
-- VIDEO
-- 'Pide Dough: Bloom yeast: Mix yeast with 2 tbsp warm water and sugar in a small bowl. Cover with cling wrap, leave for 10
-  minutes until foamy.'
+- 'PIDE DOUGH:'
+- 'Bloom yeast: Mix yeast with 2 tbsp warm water and sugar in a small bowl. Cover with cling wrap, leave for 10 minutes until
+  foamy.'
 - 'Make dough: Mix together flour and salt in a large bowl or stand mixer bowl. Add the yeast mixture, olive oil and remaining
   2/3 cups water. Mix together with a wooden spoon. Once the flour is mostly incorporated, switch to your hands and bring
   it together into a dough.'
@@ -62,7 +62,8 @@ directions:
 - 'Rise 2: Punch dough down to fully deflate, then divide into 2 equal pieces. Pull the sides down and tuck underneath so
   the top is smooth, underside is bunched up. Shape into ball and place on a lightly floured tray, smooth side up. Sprinkle
   surface with flour, then cover with damp tea towel. Rise 1 hour until doubled in size.'
-- 'Assembling & Baking Pide: Preheat oven to 240°C (220°C fan). Place shelf on the top and middle.'
+- 'ASSEMBLING & BAKING PIDE:'
+- Preheat oven to 240°C (220°C fan). Place shelf on the top and middle.
 - 'Roll: Roll dough out on a lightly floured surface into an oval shape 40cm long and 20cm wide (widest point).'
 - 'Prepare 2 trays: Sprinkle 1/4 tsp semolina on each tray, 40cm long and 15cm wide. (Note 10)'
 - 'Top Pide: Place a rolled out dough on the semolina. Sprinkle with cheese, then sprinkle chosen Topping evenly across the
@@ -72,10 +73,10 @@ directions:
 - 'Egg option: Bake pide for 10 minutes, then crack the egg on top and return to oven for 5 minutes. This applies to all Pide
   - egg can be added for any of them!'
 - 'Top & Serve: Sprinkle with toppings of choice. (Note 11 for combos I used). Cut into 3cm slices and serve!'
-- 'Spinach Topping: Heat oil in a skillet over medium heat. Cook onion for 3 minutes until translucent. Add spinach, cook
+- 'SPINACH TOPPING: Heat oil in a skillet over medium heat. Cook onion for 3 minutes until translucent. Add spinach, cook
   until just wilted (add in batches if necessary). Stir in cumin, salt & pepper. Cool before using.'
-- 'Turkish Sausage Topping: Roughly chop, then turn the sausage into mince (ground meat) by using a Nutribullet or food processor.'
-- 'Lamb Topping: Heat oil in a skillet over medium high heat. Cook garlic and onion for 3 minutes until soft. Add lamb and
+- 'TURKISH SAUSAGE TOPPING: Roughly chop, then turn the sausage into mince (ground meat) by using a Nutribullet or food processor.'
+- 'LAMB TOPPING: Heat oil in a skillet over medium high heat. Cook garlic and onion for 3 minutes until soft. Add lamb and
   cook until it changes from pink to brown. Add tomato paste, Baharat, cumin, salt, pepper and cook for 3 minutes.'
 - Add capsicum, tomato and lemon juice, then cook over medium heat until most of the liquid evaporates (a couple of minutes
   usually, though depends on juiciness of tomato). Cool before using.
