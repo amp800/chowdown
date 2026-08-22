@@ -24,8 +24,7 @@ ingredients:
 - 4 teaspoon butter (for cooking)
 # ---
 directions:
-- VIDEO
-- 'INSTRUCTIONS: Place flour, baking powder, sugar and salt in a bowl, whisk to combine.'
+- Place flour, baking powder, sugar and salt in a bowl, whisk to combine.
 - Add egg, milk and vanilla. Whisk until lump free - no longer than 30 seconds.
 - Heat a non stick skillet - use medium heat if you have a strong stove, medium high if you have a weak one. Add a tiny bit
   of butter (about 1/2 tsp) and swirl to melt. Use paper towel to mostly wipe the butter off (this is the trick to avoid a
