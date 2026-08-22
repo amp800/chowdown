@@ -15,6 +15,7 @@ yield: 15 servings
 prep_time: '40'
 total_time: '65'
 ingredients:
+- 'BUTTER SPONGE:'
 - 125 gram / 4.5 ounce unsalted butter (softened)
 - 1 cup (220 gram) caster sugar
 - 1/2 teaspoon vanilla extract
@@ -22,17 +23,20 @@ ingredients:
 - 1 3/4 cups (260 gram) flour (plain/all purpose, sifted (note 1))
 - 3.5 teaspoon baking powder
 - 1/2 cup (125 milliliter) milk ((low (or full fat)))
+- ICING
 - 4 cups (480 gram) icing sugar ((confectionary sugar), sifted)
 - 1/3 cup (22 gram) cocoa powder
 - 1 tablespoon (15 gram) unsalted butter
 - 150 milliliter (1/2 cup + 2 tablespoon) boiling water
-- 3 - 4 cups desiccated coconut
+- 'COATING: 3 - 4 cups desiccated coconut'
+- 'OPTIONAL JAM & CREAM:'
 - strawberry jam
 - 1 cup (250 milliliter) cream
 - 1 tablespoon white sugar
 # ---
 directions:
-- 'BUTTER SPONGE: Preheat oven to 180C (or fan forced 160C).'
+- 'BUTTER SPONGE:'
+- Preheat oven to 180C (or fan forced 160C).
 - Sift flour and baking powder together.
 - Grease a 20 cm x 30 cm cake pan. Line with baking paper (parchment paper), leaving an overhang on all sides (to make it
   easy to remove).
@@ -44,12 +48,14 @@ directions:
 - 'PREPARE CAKE TO COAT: Cut cake into 15 squares (5 x 3), or 18 rectangles. Freeze for 1 to 1.5 hours. (Note 2)'
 - 'ICING: Combine the Icing ingredients in a heat proof bowl and mix until smooth. Should be a syrup consistency, but not
   watery. (Note 2)'
-- 'COATING: Place coconut in a shallow bowl or pan with a largish surface area (Note 3).'
+- 'COATING:'
+- Place coconut in a shallow bowl or pan with a largish surface area (Note 3).
 - Place a piece of cake in the icing and roll to coat using 2 forks. Transfer it into the coconut and quickly roll to coat
   all over in coconut. Transfer to tray.
 - Repeat with remaining sponges.
 - Stand for 1 to 2 hours, or until set. Then serve with tea and coffee!
-- 'OPTIONAL: JAM AND CREAM: Beat cream and sugar until firm peaks form.'
+- '[OPTIONAL] JAM AND CREAM:'
+- Beat cream and sugar until firm peaks form.
 - Cut coated Lamington in half horizontally. Spread with jam then pipe or dollop on cream. Top with lid, keep refrigerated.
 # ---
 notes:
