@@ -32,10 +32,12 @@ ingredients:
 - salt
 # ---
 directions:
-- 'Crispy Onions: Heat oil in a medium saucepan over medium high heat. Add about 1/3 of the onions and cook for 5 minutes
-  until golden and crispy. Drain on paper towels.'
+- 'CRISPY ONIONS:'
+- Heat oil in a medium saucepan over medium high heat. Add about 1/3 of the onions and cook for 5 minutes until golden and
+  crispy. Drain on paper towels.
 - Repeat with remaining onions, in two batches.
-- 'Rice: Put the olive oil, cumin seeds and coriander in a saucepan over medium heat.'
+- 'RICE:'
+- Put the olive oil, cumin seeds and coriander in a saucepan over medium heat.
 - Cook for a couple of minutes until the spices are fragrant.
 - Add the rice and stir to coat with the oil and spices.
 - Add the water and lentils.
