@@ -28,7 +28,7 @@ ingredients:
 - freshly-squeezed lime juice, to taste
 # ---
 directions:
-- 'Cooking: Put all saute ingredients into a dutch oven. Cook until the onion is soft and translucent.'
+- Put all saute ingredients into a dutch oven. Cook until the onion is soft and translucent.
 - Add the tomatoes, ginger, stock and lentils. Bring to a boil, then reduce the heat to maintain a simmer. Simmer for 30-45
   minutes, or until the lentils are very tender and beginning to fall apart.
 - 'Before serving: Add the spinach and stir through to wilt. Season to taste with salt and lemon juice.'
