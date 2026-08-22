@@ -32,7 +32,8 @@ directions:
 - 'SAUCE: Place all sauce ingredients except water in a bowl and mix (microwave if needed to melt the peanut butter). Add
   water and mix.'
 - 'NOODLES: Prepare noodles per packet directions (usually soak in boiling water). Drain, set aside.'
-- 'STIR FRY: Cook the onion with oil in a wok until translucent.'
+- 'STIR FRY:'
+- Cook the onion with oil in a wok until translucent.
 - Add the sauce and warm through.
 - Add frozen veggies and cook briefly.
 - Add noodles and serve immediately.
