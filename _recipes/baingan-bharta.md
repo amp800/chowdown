@@ -31,9 +31,9 @@ ingredients:
 - 1 cup (16 gram) cilantro leaves and tender stems, (chopped)
 # ---
 directions:
-- 'Smoking the eggplant (Note 1): Ventilate your kitchen and open the windows. Grab a fan if you have one. Peel any leaves
-  from the top of the eggplant to prevent them from burning. Brush the eggplant with a bit of oil using a pastry brush or
-  your hands, just a light coating.'
+- 'SMOKING THE EGGPLANT (Note 1):'
+- Ventilate your kitchen and open the windows. Grab a fan if you have one. Peel any leaves from the top of the eggplant to
+  prevent them from burning. Brush the eggplant with a bit of oil using a pastry brush or your hands, just a light coating.
 - Turn a gas burner on your stove to medium-low heat. Use tongs to hold the eggplant upright (vertically) and hold the bottom
   of the eggplant over the flame for 3 to 6 minutes to char the bottom, or until a paring knife can pierce the bottom without
   too much resistance. Flip the eggplant 180º and use tongs to char the top of the eggplant for 2 to 3 minutes, but make sure
@@ -52,12 +52,12 @@ directions:
   mincing garlic. Note: If your eggplant was ripe/soft to begin with, it''s possible the cooked eggplant will be quite watery.
   If that''s the case, add it to a fine mesh sieve and push down on it with a spoon to squeeze out as much excess water as
   you can.'
-- Ingredients
-- 'Make the bharta: Heat the 1 1/2 TBSP oil in a medium frying pan over medium-high heat. Once hot, add cumin seeds and cook
-  for 1 minute, tossing or swirling frequently to prevent burning. Add the onions with a pinch of salt and cook for 4 to 5
-  minutes, but don’t let them brown. Add the garlic, ginger, Jalapeño peppers, and turmeric, and cook, stirring frequently
-  for 60 to 90 seconds. Add the coriander, salt, and tomatoes, and cook until the oil starts to release from the tomatoes
-  and the tomatoes are soft, about 5 minutes.'
+- 'MAKE THE BHARTA:'
+- Heat the 1 1/2 TBSP oil in a medium frying pan over medium-high heat. Once hot, add cumin seeds and cook for 1 minute, tossing
+  or swirling frequently to prevent burning. Add the onions with a pinch of salt and cook for 4 to 5 minutes, but don’t let
+  them brown. Add the garlic, ginger, Jalapeño peppers, and turmeric, and cook, stirring frequently for 60 to 90 seconds.
+  Add the coriander, salt, and tomatoes, and cook until the oil starts to release from the tomatoes and the tomatoes are soft,
+  about 5 minutes.
 - Add in the mashed eggplant mixture and red chile powder and toss well to combine. Reduce the heat to medium or medium-low
   and cook for 3 to 5 minutes, stirring often and mashing together. Add in the garam masala and chopped coriander and season
   with ¼ teaspoon salt. Serve warm with bread or rice of choice.
