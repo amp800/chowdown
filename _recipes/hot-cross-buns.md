@@ -41,7 +41,8 @@ directions:
 - Dough is kneaded enough when it's smooth and does not break when stretched - see photos & video for before/after comparison.
 - 'RISE #1: Leave dough in the bowl, cover with cling wrap and place in a warm, wind free place to rise until doubled in size.
   This will take anywhere between 30 minutes to 1 1/2 hours depending on how warm it is - see Note 6.'
-- 'FORMING BALLS (WATCH VIDEO, IT’S HELPFUL):: https://www.youtube.com/watch?v=8ToxYo5j1os'
+- 'FORMING BALLS (WATCH VIDEO, IT’S HELPFUL):'
+- https://www.youtube.com/watch?v=8ToxYo5j1os
 - Line a 31.5 x 23.5 cm tray with baking paper with overhang.
 - Remove cling wrap and punch dough to deflate.
 - Dust work surface with flour, place dough on work surface, shape into a log - this will deflate the air. Cut into 12 equal
@@ -49,14 +50,17 @@ directions:
 - Take one piece and press down with palm, then use your fingers to gather into a ball, then roll the dough briefly to form
   a ball. This stretches the dough on one side and that's how I get a nice smooth surface.
 - Place the ball with the smooth side up on the tray. Repeat with remaining dough. Line them up 3 x 4.
-- 'RISE #2: Spray a piece of cling wrap lightly with oil (any), then loosely place over the tray.'
+- 'RISE #2:'
+- Spray a piece of cling wrap lightly with oil (any), then loosely place over the tray.
 - Return tray to warm place and leaver 30 - 45 minutes, until the dough has risen by about 75% (less than double in size).
 - 'Partway through Rise #2, preheat oven to 180°C (all oven types).'
-- 'CROSSES: Mix flour and water until a thick runny paste forms - see video for thickness required.'
+- 'CROSSES:'
+- Mix flour and water until a thick runny paste forms - see video for thickness required.
 - Spoon into a round 3 mm piping bag or small ziplock bag then snip corner.
 - Remove the cling wrap and pipe crosses onto the buns. Go slow so it hugs the curves.
-- 'BAKING/GLAZE: Bake in preheated oven (180°C) for 22 minutes, or until the surface is a deep golden brown. The surface colour
-  is the best test for this recipe.'
+- 'BAKING/GLAZE:'
+- Bake in preheated oven (180°C) for 22 minutes, or until the surface is a deep golden brown. The surface colour is the best
+  test for this recipe.
 - Meanwhile, place jam and water in a bowl, microwave for 30 seconds. Mix to combine.
 - Remove buns from oven. Use overhang to lift buns onto a cooling rack.
 - Brush with jam mixture while warm. Allow to cool to warm before serving.
