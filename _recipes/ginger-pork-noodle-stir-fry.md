@@ -26,12 +26,14 @@ ingredients:
 - 1 cup water
 # ---
 directions:
-- 'STIR FRY: In a wok, brown the onion, garlic, ginger and sesame oil'
+- 'STIR FRY:'
+- In a wok, brown the onion, garlic, ginger and sesame oil
 - Add mince and fry over a high heat for about 8 mins until brown.
 - 'NOODLES: Open noodle packets into a different saucepan. Boil a kettle, then pour the hot water over the noodles. Set aside
   for 5 mins to soften.'
 - 'SAUCE: Mix soy sauce and water with the cornflour to make a paste. Then add the sweet chilli sauce.'
-- 'SERVE: Add the frozen vegetables to the mince and stir-fry for 3 mins.'
+- 'SERVE:'
+- Add the frozen vegetables to the mince and stir-fry for 3 mins.
 - Using tongs, move the noodles to the wok. Pour over the sauce. Add more water if needed. Toss until the sauce coats the
   noodles.
 ---
