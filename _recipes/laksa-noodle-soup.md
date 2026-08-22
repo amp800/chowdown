@@ -43,19 +43,20 @@ ingredients:
 - finely sliced red chilli (optional)
 # ---
 directions:
-- VIDEO
-- 'Chicken Stock: Place Chicken Stock ingredients in a medium saucepan over high heat. Bring to simmer, then reduce to medium
-  high.'
+- 'CHICKEN STOCK:'
+- Place Chicken Stock ingredients in a medium saucepan over high heat. Bring to simmer, then reduce to medium high.
 - Cook for 25 minutes or until chicken flesh is falling off the bone and liquid reduces by about 1/3.
 - Discard skin, pull flesh off the bone and place in bowl, discard bone. Set broth aside.
-- 'Laksa Chilli Sauce: Mix ingredients together in a small bowl. Set aside for 20 minutes.'
-- 'Laksa Broth: Heat oil in a large saucepan or small pot over medium low heat. Add garlic and ginger, sauté for 20 seconds,
-  then add lemongrass and chillis. Cook for 1 minute.'
+- 'LAKSA CHILLI SAUCE: Mix ingredients together in a small bowl. Set aside for 20 minutes.'
+- 'LAKSA BROTH:'
+- Heat oil in a large saucepan or small pot over medium low heat. Add garlic and ginger, sauté for 20 seconds, then add lemongrass
+  and chillis. Cook for 1 minute.
 - Add laksa paste. Turn heat up to medium and cook for 2 minutes, stirring constantly, or until fragrant.
 - Add chicken stock, coconut milk, fish sauce and 2 tsp of Laksa Chilli Sauce. Place lid on and simmer on for 10 minutes.
 - Adjust to taste using lime juice (for sour) and fish sauce (for saltiness). Add tofu puffs. Leave on turned off stove with
   lid on for 5 minutes.
-- 'Assemble Laksa: Prepare noodles per packet directions.'
+- 'ASSEMBLE LAKSA:'
+- Prepare noodles per packet directions.
 - Divide noodles between 2 bowls. Top with shredded chicken.
 - Pour broth over chicken. Top with beansprouts. Sprinkle with Garnishes you choose to use. Serve with Laksa Chilli Sauce
   on the side.
