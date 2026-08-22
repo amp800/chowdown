@@ -27,12 +27,14 @@ ingredients:
 - icing sugar / powdered sugar (for dusting)
 # ---
 directions:
-- 'PREPARATION: Prepare pan: Flip the base of a 20cm springform pan upside down – this makes it easier to remove the finished
-  cake without the lip in the way. Grease pan base with butter, then press on a square sheet of baking paper. Clip the pan
-  sides onto the base, letting the excess paper stick out (ease of removal later).'
+- 'PREPARATION:'
+- 'Prepare pan: Flip the base of a 20cm springform pan upside down – this makes it easier to remove the finished cake without
+  the lip in the way. Grease pan base with butter, then press on a square sheet of baking paper. Clip the pan sides onto the
+  base, letting the excess paper stick out (ease of removal later).'
 - Preheat oven to 180°C (160°C fan-forced).
-- 'CUSTARD: Heat the milk, vanilla and about half the sugar in a large saucepan over medium high heat until just before boiling,
-  stirring to dissolve the sugar.'
+- 'CUSTARD:'
+- Heat the milk, vanilla and about half the sugar in a large saucepan over medium high heat until just before boiling, stirring
+  to dissolve the sugar.
 - 'Yolk mixture: Place egg yolks and remaining sugar in a large bowl and whisk to combine. Add cornflour and whisk until smooth.'
 - 'Temper eggs: While whisking the eggs, slowly pour in the hot milk in a thin stream while whisking. Whisk until fully combined.'
 - 'Thicken custard: Pour the egg-milk mixture back into the same saucepan. Place over medium low heat, stirring constantly
@@ -43,12 +45,14 @@ directions:
 - Add chocolate and stir until fully melted.
 - 'Cool: Transfer into a bowl, immediately cover with cling wrap touching the surface. (You can strain if you''re concerned
   about lumps). Set aside while preparing the base.'
-- 'BISCUIT BASE: Blitz cookies: Roughly break up Oreos with hands and place in food processor. Blitz until they become fine
-  crumbs. Add melted butter, then blitz again until combined.'
+- 'BISCUIT BASE:'
+- 'Blitz cookies: Roughly break up Oreos with hands and place in food processor. Blitz until they become fine crumbs. Add
+  melted butter, then blitz again until combined.'
 - 'Press: Transfer crumbs into prepared pan, pressing evenly and firmly on to the base (I use the underside of a straight-sided,
   flat-bottomed cup measure to do this).'
-- 'BAKE: Bake 1 hour: Whisk custard until smooth to loosen. Pour onto the base, smooth surface. Bake 60 minutes, rotating
-  the cake pan at the 45 minute mark. It will still be wobbly when you pull it out of the oven.'
+- 'BAKE:'
+- 'Bake 1 hour: Whisk custard until smooth to loosen. Pour onto the base, smooth surface. Bake 60 minutes, rotating the cake
+  pan at the 45 minute mark. It will still be wobbly when you pull it out of the oven.'
 - Cool for 3 hours on the counter, in the pan. Refrigerate at least 12 hours to allow the custard to fully set.
 - 'Serve: Best to cut when fridge cold and serve at room temp (for creamiest custard!). Remove springform sides and paper,
   then use paper overhang to slide the cake off the base. Cut like cake and serve! Lovely with dollop of Chantilly cream and
