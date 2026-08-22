@@ -41,32 +41,35 @@ ingredients:
 - Lemon wedges (optional)
 # ---
 directions:
-- Video
-- 'Pastry: Fit stand mixer with dough hook. Combine flour, oil, salt and water in the stand mixer bowl. Mix for 2.5 minutes
-  on medium high speed 7 until smooth (see video for before & after). (Note 4) Dough should be a pliable, smooth ball, not
-  sticky.'
+- 'PASTRY:'
+- Fit stand mixer with dough hook. Combine flour, oil, salt and water in the stand mixer bowl. Mix for 2.5 minutes on medium
+  high speed 7 until smooth (see video for before & after). (Note 4) Dough should be a pliable, smooth ball, not sticky.
 - Cover and rest for 20 minutes.
 - Sprinkle work surface with flour. Cut dough into 4 pieces.
 - Roll out into 35cm x 20cm rectangle.
-- 'Filling: Make EITHER the lamb / beef filling, or Spinach & Feta (or make 1/2 batch of both!).'
-- 'Lamb or Beef Filling:: Heat oil in large skillet over high heat.'
+- 'FILLING: Make EITHER the lamb / beef filling, or Spinach & Feta (or make 1/2 batch of both!).'
+- -- Lamb or Beef Filling --
+- Heat oil in large skillet over high heat.
 - Cook garlic and onion for 1 minute. Add capsicum, cook for 2 minutes.
 - Add beef and cook until it changes from pink to brown, breaking it up as you go.
 - Add cumin, paprika, cayenne (if using), salt, pepper and water. Cook for 2 minutes.
 - Add spinach, stir until wilted.
 - Cool before using.
-- 'Spinach Feta Filling:: Place spinach, garlic, egg and pepper in a bowl. Scrunch with hands to reduce volume and make spinach
-  "floppy".'
+- -- Spinach Feta Filling --
+- Place spinach, garlic, egg and pepper in a bowl. Scrunch with hands to reduce volume and make spinach "floppy".
 - Add feta and stir through.
-- 'Making Gozleme: Spread Filling on half the pastry, pushing to the edge. Sprinkle Lamb/Beef Filling with crumbled feta.
-  Sprinkle Spinach Feta with mozzarella cheese, if using.'
+- 'MAKING GOZLEME:'
+- Spread Filling on half the pastry, pushing to the edge. Sprinkle Lamb/Beef Filling with crumbled feta. Sprinkle Spinach
+  Feta with mozzarella cheese, if using.
 - Fold other side of pastry over to cover Filling. Press down edges, pressing out excess air pockets trapped inside as you
   go. Use water if needed to seal well.
 - Sprinkle flour on a round pizza paddle (or similar). Slide gozleme onto paddle.
-- 'Cooking: Heat 1.5 tbsp oil in a large skillet over medium high heat. (I usually get 2 pans going)'
+- 'COOKING:'
+- Heat 1.5 tbsp oil in a large skillet over medium high heat. (I usually get 2 pans going)
 - Slide gozleme into skillet. Cook, lightly pressing down (including edges), until deep golden and crispy - about 3 minutes.
   Flip and cook, pressing down lightly, until crispy.
-- 'Serving: Transfer to cutting board. Cut into 6 or 8 pieces.'
+- 'SERVING:'
+- Transfer to cutting board. Cut into 6 or 8 pieces.
 - Serve immediately with lemon wedges, if desired.
 # ---
 notes:
