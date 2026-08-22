@@ -31,7 +31,8 @@ ingredients:
 - 1/2 teaspoon pepper
 # ---
 directions:
-- 'Eggplant ‘cordon bleu’: Cut eggplant into 12 thin slices, no thicker than ½ cm (¼ inch) thick.'
+- 'EGGPLANET ‘CORDON BLEU’:'
+- Cut eggplant into 12 thin slices, no thicker than ½ cm (¼ inch) thick.
 - Place eggplant slices in a colander, sprinkle with salt. Let drain for 20 minutes, then rinse with water and pat dry well
   with kitchen paper.
 - Lay out eggplant slices, top each one with a mint leaf then top half the eggplant slices with haloumi cheese. Sandwich eggplant
@@ -42,5 +43,5 @@ directions:
   brown. (Be careful not to fry them too quickly or the eggplant won’t cook and the haloumi won’t melt.
 - Drain on kitchen paper and season with salt and pepper.
 - Serve with tahini sauce and slices of fresh lemon.
-- 'Tahini sauce: Whisk all ingredients together until creamy and smooth.'
+- 'TAHINI SAUCE: Whisk all ingredients together until creamy and smooth.'
 ---
