@@ -22,16 +22,15 @@ ingredients:
 - 2 3/4 cups almond meal / ground almonds (note 3)
 # ---
 directions:
-- Video
-- Ingredients
-- 'Boil oranges: Boil 10 minutes: Place oranges in a pot and cover with cold water. Bring to the boil over medium high heat.
-  Boil for 10 minutes and drain.'
+- 'BOIL ORANGES:'
+- 'Boil 10 minutes: Place oranges in a pot and cover with cold water. Bring to the boil over medium high heat. Boil for 10
+  minutes and drain.'
 - 'Repeat x 2: Put oranges back in the pot, cover with cold water and boil again for 10 minutes. Drain, then repeat once more
   (ie. boil oranges 3 x 10 minutes). Shortcut: Boil 40 minutes without draining, keeping an eye on water level. (Note 4)'
 - 'Chop: Rinse oranges, then cool slightly so you can handle them. Slice into 1cm slices then dice, removing any seeds. Cool
   completely.'
-- 'Batter: Preheat oven: Preheat oven to 160°C (140°C fan). Grease and line a 23cm cake pan with baking/parchment paper. (Note
-  5)'
+- 'BATTER:'
+- 'Preheat oven: Preheat oven to 160°C (140°C fan). Grease and line a 23cm cake pan with baking/parchment paper. (Note 5)'
 - 'Blitz oranges: Place chopped oranges in a food processor (Note 6). Blitz on high for 4 x 10 second bursts, scraping down
   the sides in between, until it''s pureed into a marmalade consistency with only a few visible bits of rind remaining. It
   does not need to be completely smooth.'
