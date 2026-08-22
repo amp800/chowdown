@@ -16,6 +16,7 @@ prep_time: '20'
 total_time: '20'
 ingredients:
 - 4 1/2 cups cooked brown rice
+- 'DRESSING:'
 - 1/3 cup lime juice (plus more to taste)
 - 1/2 cup olive oil
 - 1 1/2 tablespoon honey
@@ -24,6 +25,7 @@ ingredients:
 - 1/2 teaspoon garlic powder ((or 1 garlic clove, minced))
 - 3/4 teaspoon salt
 - black pepper
+- 'SALAD:'
 - 1 red capsicum/bell pepper (diced)
 - 1 green capsicum/bell pepper (diced)
 - 1 small red onion (chopped)
