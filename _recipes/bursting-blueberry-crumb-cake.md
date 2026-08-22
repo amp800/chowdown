@@ -13,11 +13,13 @@ yield: 12 servings
 prep_time: '15'
 total_time: '80'
 ingredients:
+- 'CRUNCH CRUMB (STREUSEL):'
 - 2/3 cups flour (plain/all-purpose)
 - 1/2 cup caster sugar ((superfine sugar))
 - 1/2 teaspoon cinnamon powder
 - 1/8 teaspoon cooking/kosher salt
 - 60 gram / 4 tablespoon melted butter
+- 'LEMON VANILLA CAKE:'
 - 1/4 teaspoon vanilla extract
 - 1 1/3 cups flour (plain/all-purpose)
 - 2 teaspoon baking powder
@@ -29,6 +31,7 @@ ingredients:
 - 90 gram / 6 tablespoon unsalted butter (melted then cooled slightly (don’t use piping hot))
 - 1/3 cup sour cream (at room temperature (sub plain yogurt))
 - 1/3 cup milk (at room temperature (full fat best, low fat ok))
+- 'BLUEBERRIES:'
 - 500 gram / 1 pound fresh blueberries ((note 1 for frozen))
 - 2 teaspoon lemon juice
 - 2 tablespoon caster sugar ((superfine sugar))
