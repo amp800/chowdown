@@ -39,7 +39,6 @@ ingredients:
 - Fresh coriander / cilantro leaves (roughly chopped)
 # ---
 directions:
-- Video
 - 'Sauté: Melt the unsalted butter in a large pot over medium high heat. Add the onion, ginger, garlic and bay leaves. Cook
   for 3 minutes until the onion is translucent (stir regularly so the garlic & ginger don''t catch).'
 - 'Spices and lentils: Add the Spices and stir for 30 seconds. Add the lentils and stir to coat in the spices.'
