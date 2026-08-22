@@ -17,6 +17,7 @@ prep_time: '15'
 ingredients:
 - 5 pita bread (the thin pocket type, ~15cm/6" diameter (250 gram /8 ounce pack), cut in half (note 1))
 - olive oil spray ((or brush with olive oil))
+- 'SPICED MEAT FILLING:'
 - 1/2 brown onion
 - 500 gram / 1 pound lamb (or beef mince ((ground meat) (note 2)))
 - 2 garlic cloves (finely grated)
@@ -27,6 +28,7 @@ ingredients:
 - 3/4 teaspoon ground allspice ((sub mixed spice))
 - 1/2 teaspoon cayenne pepper ((reduce/omit for less spicy - note 4))
 - 1 1/4 teaspoon cooking/kosher salt
+- 'WHIPPED TAHINI YOGURT SAUCE:'
 - 1 cup plain yogurt
 - 2 tablespoon tahini ((or chinese sesame paste - note 5))
 - 1 tablespoon lemon juice
