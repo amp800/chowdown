@@ -17,12 +17,14 @@ ingredients:
 - 4 cups cooked white rice (preferably short grain (note 1))
 - 4 eggs
 - 2 teaspoon sesame seeds
+- 'KOREAN BEEF & MARINADE:'
 - 250 gram /8 ounce beef tenderloin (or thick steak (), very finely sliced (subs note 2))
 - 1/4 green apple (grated using box grater (note 3))
 - 3 garlic cloves (minced)
 - 1 tablespoon soy sauce (light (or all purpose (note 4)))
 - 1 tablespoon honey ((or brown sugar))
 - 2 teaspoon sesame oil (toasted (note 9))
+- 'VEGETABLES:'
 - 2 carrots (large, cut into 5 x 0.5cm/2 x 1/5" batons)
 - 2 zucchini (large, cut into 5 x 0.5cm/2 x 1/5" batons)
 - 1 bunch of spinach (cut into 5cm/2" lengths)
@@ -35,6 +37,7 @@ ingredients:
 - 1/4 teaspoon fish sauce ((sub soy))
 - 1/4 teaspoon white sugar
 - sesame oil (toasted (note 9))
+- 'BIBIMBAP SAUCE:'
 - 4 tablespoon gochujang paste ((note 6))
 - 2 tablespoon mirin ((note 7))
 - 2 tablespoon rice vinegar ((note 8))
@@ -45,15 +48,18 @@ ingredients:
 # ---
 directions:
 - 'BIBIMBAP SAUCE: Mix ingredients until sugar is dissolved.'
-- 'MARINATED BEEF: Mix the marinade in a bowl, then add beef. Marinate for 30 minutes to overnight.'
+- 'MARINATED BEEF:'
+- Mix the marinade in a bowl, then add beef. Marinate for 30 minutes to overnight.
 - Heat 2 tsp oil in a large skillet over high heat. Let excess marinade drip off then add beef. Cook for 3 - 4 minutes until
   cooked and there's some caramelised bits, then remove from skillet.
 - Keep warm until required or reheat to warm.
-- 'PREPARE VEGETABLES: Shiitake: Soak mushrooms in a large bowl of boiling water for 30 minutes, or until rehydrated. Drain,
-  squeeze out excess water, then slice.'
+- 'PREPARE VEGETABLES:'
+- 'Shiitake: Soak mushrooms in a large bowl of boiling water for 30 minutes, or until rehydrated. Drain, squeeze out excess
+  water, then slice.'
 - 'Carrot and Zucchini salting (optional, Note 10): Place carrot and zucchini in separate bowls, sprinkle each with 1/4 tsp
   salt, toss, leave for 20 minutes then drain excess liquid.'
-- 'COOK VEGETABLES: Get 2 skillets going if you can!'
+- 'COOK VEGETABLES:'
+- Get 2 skillets going if you can!
 - 'Shiitake: Heat 2 tsp oil oil in a skillet over medium high heat. Cook mushrooms for 2 minutes. Add 1.5 tsp soy, 1/4 tsp
   sugar, 1/2 tsp of garlic. Stir for 1 minute, then remove.'
 - 'Carrot: Add 2 tsp oil into the skillet, cook carrot until just tender (5 to 8 minutes), then remove.'
@@ -63,7 +69,8 @@ directions:
 - 'Beansprouts: Simmer in water for 5 min or steam in microwave for 3 min until floppy. Drain under cold water, then cool.
   Squeeze out excess liquid with hands, place in bowl. Mix with 2 tsp sesame oil, 1 tsp garlic, 1/4 tsp fish sauce.'
 - Vegetables can cool, they are meant to be at room temp or slightly warm.
-- 'ASSEMBLE: Fry eggs in a skillet to your taste (I like mine with runny yolks).'
+- 'ASSEMBLE:'
+- Fry eggs in a skillet to your taste (I like mine with runny yolks).
 - Place warm rice in bowls.
 - Top with vegetables and beef, as pictured in post, then lastly, the egg.
 - Sprinkle with sesame seeds, drizzled with sesame oil. Serve with Bibimbap Sauce!
