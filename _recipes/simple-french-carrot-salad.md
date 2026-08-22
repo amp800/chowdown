@@ -19,6 +19,7 @@ ingredients:
 - 4 carrots (medium, peeled)
 - 2 green onion stems (finely sliced on the diagonal)
 - 1/4 cup parsley (finely chopped (optional))
+- 'HONEY DIJON MUSTARD DRESSING:'
 - 1 1/2 teaspoon dijon mustard
 - 1 tablespoon honey
 - 2 tablespoon lemon juice (fresh)
