@@ -17,10 +17,12 @@ yield: 2 servings
 prep_time: '15'
 total_time: '90'
 ingredients:
+- 'EGGPLANT:'
 - 2 x 250 gram /8 ounce eggplants ((aubergines), ~17cm/7" long (note 1))
 - 3/4 teaspoon cooking salt / kosher salt
 - 1 tablespoon extra virgin olive oil
 - 1 tablespoon lemon juice ((or more oil))
+- 'CHERMOULA SPICE MIX (NOTE 2):'
 - 1 1/2 teaspoon each coriander, paprika
 - 1 1/2 tsp paprika
 - 1 teaspoon cumin
@@ -30,6 +32,7 @@ ingredients:
 - 1/2 tsp ground turmeric
 - 1/4 teaspoon cinnamon
 - 1/4 teaspoon cayenne pepper
+- 'SPICED BEEF OR LAMB TOPPING:'
 - 1 tablespoon olive oil
 - 1 garlic clove (finely minced)
 - 1/2 onion (finely chopped)
@@ -37,6 +40,7 @@ ingredients:
 - 1/2 teaspoon cooking/kosher salt
 - 2 teaspoon tomato paste ((note 3))
 - 1/4 cup water
+- 'TO SERVE:'
 - yoghurt (plain)
 - 2 tablespoon coriander/cilantro leaves (roughly chopped (sub parsley))
 - 2 tablespoon pinenuts (toasted (note 4))
