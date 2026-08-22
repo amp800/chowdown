@@ -30,13 +30,14 @@ ingredients:
 - 4 stems chinese broccoli ((note 5))
 # ---
 directions:
-- VIDEO
-- 'PREPARATION: Chinese Broccoli - trim ends, cut into 7.5cm pieces. Separate leaves from stems. Cut thick stems in half vertically
-  so they''re no wider than 0.8cm thick.'
+- 'PREPARATION:'
+- Chinese Broccoli - trim ends, cut into 7.5cm pieces. Separate leaves from stems. Cut thick stems in half vertically so they're
+  no wider than 0.8cm thick.
 - Noodles - Prepare according to packet directions and drain. Time it so they're cooked just before using - do not leave cooked
   rice noodles lying around, they break in the wok.
 - Sauce - Mix ingredients until sugar dissolves.
-- 'COOKING: Heat oil: Heat 1 tbsp oil in a very large heavy based skillet or wok over high heat.'
+- 'COOKING:'
+- 'Heat oil: Heat 1 tbsp oil in a very large heavy based skillet or wok over high heat.'
 - 'Cook garlic and chicken: Add garlic, cook 15 seconds. Add chicken, cook until it mostly changes from pink to white.'
 - 'Chinese broccoli STEMS: Add Chinese broccoli stems, cook until chicken is almost cooked through.'
 - 'Chinese broccoli LEAVES: Add Chinese broccoli leaves, cook until just wilted.'
