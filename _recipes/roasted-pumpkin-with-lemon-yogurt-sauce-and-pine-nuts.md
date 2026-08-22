@@ -30,18 +30,19 @@ ingredients:
 - 1/8 teaspoon sumac ((paprika (or other theme appropriate spice), note 2))
 # ---
 directions:
-- VIDEO
-- 'Roasted Pumpkin: Preheat oven to 220°C (200°C fan). Line a tray with baking/parchment paper.'
+- 'ROAST PUMPKIN:'
+- Preheat oven to 220°C (200°C fan). Line a tray with baking/parchment paper.
 - Peel, deseed and cut pumpkin into 3cm cubes - see photos in post for how I do it with little effort. You should end up with
   about 1 kg - enough to fill a tray.
 - Place pumpkin in a bowl, add garlic, salt, pepper and olive oil. Toss well using a rubber spatula.
 - Spread on tray. Roast 20 minutes. Turn pumpkin pieces, then roast a further 7 to 10 minutes until nicely coloured but holding
   it's shape, rather than being a mushy mess.
-- 'Lemon Yogurt Sauce: Mix ingredients then set aside for at least 10 minutes to let the flavours develop.'
-- 'Pine Nuts: Preheat skillet over medium high heat (no oil). Add pine nuts and cook, stirring regularly, until it smells
+- 'LEMON YOUGHURT SAUCE: Mix ingredients then set aside for at least 10 minutes to let the flavours develop.'
+- 'PINE NUTES: Preheat skillet over medium high heat (no oil). Add pine nuts and cook, stirring regularly, until it smells
   amazing and it''s got a hint of browning on both sides. Remove from pan.'
-- 'Serving: Pile the pumpkin in a mound on a plate. Drizzle over yogurt sauce, add a little drizzle of olive oil, then sprinkle
-  with sumac, pine nuts and coriander.'
+- 'SERVING:'
+- Pile the pumpkin in a mound on a plate. Drizzle over yogurt sauce, add a little drizzle of olive oil, then sprinkle with
+  sumac, pine nuts and coriander.
 - I think it's best served with the pumpkin hot or warm, but for a warm summer day, it is also excellent served at room temperature.
   Just cool pumpkin, then dress and garnish just before serving.
 # ---
