@@ -14,11 +14,13 @@ yield: 16 servings
 prep_time: '15'
 total_time: '235'
 ingredients:
+- 'SHORTBREAD BASE:'
 - 3/4 cup plain flour ((all purpose flour))
 - 1/4 cup rice flour ((or cornstarch/cornflour) (note 1))
 - 1/2 cup icing sugar / powdered sugar (sifted)
 - 1/4 teaspoon salt
 - 110 gram / 1 stick unsalted butter (cold, cut into 1cm / 1/2" cubes)
+- 'LEMON CURD TOPPING:'
 - 3 large eggs ((55-60 gram /2 ounce each))
 - 1 cup caster sugar / super-fine sugar ((sub regular sugar))
 - 2 tablespoon plain flour ((all purpose flour))
