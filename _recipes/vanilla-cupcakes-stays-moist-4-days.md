@@ -24,11 +24,11 @@ ingredients:
 - 1 1/2 teaspoon vegetable (or canola oil ((note 7)))
 # ---
 directions:
-- VIDEO
-- 'Preparation: Preheat oven to 180°C (160°C fan) for 20 minutes before starting the batter (Note 8). Place shelf in the middle
-  of the oven.'
+- 'PREPARATION:'
+- Preheat oven to 180°C (160°C fan) for 20 minutes before starting the batter (Note 8). Place shelf in the middle of the oven.
 - Place cupcake liners in a standard muffin tin. (Note 9)
-- 'Cupcake Batter: Whisk Dry: Whisk flour, baking powder and salt in a large bowl. Set aside.'
+- 'CUPCAKE BATTER:'
+- 'Whisk Dry: Whisk flour, baking powder and salt in a large bowl. Set aside.'
 - 'Heat Milk-Butter: Place butter and milk in a heatproof jug and microwave 2 minutes on high to melt butter. Do not let milk
   bubble and boil (foam ok). Cover and leave in microwave to keep very warm (stove: cover with lid and leave on turned off
   stove). (Note 10)'
@@ -45,9 +45,10 @@ directions:
   off.'
 - 'Scrape and final mix: Scrape down sides and base of bowl. Beat on Speed 1 for 10 seconds - batter should now be smooth
   and pourable.'
-- 'Bake: Fill muffin tin: Pour batter into muffin tin, filling 2/3 of the way up. Do not fill more (causes flat / sunken surfaces).
+- 'BAKE:'
+- 'Fill muffin tin: Pour batter into muffin tin, filling 2/3 of the way up. Do not fill more (causes flat / sunken surfaces).
   Easiest to use a standard ice cream scoop with lever.'
 - Bake 22 minutes or until golden and toothpick inserted into middle comes out clean.
-- 'Cool & frost: Remove from oven. Cool just 2 minutes then use a fork to help remove and place on cooling rack. Cool completely
+- 'COOL & FROST: Remove from oven. Cool just 2 minutes then use a fork to help remove and place on cooling rack. Cool completely
   before icing with frosting of choice (Note 11 for ideas), or cream and fresh berries or jam.'
 ---
